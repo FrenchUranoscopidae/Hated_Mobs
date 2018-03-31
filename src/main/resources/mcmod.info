@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mosquitos",
+  "name": "Mosquito Mod",
+  "description": "MOSQUITOOOOS",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["French Uranoscopidae"],
+  "credits": "jglrxavpok",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
