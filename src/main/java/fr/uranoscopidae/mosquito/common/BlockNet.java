@@ -147,7 +147,7 @@ public class BlockNet extends Block
                 || block instanceof BlockGlass
                 || block instanceof BlockStainedGlass
                 || block instanceof BlockPane
-                || block instanceof BlockNet;
+                || block instanceof BlockNet; //test
     }
 
     protected BlockStateContainer createBlockState()
