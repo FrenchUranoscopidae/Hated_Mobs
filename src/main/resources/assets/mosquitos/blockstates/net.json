@@ -1,7 +1,7 @@
 {
   "variants": {
     "normal": {
-      "model": "mosquitos:net"
+      "model": "mosquitos:net" //doesn't work
     }
   }
 }
