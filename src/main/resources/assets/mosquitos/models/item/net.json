@@ -1,3 +1,6 @@
 {
-  "parent": "mosquitos:block/net"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mosquitos:blocks/net"
+  }
 }
