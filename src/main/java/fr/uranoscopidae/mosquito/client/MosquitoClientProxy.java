@@ -3,8 +3,10 @@ package fr.uranoscopidae.mosquito.client;
 import fr.uranoscopidae.mosquito.ModMosquitos;
 import fr.uranoscopidae.mosquito.MosquitoCommonProxy;
 import fr.uranoscopidae.mosquito.common.EntityMosquito;
+import fr.uranoscopidae.mosquito.common.EntitySilkSpider;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -24,6 +26,7 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         super.preInit(configFile);
         MinecraftForge.EVENT_BUS.register(this);
         RenderingRegistry.registerEntityRenderingHandler(EntityMosquito.class, RenderMosquito::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySilkSpider.class, RenderSilkSpider::new);
     }
 
     @Override

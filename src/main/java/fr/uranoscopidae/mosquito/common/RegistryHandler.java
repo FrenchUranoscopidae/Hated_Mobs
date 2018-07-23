@@ -39,5 +39,15 @@ public class RegistryHandler
                 .egg(0, 0)
                 .build();
         event.getRegistry().register(mosquitoEntry);
+
+        EntityEntry silkSpiderEntry = EntityEntryBuilder.<EntitySilkSpider>create()
+                .entity(EntitySilkSpider.class)
+                .id(new ResourceLocation(ModMosquitos.MODID, "silk_spider"), 1)
+                .name("silk_spider")
+                .tracker(64, 3, true)
+                .factory(EntitySilkSpider::new)
+                .egg(0, 0)
+                .build();
+        event.getRegistry().register(silkSpiderEntry);
     }
 }
