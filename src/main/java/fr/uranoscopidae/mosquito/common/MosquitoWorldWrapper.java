@@ -74,6 +74,11 @@ public class MosquitoWorldWrapper extends World
             return  Blocks.AIR.getDefaultState();
         }
 
+        if(blockState.getBlock() instanceof BlockNet)
+        {
+            return  Blocks.BEDROCK.getDefaultState();
+        }
+
         return blockState;
     }
 }

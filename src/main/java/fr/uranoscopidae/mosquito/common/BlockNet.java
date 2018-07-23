@@ -3,9 +3,7 @@ package fr.uranoscopidae.mosquito.common;
 import fr.uranoscopidae.mosquito.ModMosquitos;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -110,8 +108,8 @@ public class BlockNet extends Block
         BlockPos up = pos.up();
         BlockPos down = pos.down();
         return state
-                .withProperty(UP, canPlace(worldIn.getBlockState(up).getBlock()))
-                .withProperty(DOWN, canPlace(worldIn.getBlockState(down).getBlock()));
+                .withProperty(UP, canPlaceOn(worldIn.getBlockState(up).getBlock()))
+                .withProperty(DOWN, canPlaceOn(worldIn.getBlockState(down).getBlock()));
     }
 
     public boolean isOpaqueCube(IBlockState state)
@@ -128,26 +126,40 @@ public class BlockNet extends Block
     {
         BlockPos neighbor = pos.offset(side.getOpposite());
         Block block = worldIn.getBlockState(neighbor).getBlock();
-        return canPlace(block);
+        return canPlaceOn(block);
     }
 
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
-        if (!canPlace(worldIn.getBlockState(fromPos).getBlock()))
+        if (!canPlace(pos, worldIn))
         {
             this.dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
     }
 
-    private boolean canPlace(Block block)
+    private boolean canPlace(BlockPos pos, World world)
+    {
+        for(EnumFacing facing : EnumFacing.values())
+        {
+            BlockPos neighbor = pos.offset(facing);
+            world.getBlockState(neighbor).getBlock();
+
+            if(canPlaceOn(world.getBlockState(neighbor).getBlock()))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean canPlaceOn(Block block)
     {
         return block instanceof BlockDoor
                 || block instanceof BlockTrapDoor
                 || block instanceof BlockGlass
                 || block instanceof BlockStainedGlass
-                || block instanceof BlockPane
-                || block instanceof BlockNet;
+                || block instanceof BlockPane;
     }
 
     protected BlockStateContainer createBlockState()

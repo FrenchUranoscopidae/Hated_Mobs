@@ -43,7 +43,8 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         registerItemModel(ModMosquitos.SWATTER);
     }
 
-    private void registerBlockModel(Block block) {
+    private void registerBlockModel(Block block)
+    {
         ModelLoader.setCustomModelResourceLocation(ItemBlock.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName().toString(), "inventory"));
     }
 
