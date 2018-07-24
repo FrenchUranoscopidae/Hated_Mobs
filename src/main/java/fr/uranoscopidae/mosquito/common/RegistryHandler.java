@@ -46,7 +46,7 @@ public class RegistryHandler
                 .name("silk_spider")
                 .tracker(64, 3, true)
                 .factory(EntitySilkSpider::new)
-                .egg(0, 0)
+                .egg(0x699eaf, 0x022f3a)
                 .build();
         event.getRegistry().register(silkSpiderEntry);
     }
