@@ -7,9 +7,16 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -19,6 +26,7 @@ import javax.annotation.Nullable;
 
 public class EntitySilkSpider extends EntityAnimal
 {
+    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntitySilkSpider.class, DataSerializers.BYTE);
 
     public EntitySilkSpider(World worldIn)
     {
@@ -32,6 +40,23 @@ public class EntitySilkSpider extends EntityAnimal
     {
         return null;
     }
+
+    protected void entityInit()
+    {
+        super.entityInit();
+        this.dataManager.register(CLIMBING, Byte.valueOf((byte)0));
+    }
+
+    public void onUpdate()
+    {
+        super.onUpdate();
+
+        if (!this.world.isRemote)
+        {
+            this.setBesideClimbableBlock(this.collidedHorizontally);
+        }
+    }
+
 
     @Override
     protected void initEntityAI()
@@ -67,5 +92,55 @@ public class EntitySilkSpider extends EntityAnimal
     protected void playStepSound(BlockPos pos, Block blockIn)
     {
         this.playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
+    }
+
+    @Override
+    public void onLivingUpdate()
+    {
+        super.onLivingUpdate();
+        if(rand.nextInt(20*60*2) == 0)
+        {
+            if(world.isAirBlock(getPosition()))
+            {
+                world.setBlockState(getPosition(), Blocks.WEB.getDefaultState());
+            }
+        }
+    }
+
+    protected PathNavigate createNavigator(World worldIn)
+    {
+        return new PathNavigateClimber(this, worldIn);
+    }
+    public boolean isBesideClimbableBlock()
+    {
+        return (((Byte)this.dataManager.get(CLIMBING)).byteValue() & 1) != 0;
+    }
+
+    /**
+     * Updates the WatchableObject (Byte) created in entityInit(), setting it to 0x01 if par1 is true or 0x00 if it is
+     * false.
+     */
+    public void setBesideClimbableBlock(boolean climbing)
+    {
+        byte b0 = ((Byte)this.dataManager.get(CLIMBING)).byteValue();
+
+        if (climbing)
+        {
+            b0 = (byte)(b0 | 1);
+        }
+        else
+        {
+            b0 = (byte)(b0 & -2);
+        }
+
+        this.dataManager.set(CLIMBING, Byte.valueOf(b0));
+    }
+    public boolean isOnLadder()
+    {
+        return this.isBesideClimbableBlock();
+    }
+
+    public void setInWeb()
+    {
     }
 }
