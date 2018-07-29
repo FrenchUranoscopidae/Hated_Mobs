@@ -21,7 +21,7 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = "mosquitos", name = "Mosquitos Mod", version = "1.0", acceptedMinecraftVersions = "1.12.2")
+@Mod(modid = ModMosquitos.MODID, name = "Mosquitos Mod", version = "1.0", acceptedMinecraftVersions = "1.12.2")
 public class ModMosquitos
 {
     public static final String MODID = "mosquitos";

@@ -2,3 +2,4 @@ entity.mosquito.name=Mosquito
 item.swatter.name=Swatter
 tile.net.name=Net
 entity.silk_spider.name=Silk Spider
+mosquitos.wake_up_by_mosquito=You've been bitten by a mosquito !

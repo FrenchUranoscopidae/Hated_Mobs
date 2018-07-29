@@ -1,5 +1,6 @@
 package fr.uranoscopidae.mosquito.common;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
@@ -12,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathFinder;
 import net.minecraft.pathfinding.WalkNodeProcessor;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityMosquito extends EntityMob
@@ -49,7 +51,25 @@ public class EntityMosquito extends EntityMob
     @Override
     protected void initEntityAI()
     {
-        this.tasks.addTask(5, new EntityAIAttackMelee(this, 2, false));
+        this.tasks.addTask(5, new EntityAIAttackMelee(this, 1, false));
         this.targetTasks.addTask(6, new EntityAIFindEntityNearestPlayer(this));
+    }
+
+    @Override
+    public boolean isPreventingPlayerRest(EntityPlayer playerIn)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean attackEntityAsMob(Entity entityIn)
+    {
+        return false;
+    }
+
+    @Override
+    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
+    {
+
     }
 }
