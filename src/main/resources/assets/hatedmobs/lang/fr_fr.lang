@@ -1,0 +1,5 @@
+entity.mosquito.name=Moustique
+item.swatter.name=Tapette
+tile.net.name=Moustiquaire
+entity.slik_spider.name=Araignée à soie
+hatedmobs.wake_up_by_mosquito=Vous avez été piqué par un moustique !
