@@ -1,14 +1,19 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.mosquito.common;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityFlyHelper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathFinder;
+import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.pathfinding.WalkNodeProcessor;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
@@ -16,19 +21,29 @@ import net.minecraft.world.World;
 
 public class EntityMosquito extends EntityMob
 {
-    private PathFinder pathFinder;
     public EntityMosquito(World world)
     {
         super(new MosquitoWorldWrapper(world));
-        pathFinder = new PathFinder(new WalkNodeProcessor());
         setSize(2f/16f, 2f/16f);
         this.experienceValue = 1;
+        this.moveHelper = new EntityFlyHelper(this);
+    }
+
+    @Override
+    protected PathNavigate createNavigator(World worldIn)
+    {
+        PathNavigateFlying fly = new PathNavigateFlying(this, worldIn);
+        fly.setCanEnterDoors(true);
+        fly.setCanFloat(true);
+        return fly;
     }
 
     public void applyEntityAttributes()
     {
         super.applyEntityAttributes();
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1);
+        this.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.4D);
     }
 
     @Override
