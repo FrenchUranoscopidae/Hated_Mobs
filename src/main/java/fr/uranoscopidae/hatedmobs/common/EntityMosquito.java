@@ -1,4 +1,4 @@
-package fr.uranoscopidae.mosquito.common;
+package fr.uranoscopidae.hatedmobs.common;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
