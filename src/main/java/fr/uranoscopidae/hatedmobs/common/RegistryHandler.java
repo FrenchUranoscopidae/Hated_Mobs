@@ -9,13 +9,15 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class RegistryHandler
 {
     @SubscribeEvent
     public void registerBlocks(RegistryEvent.Register<Block> event)
     {
-        event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK);
+        event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK);
+        GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
     }
 
     @SubscribeEvent
@@ -25,7 +27,9 @@ public class RegistryHandler
         item.setRegistryName(HatedMobs.NET.getRegistryName());
         ItemBlock webItem = new ItemBlock(HatedMobs.WEB_BLOCK);
         webItem.setRegistryName(HatedMobs.WEB_BLOCK.getRegistryName());
-        event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem);
+        ItemBlock eggSackItem = new ItemBlock(HatedMobs.EGG_SACK);
+        eggSackItem.setRegistryName(HatedMobs.EGG_SACK.getRegistryName());
+        event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem);
     }
 
     @SubscribeEvent

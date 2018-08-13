@@ -1,9 +1,6 @@
 package fr.uranoscopidae.hatedmobs;
 
-import fr.uranoscopidae.hatedmobs.common.BlockNet;
-import fr.uranoscopidae.hatedmobs.common.BlockWeb;
-import fr.uranoscopidae.hatedmobs.common.ItemSwatter;
-import fr.uranoscopidae.hatedmobs.common.RegistryHandler;
+import fr.uranoscopidae.hatedmobs.common.*;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -13,6 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.0", acceptedMinecraftVersions = "1.12.2")
@@ -36,6 +34,7 @@ public class HatedMobs
     public static final Block NET = new BlockNet();
     public static final Item SWATTER = new ItemSwatter();
     public static final Block WEB_BLOCK = new BlockWeb();
+    public static final Block EGG_SACK = new BlockEggSack();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -43,6 +42,7 @@ public class HatedMobs
         MinecraftForge.EVENT_BUS.register(new RegistryHandler());
         logger = event.getModLog();
         proxy.preInit(event.getSuggestedConfigurationFile());
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 
     @Mod.EventHandler
