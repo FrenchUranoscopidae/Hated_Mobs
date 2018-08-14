@@ -1,0 +1,28 @@
+{
+  "pools":
+  [
+    {
+      "name": "hatedmobs:egg_sack",
+      "rolls":
+      {
+        "min": 2,
+        "max": 4
+      },
+      "entries":
+      [
+        {
+          "type": "item",
+          "name": "minecraft:spawn_egg",
+          "functions":
+          [
+            {
+              "function": "set_nbt",
+              "tag": "{EntityTag:{id:\"hatedmobs:silk_spider\"}}"
+            }
+          ],
+          "weight": 5
+        }
+      ]
+    }
+  ]
+}

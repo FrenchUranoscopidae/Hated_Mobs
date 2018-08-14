@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.0", acceptedMinecraftVersions = "1.12.2")
@@ -43,6 +44,8 @@ public class HatedMobs
         logger = event.getModLog();
         proxy.preInit(event.getSuggestedConfigurationFile());
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+        GameRegistry.registerWorldGenerator(new WorldGeneratorSpiderNest(), 0);
+        GameRegistry.registerWorldGenerator(new WorldGeneratorEggSack(), 0);
     }
 
     @Mod.EventHandler
