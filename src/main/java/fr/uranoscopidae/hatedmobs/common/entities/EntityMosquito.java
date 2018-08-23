@@ -5,9 +5,7 @@ import fr.uranoscopidae.hatedmobs.common.MosquitoWorldWrapper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIFindEntityNearestPlayer;
-import net.minecraft.entity.ai.EntityFlyHelper;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -62,6 +60,7 @@ public class EntityMosquito extends EntityMob
     @Override
     protected void initEntityAI()
     {
+        this.tasks.addTask(0, new EntityAIWanderAvoidWaterFlying(this, 0.30));
         this.tasks.addTask(5, new EntityAIAttackMelee(this, 1, false));
         this.targetTasks.addTask(6, new EntityAIFindEntityNearestPlayer(this));
     }

@@ -30,7 +30,7 @@ public class EntitySilkSpider extends EntityAnimal
     public EntitySilkSpider(World worldIn)
     {
         super(worldIn);
-        this.setSize(1.4F, 0.9F);
+        this.setSize(1.4F/4, 0.9F/4);
     }
 
     @Nullable
