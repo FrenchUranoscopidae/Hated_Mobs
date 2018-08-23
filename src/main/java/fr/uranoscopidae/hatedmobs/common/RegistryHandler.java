@@ -36,7 +36,7 @@ public class RegistryHandler
         webItem.setRegistryName(HatedMobs.WEB_BLOCK.getRegistryName());
         ItemBlock eggSackItem = new ItemBlock(HatedMobs.EGG_SACK);
         eggSackItem.setRegistryName(HatedMobs.EGG_SACK.getRegistryName());
-        event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem);
+        event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG);
     }
 
     @SubscribeEvent

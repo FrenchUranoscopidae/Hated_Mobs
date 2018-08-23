@@ -4,6 +4,7 @@ import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockEggSack;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockNet;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockWeb;
+import fr.uranoscopidae.hatedmobs.common.items.ItemSpiderEgg;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -41,6 +42,7 @@ public class HatedMobs
     public static final Item SWATTER = new ItemSwatter();
     public static final Block WEB_BLOCK = new BlockWeb();
     public static final Block EGG_SACK = new BlockEggSack();
+    public static final Item SPIDER_EGG = new ItemSpiderEgg();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
