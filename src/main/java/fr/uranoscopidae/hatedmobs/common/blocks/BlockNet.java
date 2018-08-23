@@ -1,4 +1,4 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import net.minecraft.block.*;

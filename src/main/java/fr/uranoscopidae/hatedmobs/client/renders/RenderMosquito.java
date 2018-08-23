@@ -1,7 +1,7 @@
-package fr.uranoscopidae.hatedmobs.client;
+package fr.uranoscopidae.hatedmobs.client.renders;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import fr.uranoscopidae.hatedmobs.common.EntityMosquito;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -17,7 +17,7 @@ public class RenderMosquito extends Render<EntityMosquito>
 {
     private static final ResourceLocation TEXTURE = new ResourceLocation(HatedMobs.MODID, "textures/entity/mosquito.png");
 
-    protected RenderMosquito(RenderManager renderManager)
+    public RenderMosquito(RenderManager renderManager)
     {
         super(renderManager);
     }

@@ -1,6 +1,10 @@
 package fr.uranoscopidae.hatedmobs;
 
 import fr.uranoscopidae.hatedmobs.common.*;
+import fr.uranoscopidae.hatedmobs.common.blocks.BlockEggSack;
+import fr.uranoscopidae.hatedmobs.common.blocks.BlockNet;
+import fr.uranoscopidae.hatedmobs.common.blocks.BlockWeb;
+import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

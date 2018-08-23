@@ -1,4 +1,4 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.items;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import net.minecraft.entity.EntityLivingBase;

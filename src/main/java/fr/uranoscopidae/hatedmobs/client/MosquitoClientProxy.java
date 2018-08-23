@@ -2,8 +2,10 @@ package fr.uranoscopidae.hatedmobs.client;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.MosquitoCommonProxy;
-import fr.uranoscopidae.hatedmobs.common.EntityMosquito;
-import fr.uranoscopidae.hatedmobs.common.EntitySilkSpider;
+import fr.uranoscopidae.hatedmobs.client.renders.RenderMosquito;
+import fr.uranoscopidae.hatedmobs.client.renders.RenderSilkSpider;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
+import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

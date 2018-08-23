@@ -1,12 +1,20 @@
 package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.Path;
+import net.minecraft.pathfinding.PathPoint;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -57,7 +65,33 @@ public class EntityEventHandler
                 {
                     if(m.getDistanceSq(player)<20*20)
                     {
-                        return m.getNavigator().getPathToEntityLiving(player) != null;
+                        Path path = m.getNavigator().getPathToEntityLiving(player);
+                        if(path == null)
+                        {
+                            return false;
+                        }
+
+                        PathPoint point = path.getFinalPathPoint();
+                        double dist = player.getDistance(point.x, point.y, point.z);
+                        if(dist > 1.1f)
+                        {
+                            return false;
+                        }
+
+                        /*for (int i = 0; i < path.getCurrentPathLength(); i++)
+                        {
+                            Vec3d vector = path.getVectorFromIndex(m, i);
+                            blockPos.setPos(vector.x, vector.y, vector.z);
+                            AxisAlignedBB aabb = new AxisAlignedBB(blockPos);
+                            List<AxisAlignedBB> list = m.world.getCollisionBoxes(null, aabb);
+                            System.out.println(m.world.getBlockState(blockPos)+" (real: "+world.getBlockState(blockPos)+") /"+vector);
+
+                            if(!list.isEmpty())
+                            {
+                                return false;
+                            }
+                        }*/
+                        return true;
                     }
                     else return false;
                 });

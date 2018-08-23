@@ -1,6 +1,9 @@
 package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
+import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;

@@ -1,4 +1,4 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.entities;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityAgeable;

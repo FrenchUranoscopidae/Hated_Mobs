@@ -1,7 +1,7 @@
 package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import net.minecraft.server.MinecraftServer;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;

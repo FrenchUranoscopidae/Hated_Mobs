@@ -1,9 +1,9 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import fr.uranoscopidae.hatedmobs.client.GuiEggSack;
+import fr.uranoscopidae.hatedmobs.common.GuiHandler;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;

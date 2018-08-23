@@ -1,4 +1,4 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.tileentities;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

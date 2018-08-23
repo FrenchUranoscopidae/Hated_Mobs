@@ -1,7 +1,7 @@
-package fr.uranoscopidae.hatedmobs.client;
+package fr.uranoscopidae.hatedmobs.client.renders;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import fr.uranoscopidae.hatedmobs.common.EntitySilkSpider;
+import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
 import net.minecraft.client.model.ModelSpider;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
