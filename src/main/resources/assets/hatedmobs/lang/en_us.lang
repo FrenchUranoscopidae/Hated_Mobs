@@ -6,3 +6,7 @@ hatedmobs.wake_up_by_mosquito=You've been bitten by a mosquito !
 tile.web_block.name=Web Block
 tile.egg_sack=Egg Sack
 item.spider_egg.name=Spider Egg
+tile.spider_infested_leaves.name=Infested Leaves
+hatedmobs.cant_spawn_silk_spider=Maximum number of spiders has been reached for this block.
+hatedmobs.spider_egg_description=Right Click on infested leaves to spawn a silk spider.
+hatedmobs.infested_leaves_description=Can be used to house silk spiders.

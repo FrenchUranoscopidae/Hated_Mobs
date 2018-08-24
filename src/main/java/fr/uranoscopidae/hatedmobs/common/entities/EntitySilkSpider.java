@@ -1,7 +1,9 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
+import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.FalsifiedWorld;
 import fr.uranoscopidae.hatedmobs.common.SilkSpiderWorldWrapper;
+import fr.uranoscopidae.hatedmobs.common.blocks.BlockSpiderInfestedLeaves;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -28,6 +30,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalSpawnData
 {
@@ -44,6 +47,32 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     {
         this(worldIn);
         homePos.setPos(home);
+    }
+
+    public static Optional<EntitySilkSpider> trySpawn(World world, double x, double y, double z)
+    {
+        BlockPos.PooledMutableBlockPos pos = BlockPos.PooledMutableBlockPos.retain(x, y, z);
+        if(world.getBlockState(pos).getBlock() != HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK)
+        {
+            pos.release();
+            return Optional.empty();
+        }
+
+        IBlockState blockState = world.getBlockState(pos);
+        int spiderCount = blockState.getValue(BlockSpiderInfestedLeaves.SPIDER_COUNT);
+
+        if(spiderCount >= 2)
+        {
+            pos.release();
+            return Optional.empty();
+        }
+
+        EntitySilkSpider silkSpider = new EntitySilkSpider(world, pos);
+        silkSpider.setPosition(x, y, z);
+        world.setBlockState(pos, blockState.withProperty(BlockSpiderInfestedLeaves.SPIDER_COUNT, spiderCount + 1), 3);
+        world.spawnEntity(silkSpider);
+        pos.release();
+        return Optional.of(silkSpider);
     }
 
     @Override
@@ -135,6 +164,11 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
                 world.setBlockState(getPosition(), Blocks.WEB.getDefaultState());
             }
         }
+
+        if(((FalsifiedWorld)world).getRealBlockState(homePos).getBlock() != HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK)
+        {
+            setDead();
+        }
     }
 
     protected PathNavigate createNavigator(World worldIn)
@@ -143,16 +177,13 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     }
     public boolean isBesideClimbableBlock()
     {
-        return (((Byte)this.dataManager.get(CLIMBING)).byteValue() & 1) != 0;
+        return (this.dataManager.get(CLIMBING) & 1) != 0;
     }
 
-    /**
-     * Updates the WatchableObject (Byte) created in entityInit(), setting it to 0x01 if par1 is true or 0x00 if it is
-     * false.
-     */
+
     public void setBesideClimbableBlock(boolean climbing)
     {
-        byte b0 = ((Byte)this.dataManager.get(CLIMBING)).byteValue();
+        byte b0 = this.dataManager.get(CLIMBING);
 
         if (climbing)
         {

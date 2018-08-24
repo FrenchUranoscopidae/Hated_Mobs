@@ -6,3 +6,7 @@ hatedmobs.wake_up_by_mosquito=Vous avez été piqué par un moustique !
 tile.web_block.name=Bloc de Toile
 tile.egg_sack=Sac d'Oeufs
 item.spider_egg.name=Oeuf d'Araignée
+tile.spider_infested_leaves.name=Feuillage Infesté
+hatedmobs.cant_spawn_silk_spider=Le nombre maximum d'araignées a été atteint pour ce bloc.
+hatedmobs.spider_egg_description=Clic droit sur un feuillage infesté pour faire spawner une araignée à soie.
+hatedmobs.infested_leaves_description=Peut être utilisé pour abritter des araignées à soie.

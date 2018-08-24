@@ -1,7 +1,15 @@
 {
   "variants":
   {
-    "normal":
+    "spider_count=0":
+    {
+      "model":"hatedmobs:spider_infested_leaves"
+    },
+    "spider_count=1":
+    {
+      "model":"hatedmobs:spider_infested_leaves"
+    },
+    "spider_count=2":
     {
       "model":"hatedmobs:spider_infested_leaves"
     }

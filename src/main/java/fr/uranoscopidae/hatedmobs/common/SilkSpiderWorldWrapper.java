@@ -16,7 +16,7 @@ public class SilkSpiderWorldWrapper extends FalsifiedWorld
     @Override
     public IBlockState map(IBlockState blockState, int x, int y, int z)
     {
-        if(blockState == HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK.getDefaultState())
+        if(blockState.getBlock() == HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK)
         {
             return Blocks.AIR.getDefaultState();
         }

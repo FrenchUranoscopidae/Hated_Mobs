@@ -37,8 +37,7 @@ public class EntityEventHandler
         {
             if(((EntitySpider) entity).getRNG().nextInt(5) == 0)
             {
-                ItemStack egg = new ItemStack(Items.SPAWN_EGG);
-                egg.getOrCreateSubCompound("EntityTag").setString("id", HatedMobs.MODID + ":silk_spider");
+                ItemStack egg = new ItemStack(HatedMobs.SPIDER_EGG);
                 event.getDrops().add(new EntityItem(entity.world, entity.posX, entity.posY, entity.posZ, egg));
             }
         }

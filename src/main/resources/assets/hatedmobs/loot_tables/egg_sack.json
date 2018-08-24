@@ -12,14 +12,7 @@
       [
         {
           "type": "item",
-          "name": "minecraft:spawn_egg",
-          "functions":
-          [
-            {
-              "function": "set_nbt",
-              "tag": "{EntityTag:{id:\"hatedmobs:silk_spider\"}}"
-            }
-          ],
+          "name": "hatedmobs:spider_egg",
           "weight": 5
         }
       ]

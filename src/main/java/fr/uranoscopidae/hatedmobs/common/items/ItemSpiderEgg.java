@@ -2,6 +2,7 @@ package fr.uranoscopidae.hatedmobs.common.items;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,14 +14,20 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 import static net.minecraft.item.ItemMonsterPlacer.applyItemEntityDataToEntity;
 
 public class ItemSpiderEgg extends Item
 {
+    public static final TextComponentTranslation CANT_SPAWN = new TextComponentTranslation(HatedMobs.MODID + ".cant_spawn_silk_spider");
+    public static final TextComponentTranslation DESCRIPTION = new TextComponentTranslation(HatedMobs.MODID + ".spider_egg_description");
+
     public ItemSpiderEgg()
     {
         super();
@@ -48,50 +55,33 @@ public class ItemSpiderEgg extends Item
             return EnumActionResult.FAIL;
         }
 
-        BlockPos blockpos = pos.offset(facing);
-        double d0 = this.getYOffset(worldIn, blockpos);
-        EntitySilkSpider entity = new EntitySilkSpider(worldIn, pos);
+        Optional<EntitySilkSpider> silkSpider = EntitySilkSpider.trySpawn(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
 
-        entity.setPosition((double)blockpos.getX() + 0.5D, (double)blockpos.getY() + d0, (double)blockpos.getZ() + 0.5D);
-
-        worldIn.spawnEntity(entity);
-
-        if (itemstack.hasDisplayName())
+        if(silkSpider.isPresent())
         {
-            entity.setCustomNameTag(itemstack.getDisplayName());
-        }
-
-        applyItemEntityDataToEntity(worldIn, player, itemstack, entity);
-
-        if (!player.capabilities.isCreativeMode)
-        {
-            itemstack.shrink(1);
-        }
-
-        return EnumActionResult.SUCCESS;
-    }
-
-    private double getYOffset(World worldIn, BlockPos blockpos)
-    {
-        AxisAlignedBB axisalignedbb = (new AxisAlignedBB(blockpos)).expand(0.0D, -1.0D, 0.0D);
-        List<AxisAlignedBB> list = worldIn.getCollisionBoxes((Entity)null, axisalignedbb);
-
-        if (list.isEmpty())
-        {
-            return 0.0D;
-        }
-        else
-        {
-            double d0 = axisalignedbb.minY;
-
-            for (AxisAlignedBB axisalignedbb1 : list)
+            if (itemstack.hasDisplayName())
             {
-                d0 = Math.max(axisalignedbb1.maxY, d0);
+                silkSpider.get().setCustomNameTag(itemstack.getDisplayName());
             }
 
-            return d0 - (double)blockpos.getY();
+            applyItemEntityDataToEntity(worldIn, player, itemstack, silkSpider.get());
+
+            if (!player.capabilities.isCreativeMode)
+            {
+                itemstack.shrink(1);
+            }
+
+            return EnumActionResult.SUCCESS;
         }
+
+        player.sendStatusMessage(CANT_SPAWN, true);
+
+        return EnumActionResult.FAIL;
     }
 
-
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
+    {
+        tooltip.add(DESCRIPTION.getUnformattedText());
+    }
 }
