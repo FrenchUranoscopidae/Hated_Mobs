@@ -43,9 +43,14 @@ public class ItemSpiderEgg extends Item
             return EnumActionResult.FAIL;
         }
 
+        if(worldIn.getBlockState(pos).getBlock() != HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK)
+        {
+            return EnumActionResult.FAIL;
+        }
+
         BlockPos blockpos = pos.offset(facing);
         double d0 = this.getYOffset(worldIn, blockpos);
-        EntitySilkSpider entity = new EntitySilkSpider(worldIn);
+        EntitySilkSpider entity = new EntitySilkSpider(worldIn, pos);
 
         entity.setPosition((double)blockpos.getX() + 0.5D, (double)blockpos.getY() + d0, (double)blockpos.getZ() + 0.5D);
 

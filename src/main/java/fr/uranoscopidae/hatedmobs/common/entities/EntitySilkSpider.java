@@ -1,6 +1,10 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
+import fr.uranoscopidae.hatedmobs.common.FalsifiedWorld;
+import fr.uranoscopidae.hatedmobs.common.SilkSpiderWorldWrapper;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -11,6 +15,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -20,17 +25,41 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import javax.annotation.Nullable;
 
-public class EntitySilkSpider extends EntityAnimal
+public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalSpawnData
 {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntitySilkSpider.class, DataSerializers.BYTE);
+    private BlockPos.MutableBlockPos homePos = new BlockPos.MutableBlockPos();
 
     public EntitySilkSpider(World worldIn)
     {
-        super(worldIn);
+        super(new SilkSpiderWorldWrapper(worldIn));
         this.setSize(1.4F/4, 0.9F/4);
+    }
+
+    public EntitySilkSpider(World worldIn, BlockPos home)
+    {
+        this(worldIn);
+        homePos.setPos(home);
+    }
+
+    @Override
+    public void readEntityFromNBT(NBTTagCompound compound)
+    {
+        super.readEntityFromNBT(compound);
+        homePos.setPos(compound.getInteger("homeX"), compound.getInteger("homeY"), compound.getInteger("homeZ"));
+    }
+
+    @Override
+    public void writeEntityToNBT(NBTTagCompound compound)
+    {
+        super.writeEntityToNBT(compound);
+        compound.setInteger("homeX", homePos.getX());
+        compound.setInteger("homeZ", homePos.getZ());
+        compound.setInteger("homeY", homePos.getY());
     }
 
     @Nullable
@@ -60,10 +89,11 @@ public class EntitySilkSpider extends EntityAnimal
     @Override
     protected void initEntityAI()
     {
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
-        this.tasks.addTask(6, new EntityAILookIdle(this));
-        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(2, new EntityAIWanderAvoidWater(this, 0.8D));
+        this.tasks.addTask(2, new EntityAILookIdle(this));
+        this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(1, new EntityAIComeHomeAtNight(this));
     }
 
     protected void applyEntityAttributes()
@@ -99,7 +129,8 @@ public class EntitySilkSpider extends EntityAnimal
         super.onLivingUpdate();
         if(rand.nextInt(20*60*2) == 0)
         {
-            if(world.isAirBlock(getPosition()))
+            IBlockState blockState = ((FalsifiedWorld)world).getRealBlockState(this.getPosition());
+            if(blockState.getBlock().isAir(blockState, world, getPosition()))
             {
                 world.setBlockState(getPosition(), Blocks.WEB.getDefaultState());
             }
@@ -141,5 +172,27 @@ public class EntitySilkSpider extends EntityAnimal
 
     public void setInWeb()
     {
+    }
+
+    @Override
+    public void writeSpawnData(ByteBuf buffer)
+    {
+        buffer.writeInt(homePos.getX());
+        buffer.writeInt(homePos.getY());
+        buffer.writeInt(homePos.getZ());
+    }
+
+    @Override
+    public void readSpawnData(ByteBuf additionalData)
+    {
+        int x = additionalData.readInt();
+        int y = additionalData.readInt();
+        int z = additionalData.readInt();
+        homePos.setPos(x, y, z);
+    }
+
+    public BlockPos getHomePos()
+    {
+        return homePos;
     }
 }

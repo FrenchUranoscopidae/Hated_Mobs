@@ -3,6 +3,7 @@ package fr.uranoscopidae.hatedmobs;
 import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockEggSack;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockNet;
+import fr.uranoscopidae.hatedmobs.common.blocks.BlockSpiderInfestedLeaves;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockWeb;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSpiderEgg;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
@@ -43,6 +44,7 @@ public class HatedMobs
     public static final Block WEB_BLOCK = new BlockWeb();
     public static final Block EGG_SACK = new BlockEggSack();
     public static final Item SPIDER_EGG = new ItemSpiderEgg();
+    public static final Block SPIDER_INFESTED_LEAVES_BLOCK = new BlockSpiderInfestedLeaves();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)

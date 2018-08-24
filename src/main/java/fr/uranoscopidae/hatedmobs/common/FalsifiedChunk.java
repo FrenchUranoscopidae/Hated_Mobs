@@ -32,11 +32,13 @@ import java.util.Random;
 public class FalsifiedChunk extends Chunk
 {
     private final Chunk delegate;
+    private final FalsifiedWorld falseWorld;
 
-    public FalsifiedChunk(World world, Chunk delegate)
+    public FalsifiedChunk(FalsifiedWorld falseWorld, Chunk delegate)
     {
-        super(world, delegate.x, delegate.z);
+        super(falseWorld, delegate.x, delegate.z);
         this.delegate = delegate;
+        this.falseWorld = falseWorld;
     }
 
     @Override
@@ -49,48 +51,7 @@ public class FalsifiedChunk extends Chunk
     public IBlockState getBlockState(int x, int y, int z)
     {
         IBlockState blockState = delegate.getBlockState(x, y, z);
-
-        if(blockState == Blocks.GLASS.getDefaultState())
-        {
-            return Blocks.AIR.getDefaultState();
-        }
-
-        if(blockState.getBlock() instanceof BlockStainedGlass)
-        {
-            return  Blocks.AIR.getDefaultState();
-        }
-
-        if(blockState.getBlock() instanceof BlockPane)
-        {
-            return  Blocks.AIR.getDefaultState();
-        }
-
-        if(blockState.getBlock() instanceof BlockFence)
-        {
-            return  Blocks.AIR.getDefaultState();
-        }
-
-        if(blockState.getBlock() instanceof BlockFenceGate)
-        {
-            return  Blocks.AIR.getDefaultState();
-        }
-
-        if(blockState.getBlock() instanceof BlockDoor)
-        {
-            return  Blocks.AIR.getDefaultState();
-        }
-
-        if(blockState.getBlock() instanceof BlockTrapDoor)
-        {
-            return  Blocks.AIR.getDefaultState();
-        }
-
-        if(blockState.getBlock() instanceof BlockNet)
-        {
-            return  Blocks.BEDROCK.getDefaultState();
-        }
-
-        return blockState;
+        return falseWorld.map(blockState, x, y, z);
     }
 
     @Override
@@ -356,7 +317,7 @@ public class FalsifiedChunk extends Chunk
     @Override
     public World getWorld()
     {
-        return delegate.getWorld();
+        return falseWorld;
     }
 
     @Override
