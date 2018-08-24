@@ -2,6 +2,7 @@ package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -42,6 +43,7 @@ public class BlockSpiderInfestedLeaves extends Block implements IShearable
         setHardness(0.2F);
         this.setLightOpacity(1);
         this.setTickRandomly(true);
+        this.setSoundType(SoundType.PLANT);
         setDefaultState(blockState.getBaseState().withProperty(SPIDER_COUNT, 0));
     }
 
@@ -116,5 +118,10 @@ public class BlockSpiderInfestedLeaves extends Block implements IShearable
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
         tooltip.add(DESCRIPTION.getUnformattedText());
+    }
+
+    public int quantityDropped(Random random)
+    {
+        return 0;
     }
 }

@@ -24,9 +24,12 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import javax.annotation.Nullable;
@@ -159,6 +162,12 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     }
 
     @Override
+    protected boolean canDespawn()
+    {
+        return false;
+    }
+
+    @Override
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
@@ -175,9 +184,13 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
         {
             if(((FalsifiedWorld)world).getRealBlockState(homePos).getBlock() != HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK)
             {
-                setDead();
+                attackEntityFrom(DamageSource.MAGIC, 10000);
             }
         }
+    }
+
+    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
+    {
     }
 
     protected PathNavigate createNavigator(World worldIn)
