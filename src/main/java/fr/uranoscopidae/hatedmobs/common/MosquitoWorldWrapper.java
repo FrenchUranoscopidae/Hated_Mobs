@@ -94,7 +94,7 @@ public class MosquitoWorldWrapper extends FalsifiedWorld
 
         if(blockState.getBlock() instanceof BlockNet)
         {
-            return Blocks.LAVA.getDefaultState();
+            return Blocks.BEDROCK.getDefaultState();
         }
 
         return blockState;

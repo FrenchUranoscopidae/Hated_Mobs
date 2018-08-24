@@ -62,7 +62,7 @@ public class EntityMosquito extends EntityMob
     {
         this.tasks.addTask(0, new EntityAIWanderAvoidWaterFlying(this, 0.30));
         this.tasks.addTask(5, new EntityAIAttackMelee(this, 1, false));
-        this.targetTasks.addTask(6, new EntityAIFindEntityNearestPlayer(this));
+        this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
     }
 
     @Override

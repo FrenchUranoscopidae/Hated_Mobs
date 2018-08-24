@@ -21,7 +21,7 @@ public class EntityAIComeHomeAtNight extends EntityAIBase
     @Override
     public void startExecuting()
     {
-        entity.getNavigator().tryMoveToXYZ(entity.getHomePos().getX()+0.5, entity.getHomePos().getY(), entity.getHomePos().getZ()+0.5, 0.5);
+        entity.getNavigator().tryMoveToXYZ(entity.getHomePos().getX(), entity.getHomePos().getY(), entity.getHomePos().getZ(), 0.5);
     }
 
     @Override

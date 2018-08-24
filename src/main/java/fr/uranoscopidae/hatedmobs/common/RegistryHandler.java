@@ -46,8 +46,8 @@ public class RegistryHandler
     {
         EntityEntry mosquitoEntry = EntityEntryBuilder.<EntityMosquito>create()
                 .entity(EntityMosquito.class)
-                .id(new ResourceLocation(HatedMobs.MODID, "hatedmobs"), 0)
-                .name("hatedmobs")
+                .id(new ResourceLocation(HatedMobs.MODID, "mosquito"), 0)
+                .name("mosquito")
                 .tracker(64, 3, true)
                 .factory(EntityMosquito::new)
                 .egg(0, 0)

@@ -153,6 +153,12 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     }
 
     @Override
+    protected float getSoundPitch()
+    {
+        return 1.75f;
+    }
+
+    @Override
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
@@ -165,9 +171,12 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
             }
         }
 
-        if(((FalsifiedWorld)world).getRealBlockState(homePos).getBlock() != HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK)
+        if(world.isBlockLoaded(homePos))
         {
-            setDead();
+            if(((FalsifiedWorld)world).getRealBlockState(homePos).getBlock() != HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK)
+            {
+                setDead();
+            }
         }
     }
 
