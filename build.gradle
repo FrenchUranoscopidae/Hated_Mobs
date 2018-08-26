@@ -33,7 +33,15 @@ minecraft {
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
+repositories {
+    mavenCentral()
+    maven {
+        url "https://maven.mcmoddev.com/"
+    }
+}
+
 dependencies {
+    compile "net.ilexiconn:llibrary:1.7.9-1.12.2"
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"

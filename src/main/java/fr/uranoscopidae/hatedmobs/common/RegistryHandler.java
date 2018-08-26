@@ -1,6 +1,7 @@
 package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
@@ -60,9 +61,18 @@ public class RegistryHandler
                 .name("silk_spider")
                 .tracker(64, 3, true)
                 .factory(EntitySilkSpider::new)
-                .egg(0x699eaf, 0x022f3a)
                 .build();
         event.getRegistry().register(silkSpiderEntry);
+
+        EntityEntry giantSpiderEntry = EntityEntryBuilder.create()
+                .entity(EntityGiantSpider.class)
+                .id(new ResourceLocation(HatedMobs.MODID, "giant_spider"), 2)
+                .name("giant_spider")
+                .tracker(64, 3, true)
+                .egg(0x303030, 0x7f0000)
+                .factory(EntityGiantSpider::new)
+                .build();
+        event.getRegistry().register(giantSpiderEntry);
 
         for(Biome biome : Biome.REGISTRY) {
             EntityRegistry.addSpawn(EntityMosquito.class, 75, 4, 6, EnumCreatureType.MONSTER, biome);

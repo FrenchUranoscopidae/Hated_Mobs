@@ -2,8 +2,10 @@ package fr.uranoscopidae.hatedmobs.client;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.MosquitoCommonProxy;
+import fr.uranoscopidae.hatedmobs.client.renders.RenderGiantSpider;
 import fr.uranoscopidae.hatedmobs.client.renders.RenderMosquito;
 import fr.uranoscopidae.hatedmobs.client.renders.RenderSilkSpider;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
 import net.minecraft.block.Block;
@@ -27,6 +29,7 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         MinecraftForge.EVENT_BUS.register(this);
         RenderingRegistry.registerEntityRenderingHandler(EntityMosquito.class, RenderMosquito::new);
         RenderingRegistry.registerEntityRenderingHandler(EntitySilkSpider.class, RenderSilkSpider::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityGiantSpider.class, RenderGiantSpider::new);
     }
 
     @Override
