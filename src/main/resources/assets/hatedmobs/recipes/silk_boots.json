@@ -1,0 +1,24 @@
+{
+  "type":"minecraft:crafting_shaped",
+  "pattern":
+  [
+    "###",
+    "#B#",
+    "###"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item":"minecraft:string"
+    },
+    "B":
+    {
+      "item":"minecraft:leather_boots"
+    }
+  },
+  "result":
+  {
+    "item":"hatedmobs:silk_boots"
+  }
+}

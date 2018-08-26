@@ -5,13 +5,18 @@ import fr.uranoscopidae.hatedmobs.common.blocks.BlockEggSack;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockNet;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockSpiderInfestedLeaves;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockWeb;
+import fr.uranoscopidae.hatedmobs.common.items.ItemSilkBoots;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSpiderEgg;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -30,6 +35,8 @@ public class HatedMobs
     @SidedProxy(clientSide = "fr.uranoscopidae.hatedmobs.client.MosquitoClientProxy", serverSide = "fr.uranoscopidae.hatedmobs.server.MosquitoServerProxy")
     public static MosquitoCommonProxy proxy;
     public static Logger logger;
+    public static final AttributeModifier modifier = new AttributeModifier(MODID + ".silk_walk", 1, 0).setSaved(false);
+
     public static final CreativeTabs TAB = new CreativeTabs(MODID)
     {
         @Override
@@ -39,12 +46,14 @@ public class HatedMobs
         }
     };
 
+    public static final ItemArmor.ArmorMaterial silkBootsMaterial = EnumHelper.addArmorMaterial("silk_boots", MODID + ":silk_boots", 5, new int[]{0, 0, 0, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
     public static final Block NET = new BlockNet();
     public static final Item SWATTER = new ItemSwatter();
     public static final Block WEB_BLOCK = new BlockWeb();
     public static final Block EGG_SACK = new BlockEggSack();
     public static final Item SPIDER_EGG = new ItemSpiderEgg();
     public static final Block SPIDER_INFESTED_LEAVES_BLOCK = new BlockSpiderInfestedLeaves();
+    public static final ItemArmor SILK_BOOTS = new ItemSilkBoots();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)

@@ -2,11 +2,13 @@ package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
+import fr.uranoscopidae.hatedmobs.common.items.ItemSilkBoots;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -38,8 +40,20 @@ public class BlockWeb extends Block
     {
         if(!(entityIn instanceof EntitySpider || entityIn instanceof EntitySilkSpider))
         {
-            entityIn.motionX *= 0.4D;
-            entityIn.motionZ *= 0.4D;
+            if(entityIn instanceof EntityPlayer)
+            {
+                EntityPlayer player = (EntityPlayer)entityIn;
+                if(player.inventory.armorInventory.get(0).getItem() != HatedMobs.SILK_BOOTS)
+                {
+                    entityIn.motionX *= 0.4D;
+                    entityIn.motionZ *= 0.4D;
+                }
+            }
+            else
+            {
+                entityIn.motionX *= 0.4D;
+                entityIn.motionZ *= 0.4D;
+            }
         }
     }
 }

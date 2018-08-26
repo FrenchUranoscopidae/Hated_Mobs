@@ -44,6 +44,7 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         registerBlockModel(HatedMobs.WEB_BLOCK);
         registerBlockModel(HatedMobs.EGG_SACK);
         registerItemModel(HatedMobs.SPIDER_EGG);
+        registerItemModel(HatedMobs.SILK_BOOTS);
         registerBlockModel(HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK);
     }
 

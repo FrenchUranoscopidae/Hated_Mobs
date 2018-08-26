@@ -19,6 +19,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -117,6 +118,15 @@ public class EntityEventHandler
         {
             entityplayer.wakeUpPlayer(false, false, true);
             entityplayer.sendStatusMessage(WAKE_UP_BY_MOSQUITO, true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerTickEvent(TickEvent.PlayerTickEvent event)
+    {
+        if(event.player.inventory.armorInventory.get(0).getItem() == HatedMobs.SILK_BOOTS)
+        {
+            ObfuscationReflectionHelper.setPrivateValue(Entity.class, event.player, false, "isInWeb");
         }
     }
 }
