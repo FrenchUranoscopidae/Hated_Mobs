@@ -8,6 +8,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -23,7 +25,7 @@ public class BlockEggSack extends Block
 
     public BlockEggSack()
     {
-        super(Material.WEB);
+        super(HatedMobs.WEB_MATERIAL);
         this.setCreativeTab(HatedMobs.TAB);
         setRegistryName(new ResourceLocation(HatedMobs.MODID, "egg_sack"));
         setUnlocalizedName("egg_sack");
@@ -85,22 +87,16 @@ public class BlockEggSack extends Block
         return true;
     }
 
-    @Nullable
-    @Override
-    public String getHarvestTool(IBlockState state)
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        return null;
-    }
+        TileEntity tileentity = worldIn.getTileEntity(pos);
 
-    @Override
-    public boolean isToolEffective(String type, IBlockState state)
-    {
-        return true;
-    }
+        if (tileentity instanceof IInventory)
+        {
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory)tileentity);
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
 
-    @Override
-    public int getHarvestLevel(IBlockState state)
-    {
-        return 0;
+        super.breakBlock(worldIn, pos, state);
     }
 }

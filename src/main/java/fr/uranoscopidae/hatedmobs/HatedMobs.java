@@ -9,6 +9,8 @@ import fr.uranoscopidae.hatedmobs.common.items.ItemSilkBoots;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSpiderEgg;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.SoundEvents;
@@ -47,6 +49,7 @@ public class HatedMobs
     };
 
     public static final ItemArmor.ArmorMaterial silkBootsMaterial = EnumHelper.addArmorMaterial("silk_boots", MODID + ":silk_boots", 5, new int[]{0, 0, 0, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+    public static final Material WEB_MATERIAL = new Material(MapColor.SNOW);
     public static final Block NET = new BlockNet();
     public static final Item SWATTER = new ItemSwatter();
     public static final Block WEB_BLOCK = new BlockWeb();

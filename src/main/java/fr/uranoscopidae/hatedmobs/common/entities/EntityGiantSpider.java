@@ -27,9 +27,9 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
     {
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
-        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.5D));
+        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.4D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.tasks.addTask(5, new EntityAIAttackMelee(this, 0.5, false));
+        //this.tasks.addTask(5, new EntityAIAttackMelee(this, 0.4, false));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
         this.tasks.addTask(5, new EntityAIAttackRanged(this, 0.5, 40, 10f));
     }
@@ -65,9 +65,10 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
         double accY = (target.posY + getEyeHeight()) - (posY + getEyeHeight());
         double accZ = target.posZ - posZ;
 
-        EntityWitherSkull skull = new EntityWitherSkull(world, this, accX, accY, accZ);
-        skull.setPosition(posX, posY + getEyeHeight(), posZ);
-        world.spawnEntity(skull);
+        EntityPoisonBall ball = new EntityPoisonBall(world, this);
+        ball.setPosition(posX, posY + getEyeHeight(), posZ);
+        ball.shoot(accX, accY, accZ, 1.2f, 10f);
+        world.spawnEntity(ball);
     }
 
     @Override

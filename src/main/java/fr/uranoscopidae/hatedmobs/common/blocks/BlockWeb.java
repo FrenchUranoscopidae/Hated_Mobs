@@ -23,7 +23,7 @@ public class BlockWeb extends Block
 
     public BlockWeb()
     {
-        super(Material.WEB);
+        super(HatedMobs.WEB_MATERIAL);
         this.setCreativeTab(HatedMobs.TAB);
         setRegistryName(new ResourceLocation(HatedMobs.MODID, "web_block"));
         setUnlocalizedName("web_block");
@@ -55,24 +55,5 @@ public class BlockWeb extends Block
                 entityIn.motionZ *= 0.4D;
             }
         }
-    }
-
-    @Nullable
-    @Override
-    public String getHarvestTool(IBlockState state)
-    {
-        return null;
-    }
-
-    @Override
-    public int getHarvestLevel(IBlockState state)
-    {
-        return 0;
-    }
-
-    @Override
-    public boolean isToolEffective(String type, IBlockState state)
-    {
-        return true;
     }
 }

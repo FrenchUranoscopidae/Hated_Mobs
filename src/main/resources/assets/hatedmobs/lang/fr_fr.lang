@@ -1,10 +1,10 @@
 entity.mosquito.name=Moustique
 item.swatter.name=Tapette
 tile.net.name=Moustiquaire
-entity.slik_spider.name=Araignée à soie
+entity.silk_spider.name=Araignée à soie
 hatedmobs.wake_up_by_mosquito=Vous avez été piqué par un moustique !
 tile.web_block.name=Bloc de Toile
-tile.egg_sack=Sac d'Oeufs
+tile.egg_sack.name=Sac d'Oeufs
 item.spider_egg.name=Oeuf d'Araignée
 tile.spider_infested_leaves.name=Feuillage Infesté
 hatedmobs.cant_spawn_silk_spider=Le nombre maximum d'araignées a été atteint pour ce bloc.
@@ -12,3 +12,4 @@ hatedmobs.spider_egg_description=Clic droit sur un feuillage infesté pour faire
 hatedmobs.infested_leaves_description=Peut être utilisé pour abritter des araignées à soie.
 item.silk_boots.name=Bottes de soie
 attribute.name.hatedmobs.silk_walk=Vitesse de mouvements dans les toiles et sur les Blocs de Toile
+entity.giant_spider.name=Araignée Géante
