@@ -56,4 +56,23 @@ public class BlockWeb extends Block
             }
         }
     }
+
+    @Nullable
+    @Override
+    public String getHarvestTool(IBlockState state)
+    {
+        return null;
+    }
+
+    @Override
+    public int getHarvestLevel(IBlockState state)
+    {
+        return 0;
+    }
+
+    @Override
+    public boolean isToolEffective(String type, IBlockState state)
+    {
+        return true;
+    }
 }

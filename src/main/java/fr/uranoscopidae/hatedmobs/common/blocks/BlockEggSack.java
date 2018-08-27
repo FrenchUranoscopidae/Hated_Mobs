@@ -84,4 +84,23 @@ public class BlockEggSack extends Block
         playerIn.openGui(HatedMobs.instance, GuiHandler.EGG_SACK_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
+
+    @Nullable
+    @Override
+    public String getHarvestTool(IBlockState state)
+    {
+        return null;
+    }
+
+    @Override
+    public boolean isToolEffective(String type, IBlockState state)
+    {
+        return true;
+    }
+
+    @Override
+    public int getHarvestLevel(IBlockState state)
+    {
+        return 0;
+    }
 }

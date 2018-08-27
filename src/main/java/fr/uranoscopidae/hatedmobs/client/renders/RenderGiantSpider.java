@@ -60,8 +60,8 @@ public class RenderGiantSpider extends RenderLiving<EntityGiantSpider>
         public void setRotationAngles(TabulaModel model, Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale)
         {
             EntityGiantSpider spider = (EntityGiantSpider)entity;
-            //limbSwing = ageInTicks;
-            //limbSwingAmount = 0.4f;
+            limbSwing = limbSwing/2;
+            limbSwingAmount = limbSwingAmount/2;
             for (int i = 1; i <= 8; i++)
             {
                 AdvancedModelRenderer legOrigin = model.getCube("leg_origin" +i);
@@ -73,7 +73,7 @@ public class RenderGiantSpider extends RenderLiving<EntityGiantSpider>
             AdvancedModelRenderer abdomen1 = model.getCube("abdomen1");
             AdvancedModelRenderer abdomen2 = model.getCube("abdomen2");
             AdvancedModelRenderer abdomen3 = model.getCube("abdomen3");
-            model.chainWave(new AdvancedModelRenderer[]{abdomen1, abdomen2, abdomen3}, 0.05f + limbSwingAmount*.20f, (float) (Math.PI/18), 1f, ageInTicks, 0.4f);
+            model.chainWave(new AdvancedModelRenderer[]{abdomen1, abdomen2, abdomen3}, 0.15f, (float) (Math.PI/18), 1f, ageInTicks, 0.4f);
 
             AdvancedModelRenderer leftMandibula = model.getCube("mandible_left");
             AdvancedModelRenderer rightMandibula = model.getCube("mandible_right");
