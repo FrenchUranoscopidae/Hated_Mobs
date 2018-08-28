@@ -100,7 +100,7 @@ public class TileEntityEggSack extends TileEntity implements IInventory, ITickab
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack)
     {
-        return stack.getItem() == Items.SPAWN_EGG;
+        return stack.getItem() == Items.SPAWN_EGG || stack.getItem() == HatedMobs.SPIDER_EGG;
     }
 
     @Override

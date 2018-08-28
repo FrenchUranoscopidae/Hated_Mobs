@@ -7,8 +7,10 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -103,11 +105,28 @@ public class BlockNet extends Block
         return i == 1 ? axisalignedbb : FULL_BLOCK_AABB;
     }
 
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
+        // pass the event to the block behind
+        BlockPos behind = pos.offset(facing.getOpposite());
+        IBlockState stateBehind = worldIn.getBlockState(behind);
+        return stateBehind.getBlock().onBlockActivated(worldIn, behind, stateBehind, playerIn, hand, facing, hitX, hitY, hitZ);
+    }
+
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
     {
+        BlockPos north = pos.north();
+        BlockPos west = pos.west();
+        BlockPos east = pos.east();
+        BlockPos south = pos.south();
         BlockPos up = pos.up();
         BlockPos down = pos.down();
         return state
+                .withProperty(NORTH, canPlaceOn(worldIn.getBlockState(north).getBlock()))
+                .withProperty(EAST, canPlaceOn(worldIn.getBlockState(east).getBlock()))
+                .withProperty(WEST, canPlaceOn(worldIn.getBlockState(west).getBlock()))
+                .withProperty(SOUTH, canPlaceOn(worldIn.getBlockState(south).getBlock()))
                 .withProperty(UP, canPlaceOn(worldIn.getBlockState(up).getBlock()))
                 .withProperty(DOWN, canPlaceOn(worldIn.getBlockState(down).getBlock()));
     }
@@ -172,11 +191,7 @@ public class BlockNet extends Block
      */
     public IBlockState getStateFromMeta(int meta)
     {
-        return this.getDefaultState()
-                .withProperty(SOUTH, (meta & 1) > 0)
-                .withProperty(WEST, (meta & 2) > 0)
-                .withProperty(NORTH, (meta & 4) > 0)
-                .withProperty(EAST, (meta & 8) > 0);
+        return this.getDefaultState();
     }
 
     @SideOnly(Side.CLIENT)
@@ -190,61 +205,12 @@ public class BlockNet extends Block
      */
     public int getMetaFromState(IBlockState state)
     {
-        int i = 0;
-
-        if (state.getValue(SOUTH))
-        {
-            i |= 1;
-        }
-
-        if (state.getValue(WEST))
-        {
-            i |= 2;
-        }
-
-        if (state.getValue(NORTH))
-        {
-            i |= 4;
-        }
-
-        if (state.getValue(EAST))
-        {
-            i |= 8;
-        }
-
-        return i;
+        return 0;
     }
 
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
-        IBlockState iblockstate = this.getDefaultState()
-                .withProperty(UP, false)
-                .withProperty(NORTH, false)
-                .withProperty(EAST, false)
-                .withProperty(SOUTH, false)
-                .withProperty(WEST, false)
-                .withProperty(DOWN, false);
-        return facing.getAxis().isHorizontal() ? iblockstate.withProperty(getPropertyFor(facing.getOpposite()), true) : iblockstate;
+        return getDefaultState();
     }
 
-    public static PropertyBool getPropertyFor(EnumFacing side)
-    {
-        switch (side)
-        {
-            case UP:
-                return UP;
-            case NORTH:
-                return NORTH;
-            case SOUTH:
-                return SOUTH;
-            case WEST:
-                return WEST;
-            case EAST:
-                return EAST;
-            case DOWN:
-                return DOWN;
-            default:
-                throw new IllegalArgumentException(side + " is an invalid choice");
-        }
-    }
 }

@@ -44,7 +44,6 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
     @SubscribeEvent
     public void registerModels(ModelRegistryEvent event)
     {
-        System.out.println("hello");
         registerBlockModel(HatedMobs.NET);
         registerItemModel(HatedMobs.SWATTER);
         registerBlockModel(HatedMobs.WEB_BLOCK);
