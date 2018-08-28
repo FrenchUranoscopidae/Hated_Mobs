@@ -131,7 +131,7 @@ public class EntityEventHandler
     {
         if(event.player.inventory.armorInventory.get(0).getItem() == HatedMobs.SILK_BOOTS)
         {
-            ObfuscationReflectionHelper.setPrivateValue(Entity.class, event.player, false, "isInWeb");
+            ObfuscationReflectionHelper.setPrivateValue(Entity.class, event.player, false, "isInWeb", "field_70134_J");
         }
     }
 

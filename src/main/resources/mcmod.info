@@ -11,6 +11,7 @@
   "credits": "jglrxavpok, BlitZEcho",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": [],
+  "updateJSON":"https://raw.githubusercontent.com/FrenchUranoscopidae/Hated_Mobs/master/updateCheck.json"
 }
 ]
