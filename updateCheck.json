@@ -2,11 +2,12 @@
   "homepage":"",
   "1.12.2":
   {
+    "1.0.1":"game breaking bug fix",
     "1.0.0":"Initial release"
   },
   "promos":
   {
-    "1.12.2-recommended":"1.0.0",
-    "1.12.2-latest":"1.0.0"
+    "1.12.2-recommended":"1.0.1",
+    "1.12.2-latest":"1.0.1"
   }
 }

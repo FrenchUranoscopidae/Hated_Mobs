@@ -2,6 +2,7 @@ package fr.uranoscopidae.hatedmobs.common.entities;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
@@ -30,6 +31,11 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
         this.tasks.addTask(5, new EntityAIAttackMelee(this, 0.4, false));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
         this.tasks.addTask(5, new EntityAIAttackRanged(this, 0.5, 40, 10f));
+    }
+
+    public EnumCreatureAttribute getCreatureAttribute()
+    {
+        return EnumCreatureAttribute.ARTHROPOD;
     }
 
     protected SoundEvent getAmbientSound()

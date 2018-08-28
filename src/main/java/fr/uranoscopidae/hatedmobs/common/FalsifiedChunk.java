@@ -1,11 +1,8 @@
 package fr.uranoscopidae.hatedmobs.common;
 
 import com.google.common.base.Predicate;
-import fr.uranoscopidae.hatedmobs.common.blocks.BlockNet;
-import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ClassInheritanceMultiMap;
@@ -32,13 +29,13 @@ import java.util.Random;
 public class FalsifiedChunk extends Chunk
 {
     private final Chunk delegate;
-    private final FalsifiedWorld falseWorld;
+    private final IBlockMapper mapper;
 
-    public FalsifiedChunk(FalsifiedWorld falseWorld, Chunk delegate)
+    public FalsifiedChunk(World world, IBlockMapper mapper, Chunk delegate)
     {
-        super(falseWorld, delegate.x, delegate.z);
+        super(world, delegate.x, delegate.z);
         this.delegate = delegate;
-        this.falseWorld = falseWorld;
+        this.mapper = mapper;
     }
 
     @Override
@@ -51,7 +48,7 @@ public class FalsifiedChunk extends Chunk
     public IBlockState getBlockState(int x, int y, int z)
     {
         IBlockState blockState = delegate.getBlockState(x, y, z);
-        return falseWorld.map(blockState, x, y, z);
+        return mapper.map(blockState, x, y, z);
     }
 
     @Override
@@ -312,12 +309,6 @@ public class FalsifiedChunk extends Chunk
     public void markLoaded(boolean loaded)
     {
         delegate.markLoaded(loaded);
-    }
-
-    @Override
-    public World getWorld()
-    {
-        return falseWorld;
     }
 
     @Override

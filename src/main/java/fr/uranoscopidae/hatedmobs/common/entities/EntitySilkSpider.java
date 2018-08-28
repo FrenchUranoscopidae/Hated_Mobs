@@ -1,13 +1,13 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import fr.uranoscopidae.hatedmobs.common.FalsifiedWorld;
-import fr.uranoscopidae.hatedmobs.common.SilkSpiderWorldWrapper;
+import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockSpiderInfestedLeaves;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -24,12 +24,9 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import javax.annotation.Nullable;
@@ -42,7 +39,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
 
     public EntitySilkSpider(World worldIn)
     {
-        super(new SilkSpiderWorldWrapper(worldIn));
+        super(IBlockMapper.wrap(worldIn, new SilkSpiderWorldWrapper()));
         this.setSize(1.4F/4, 0.9F/4);
     }
 
@@ -117,6 +114,10 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
         }
     }
 
+    @Override
+    public EnumCreatureAttribute getCreatureAttribute() {
+        return EnumCreatureAttribute.ARTHROPOD;
+    }
 
     @Override
     protected void initEntityAI()
@@ -173,7 +174,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
         super.onLivingUpdate();
         if(rand.nextInt(20*60*2) == 0)
         {
-            IBlockState blockState = ((FalsifiedWorld)world).getRealBlockState(this.getPosition());
+            IBlockState blockState = ((IFalsifiedWorld)world).getRealBlockState(this.getPosition());
             if(blockState.getBlock().isAir(blockState, world, getPosition()))
             {
                 world.setBlockState(getPosition(), Blocks.WEB.getDefaultState());
@@ -182,7 +183,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
 
         if(world.isBlockLoaded(homePos))
         {
-            if(((FalsifiedWorld)world).getRealBlockState(homePos).getBlock() != HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK)
+            if(((IFalsifiedWorld)world).getRealBlockState(homePos).getBlock() != HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK)
             {
                 attackEntityFrom(DamageSource.MAGIC, 10000);
             }

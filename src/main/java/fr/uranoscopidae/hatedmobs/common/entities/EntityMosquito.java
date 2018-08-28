@@ -1,5 +1,6 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
+import fr.uranoscopidae.hatedmobs.common.IBlockMapper;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
 import fr.uranoscopidae.hatedmobs.common.MosquitoWorldWrapper;
 import net.minecraft.block.state.IBlockState;
@@ -19,7 +20,7 @@ public class EntityMosquito extends EntityMob
 {
     public EntityMosquito(World world)
     {
-        super(new MosquitoWorldWrapper(world));
+        super(IBlockMapper.wrap(world, new MosquitoWorldWrapper()));
         setSize(2f/16f, 2f/16f);
         this.experienceValue = 1;
         this.moveHelper = new EntityFlyHelper(this);
