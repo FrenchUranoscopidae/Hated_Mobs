@@ -1,0 +1,24 @@
+{
+  "type":"minecraft:crafting_shaped",
+  "pattern":
+  [
+    " # ",
+    "#B#",
+    " # "
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item":"hatedmobs:net"
+    },
+    "B":
+    {
+      "item":"minecraft:glass"
+    }
+  },
+  "result":
+  {
+    "item":"hatedmobs:anti_mosquito_glass"
+  }
+}

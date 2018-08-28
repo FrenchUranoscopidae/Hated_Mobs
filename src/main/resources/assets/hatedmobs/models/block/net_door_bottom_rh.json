@@ -1,0 +1,7 @@
+{
+  "parent": "block/door_bottom_rh",
+  "textures": {
+    "bottom": "hatedmobs:blocks/net_door_lower",
+    "top": "hatedmobs:blocks/net_door_upper"
+  }
+}

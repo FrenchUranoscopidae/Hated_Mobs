@@ -11,6 +11,8 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemDoor;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.RegistryEvent;
@@ -25,7 +27,7 @@ public class RegistryHandler
     @SubscribeEvent
     public void registerBlocks(RegistryEvent.Register<Block> event)
     {
-        event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK, HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK);
+        event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK, HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
     }
 
@@ -40,7 +42,9 @@ public class RegistryHandler
         eggSackItem.setRegistryName(HatedMobs.EGG_SACK.getRegistryName());
         ItemBlock spiderInfestedLeavesItem = new ItemBlock(HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK);
         spiderInfestedLeavesItem.setRegistryName(HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK.getRegistryName());
-        event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG, spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS);
+        ItemBlock antiMosquitoGlassItem = new ItemBlock(HatedMobs.ANTI_MOSQUITO_GLASS);
+        antiMosquitoGlassItem.setRegistryName(HatedMobs.ANTI_MOSQUITO_GLASS.getRegistryName());
+        event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG, spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM);
     }
 
     @SubscribeEvent
@@ -91,5 +95,11 @@ public class RegistryHandler
         EntityRegistry.removeSpawn(EntityMosquito.class, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
         EntityRegistry.addSpawn(EntityMosquito.class, 10, 4, 6, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT);
         EntityRegistry.addSpawn(EntityMosquito.class, 100, 4, 6, EnumCreatureType.MONSTER, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
+    }
+
+    @SubscribeEvent
+    public void registerPotion(RegistryEvent.Register<Potion> event)
+    {
+        event.getRegistry().register(HatedMobs.INSOMNIA);
     }
 }

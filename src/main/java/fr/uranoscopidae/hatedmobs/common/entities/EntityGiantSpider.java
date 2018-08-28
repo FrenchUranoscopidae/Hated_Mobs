@@ -3,12 +3,10 @@ package fr.uranoscopidae.hatedmobs.common.entities;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
-import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityWitherSkull;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
@@ -29,7 +27,7 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.4D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        //this.tasks.addTask(5, new EntityAIAttackMelee(this, 0.4, false));
+        this.tasks.addTask(5, new EntityAIAttackMelee(this, 0.4, false));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
         this.tasks.addTask(5, new EntityAIAttackRanged(this, 0.5, 40, 10f));
     }
@@ -87,5 +85,11 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
     protected float getSoundPitch()
     {
         return 0.5f;
+    }
+
+    public void applyEntityAttributes()
+    {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
     }
 }

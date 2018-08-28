@@ -1,0 +1,21 @@
+{
+  "type":"minecraft:crafting_shaped",
+  "pattern":
+  [
+    "##",
+    "##",
+    "##"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item":"hatedmobs:net"
+    }
+  },
+  "result":
+  {
+    "item":"hatedmobs:net_door",
+    "count":3
+  }
+}

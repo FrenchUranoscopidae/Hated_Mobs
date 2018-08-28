@@ -3,6 +3,7 @@ package fr.uranoscopidae.hatedmobs.common;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSetMultimap;
+import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockNet;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -82,9 +83,13 @@ public class MosquitoWorldWrapper extends FalsifiedWorld
             return Blocks.AIR.getDefaultState();
         }
 
-        if(blockState.getBlock() instanceof BlockDoor)
+
+        if(blockState.getBlock() != HatedMobs.NET_DOOR)
         {
-            return Blocks.AIR.getDefaultState();
+            if(blockState.getBlock() instanceof BlockDoor)
+            {
+                return Blocks.AIR.getDefaultState();
+            }
         }
 
         if(blockState.getBlock() instanceof BlockTrapDoor)

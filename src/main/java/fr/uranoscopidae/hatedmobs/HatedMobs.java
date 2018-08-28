@@ -1,10 +1,7 @@
 package fr.uranoscopidae.hatedmobs;
 
 import fr.uranoscopidae.hatedmobs.common.*;
-import fr.uranoscopidae.hatedmobs.common.blocks.BlockEggSack;
-import fr.uranoscopidae.hatedmobs.common.blocks.BlockNet;
-import fr.uranoscopidae.hatedmobs.common.blocks.BlockSpiderInfestedLeaves;
-import fr.uranoscopidae.hatedmobs.common.blocks.BlockWeb;
+import fr.uranoscopidae.hatedmobs.common.blocks.*;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSilkBoots;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSpiderEgg;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
@@ -16,7 +13,9 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
@@ -57,6 +56,10 @@ public class HatedMobs
     public static final Item SPIDER_EGG = new ItemSpiderEgg();
     public static final Block SPIDER_INFESTED_LEAVES_BLOCK = new BlockSpiderInfestedLeaves();
     public static final ItemArmor SILK_BOOTS = new ItemSilkBoots();
+    public static final Potion INSOMNIA = new PotionInsomnia();
+    public static final Block ANTI_MOSQUITO_GLASS = new BlockAntiMosquitoGlass();
+    public static final Block NET_DOOR = new BlockNetDoor();
+    public static final Item NET_DOOR_ITEM = new ItemDoor(HatedMobs.NET_DOOR).setRegistryName(NET_DOOR.getRegistryName()).setUnlocalizedName("net_door").setCreativeTab(HatedMobs.TAB);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)

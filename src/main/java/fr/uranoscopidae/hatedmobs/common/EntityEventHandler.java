@@ -12,12 +12,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -30,6 +32,8 @@ import java.util.stream.Collectors;
 public class EntityEventHandler
 {
     public static final TextComponentTranslation WAKE_UP_BY_MOSQUITO = new TextComponentTranslation(HatedMobs.MODID + ".wake_up_by_mosquito");
+    public static final TextComponentTranslation CANT_SLEEP_INSOMNIA = new TextComponentTranslation(HatedMobs.MODID + ".cant_sleep_insomnia");
+
     @SubscribeEvent
     public static void eventDrop(LivingDropsEvent event)
     {
@@ -106,18 +110,19 @@ public class EntityEventHandler
         {
             long timeBeforeMorning = 24000L - world.getWorldTime();
             long timeStep = timeBeforeMorning/(count + 1);
-            wakeAllPlayers(players);
+            wakeAllPlayers(players, timeBeforeMorning - timeStep);
             long newTime = world.getWorldTime() + timeStep;
             world.setWorldTime(newTime);
         }
     }
 
-    private static void wakeAllPlayers(List<EntityPlayer> playerList)
+    private static void wakeAllPlayers(List<EntityPlayer> playerList, long timeBeforeMorning)
     {
         for (EntityPlayer entityplayer : playerList.stream().filter(EntityPlayer::isPlayerSleeping).collect(Collectors.toList()))
         {
             entityplayer.wakeUpPlayer(false, false, true);
             entityplayer.sendStatusMessage(WAKE_UP_BY_MOSQUITO, true);
+            entityplayer.addPotionEffect(new PotionEffect(HatedMobs.INSOMNIA, (int)timeBeforeMorning));
         }
     }
 
@@ -127,6 +132,16 @@ public class EntityEventHandler
         if(event.player.inventory.armorInventory.get(0).getItem() == HatedMobs.SILK_BOOTS)
         {
             ObfuscationReflectionHelper.setPrivateValue(Entity.class, event.player, false, "isInWeb");
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerSleepingBedEvent(PlayerSleepInBedEvent event)
+    {
+        if(event.getEntityPlayer().isPotionActive(HatedMobs.INSOMNIA))
+        {
+            event.setResult(EntityPlayer.SleepResult.OTHER_PROBLEM);
+            event.getEntityPlayer().sendStatusMessage(CANT_SLEEP_INSOMNIA, true);
         }
     }
 }
