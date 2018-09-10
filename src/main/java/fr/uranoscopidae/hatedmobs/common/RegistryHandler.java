@@ -1,10 +1,7 @@
 package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityPoisonBall;
-import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
+import fr.uranoscopidae.hatedmobs.common.entities.*;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
@@ -87,6 +84,16 @@ public class RegistryHandler
                 .factory(EntityPoisonBall::new)
                 .build();
         event.getRegistry().register(poisonBallEntry);
+
+        EntityEntry waspEntry = EntityEntryBuilder.create()
+                .entity(EntityWasp.class)
+                .id(new ResourceLocation(HatedMobs.MODID, "wasp"), 4)
+                .name("wasp")
+                .tracker(64, 3, true)
+                .egg(0xffe666, 0x4d4d4d)
+                .factory(EntityWasp::new)
+                .build();
+        event.getRegistry().register(waspEntry);
 
         for(Biome biome : Biome.REGISTRY) {
             EntityRegistry.addSpawn(EntityMosquito.class, 75, 4, 6, EnumCreatureType.MONSTER, biome);

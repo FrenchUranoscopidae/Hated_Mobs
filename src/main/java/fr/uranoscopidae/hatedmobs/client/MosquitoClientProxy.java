@@ -2,14 +2,8 @@ package fr.uranoscopidae.hatedmobs.client;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.MosquitoCommonProxy;
-import fr.uranoscopidae.hatedmobs.client.renders.RenderGiantSpider;
-import fr.uranoscopidae.hatedmobs.client.renders.RenderMosquito;
-import fr.uranoscopidae.hatedmobs.client.renders.RenderPoisonBall;
-import fr.uranoscopidae.hatedmobs.client.renders.RenderSilkSpider;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityPoisonBall;
-import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
+import fr.uranoscopidae.hatedmobs.client.renders.*;
+import fr.uranoscopidae.hatedmobs.common.entities.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -33,6 +27,7 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         RenderingRegistry.registerEntityRenderingHandler(EntitySilkSpider.class, RenderSilkSpider::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityGiantSpider.class, RenderGiantSpider::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPoisonBall.class, RenderPoisonBall::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityWasp.class, RenderWasp::new);
     }
 
     @Override
