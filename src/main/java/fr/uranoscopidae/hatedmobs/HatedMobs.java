@@ -60,6 +60,7 @@ public class HatedMobs
     public static final Block ANTI_MOSQUITO_GLASS = new BlockAntiMosquitoGlass();
     public static final Block NET_DOOR = new BlockNetDoor();
     public static final Item NET_DOOR_ITEM = new ItemDoor(HatedMobs.NET_DOOR).setRegistryName(NET_DOOR.getRegistryName()).setUnlocalizedName("net_door").setCreativeTab(HatedMobs.TAB);
+    public static final Block WASP_NEST = new BlockWaspNest();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)

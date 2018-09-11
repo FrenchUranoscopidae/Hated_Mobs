@@ -24,7 +24,7 @@ public class RegistryHandler
     @SubscribeEvent
     public void registerBlocks(RegistryEvent.Register<Block> event)
     {
-        event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK, HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR);
+        event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK, HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR, HatedMobs.WASP_NEST);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
     }
 
@@ -41,7 +41,11 @@ public class RegistryHandler
         spiderInfestedLeavesItem.setRegistryName(HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK.getRegistryName());
         ItemBlock antiMosquitoGlassItem = new ItemBlock(HatedMobs.ANTI_MOSQUITO_GLASS);
         antiMosquitoGlassItem.setRegistryName(HatedMobs.ANTI_MOSQUITO_GLASS.getRegistryName());
-        event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG, spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM);
+        ItemBlock waspNestItem = new ItemBlock(HatedMobs.WASP_NEST);
+        waspNestItem.setRegistryName(HatedMobs.WASP_NEST.getRegistryName());
+        event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
+                spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
+                waspNestItem);
     }
 
     @SubscribeEvent

@@ -47,8 +47,8 @@ public class RenderWasp extends RenderLiving<EntityWasp>
     protected void preRenderCallback (EntityWasp entitylivingbaseIn,float partialTickTime)
     {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
-        GlStateManager.translate(0, 0.65, 1);
-        double scale = 1.75;
+        GlStateManager.translate(0, 0.05, 0);
+        double scale = 0.45;
         GlStateManager.scale(scale, scale, scale);
     }
 

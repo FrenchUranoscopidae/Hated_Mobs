@@ -19,6 +19,7 @@ public class EntityWasp extends EntityMob
     public EntityWasp(World worldIn)
     {
         super(worldIn);
+        setSize(0.5f, 0.5f);
     }
 
     @Override
