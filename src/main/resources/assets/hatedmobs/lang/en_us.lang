@@ -18,3 +18,5 @@ effect.insomnia=Insomnia
 tile.anti_mosquito_glass.name=Anti-mosquito Glass
 itemGroup.hatedmobs=Hated Mobs
 item.net_door.name=Net Door
+tile.wasp_nest.name=Wasp Hive
+entity.wasp.name=Wasp

@@ -18,3 +18,5 @@ effect.insomnia=Insomnie
 tile.anti_mosquito_glass.name=Bloc de verre anti-moustique
 itemGroup.hatedmobs=Hated Mobs
 item.net_door.name=Porte de moustiquaire
+entity.wasp.name=Guêpe
+tile.wasp_nest.name=Nid de Guêpe
