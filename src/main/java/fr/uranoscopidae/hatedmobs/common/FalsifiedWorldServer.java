@@ -470,13 +470,13 @@ public class FalsifiedWorldServer extends WorldServer implements IFalsifiedWorld
     @Override
     public void addEventListener(IWorldEventListener listener)
     {
-        delegate.addEventListener(listener);
+
     }
 
     @Override
     public void removeEventListener(IWorldEventListener listener)
     {
-        delegate.removeEventListener(listener);
+
     }
 
     @Override

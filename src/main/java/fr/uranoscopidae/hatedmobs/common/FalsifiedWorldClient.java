@@ -475,13 +475,13 @@ public class FalsifiedWorldClient extends WorldClient implements IFalsifiedWorld
     @Override
     public void addEventListener(IWorldEventListener listener)
     {
-        delegate.addEventListener(listener);
+
     }
 
     @Override
     public void removeEventListener(IWorldEventListener listener)
     {
-        delegate.removeEventListener(listener);
+
     }
 
     @Override
@@ -642,7 +642,7 @@ public class FalsifiedWorldClient extends WorldClient implements IFalsifiedWorld
     @Override
     public void addTileEntities(Collection<TileEntity> tileEntityCollection)
     {
-        delegate.addTileEntities(tileEntityCollection);
+
     }
 
     @Override
