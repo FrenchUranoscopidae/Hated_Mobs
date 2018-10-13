@@ -35,9 +35,12 @@ public class RenderWasp extends RenderLiving<EntityWasp>
 
     public static TabulaModel loadModel ()
     {
-        try {
+        try
+        {
             return new TabulaModel(TabulaModelHandler.INSTANCE.loadTabulaModel("assets/hatedmobs/models/entity/wasp"), new Animator());
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
         return null;

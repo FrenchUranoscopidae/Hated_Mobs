@@ -3,6 +3,7 @@ package fr.uranoscopidae.hatedmobs.common;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.*;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
@@ -26,6 +27,7 @@ public class RegistryHandler
     {
         event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK, HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR, HatedMobs.WASP_NEST);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
+        GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
     }
 
     @SubscribeEvent

@@ -6,6 +6,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWaterFlying;
+import net.minecraft.entity.ai.EntityFlyHelper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ public class EntityWasp extends EntityMob
     {
         super(worldIn);
         setSize(0.5f, 0.5f);
+        this.moveHelper = new EntityFlyHelper(this);
     }
 
     @Override
