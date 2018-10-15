@@ -72,6 +72,7 @@ public class HatedMobs
         GameRegistry.registerWorldGenerator(new WorldGeneratorSpiderNest(), 0);
         GameRegistry.registerWorldGenerator(new WorldGeneratorEggSack(), 0);
         GameRegistry.registerWorldGenerator(new WorldGeneratorSpiderLeaves(), 0);
+        GameRegistry.registerWorldGenerator(new WorldGeneratorWaspNest(), 0);
     }
 
     @Mod.EventHandler
