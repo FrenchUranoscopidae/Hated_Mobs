@@ -24,7 +24,7 @@ public class TileEntityWaspNest extends TileEntity implements ITickable
             return;
         }
 
-        cooldown = 20*10;
+        cooldown = 20*60;
 
         double xoffset = (Math.random() * 2 - 1) * DISTANCE;
         double zoffset = (Math.random() * 2 - 1) * DISTANCE;
