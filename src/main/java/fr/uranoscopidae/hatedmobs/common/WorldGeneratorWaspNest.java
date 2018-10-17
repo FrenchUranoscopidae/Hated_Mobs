@@ -24,7 +24,7 @@ public class WorldGeneratorWaspNest implements IWorldGenerator
     {
         WorldServer worldserver = (WorldServer)world;
 
-        if(random.nextInt(32) != 0)
+        if(random.nextInt(100) != 0)
         {
             return;
         }
