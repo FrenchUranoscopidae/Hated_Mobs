@@ -41,6 +41,7 @@ public class TileEntityWaspNest extends TileEntity implements ITickable
         EntityWasp wasp = new EntityWasp(world);
         wasp.setPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
         world.spawnEntity(wasp);
+        wasp.spawnExplosionParticle();
         spawnPos.release();
     }
 }

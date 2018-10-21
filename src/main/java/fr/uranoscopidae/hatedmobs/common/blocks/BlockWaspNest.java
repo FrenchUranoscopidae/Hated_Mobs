@@ -48,15 +48,17 @@ public class BlockWaspNest extends Block
     }
 
     @Override
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune)
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!worldIn.isRemote && worldIn.getGameRules().getBoolean("doTileDrops"))
+        if (!worldIn.isRemote/* && worldIn.getGameRules().getBoolean("doTileDrops")*/)
         {
-            System.out.println("Je fais chier le monde");
-            EntityWasp wasp = new EntityWasp(worldIn);
-            wasp.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
-            worldIn.spawnEntity(wasp);
-            wasp.spawnExplosionParticle();
+            for (int i = 0; i < 3; i++)
+            {
+                EntityWasp wasp = new EntityWasp(worldIn);
+                wasp.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
+                worldIn.spawnEntity(wasp);
+                wasp.spawnExplosionParticle();
+            }
         }
     }
 }

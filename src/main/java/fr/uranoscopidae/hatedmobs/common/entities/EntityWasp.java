@@ -65,7 +65,7 @@ public class EntityWasp extends EntityMob
         super.applyEntityAttributes();
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1);
-        this.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.4D);
+        this.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(1D);
     }
 
     @Override

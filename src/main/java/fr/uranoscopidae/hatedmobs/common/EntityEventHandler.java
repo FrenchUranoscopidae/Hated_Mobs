@@ -2,11 +2,15 @@ package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityWasp;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -18,6 +22,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.EntityEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -142,6 +148,16 @@ public class EntityEventHandler
         {
             event.setResult(EntityPlayer.SleepResult.OTHER_PROBLEM);
             event.getEntityPlayer().sendStatusMessage(CANT_SLEEP_INSOMNIA, true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void villagerFleesWasp(EntityJoinWorldEvent event)
+    {
+        if(event.getEntity() instanceof EntityVillager)
+        {
+            EntityVillager villager = (EntityVillager)event.getEntity();
+            villager.tasks.addTask(1, new EntityAIAvoidEntity<>(villager, EntityWasp.class, 8.0F, 0.6D, 0.6D));
         }
     }
 }
