@@ -13,6 +13,11 @@ import net.minecraft.world.*;
 public class MosquitoWorldWrapper implements IBlockMapper
 {
 
+    public static final MosquitoWorldWrapper INSTANCE = new MosquitoWorldWrapper();
+
+    private MosquitoWorldWrapper() {}
+
+
     @Override
     public IBlockState map(IBlockState blockState, int x, int y, int z)
     {

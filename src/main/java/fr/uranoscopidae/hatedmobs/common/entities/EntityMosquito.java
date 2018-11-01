@@ -20,7 +20,7 @@ public class EntityMosquito extends EntityMob
 {
     public EntityMosquito(World world)
     {
-        super(IBlockMapper.wrap(world, new MosquitoWorldWrapper()));
+        super(IBlockMapper.wrap(world, MosquitoWorldWrapper.INSTANCE));
         setSize(2f/16f, 2f/16f);
         this.experienceValue = 1;
         this.moveHelper = new EntityFlyHelper(this);

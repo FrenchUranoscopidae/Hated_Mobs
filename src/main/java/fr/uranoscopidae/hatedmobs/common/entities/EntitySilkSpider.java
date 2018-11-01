@@ -39,7 +39,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
 
     public EntitySilkSpider(World worldIn)
     {
-        super(IBlockMapper.wrap(worldIn, new SilkSpiderWorldWrapper()));
+        super(IBlockMapper.wrap(worldIn, SilkSpiderWorldWrapper.INSTANCE));
         this.setSize(1.4F/4, 0.9F/4);
     }
 
@@ -243,6 +243,12 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
         int y = additionalData.readInt();
         int z = additionalData.readInt();
         homePos.setPos(x, y, z);
+    }
+
+    @Override
+    public float getEyeHeight()
+    {
+        return this.height * 0.25f;
     }
 
     public BlockPos getHomePos()

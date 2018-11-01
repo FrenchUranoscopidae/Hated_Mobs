@@ -10,15 +10,22 @@ import java.util.Map;
 
 public interface IBlockMapper {
 
-    static Map<World, World> falsifiedWorlds = new HashMap<>();
+    static Map<World, Map<IBlockMapper, World>> falsifiedWorlds = new HashMap<>();
 
     IBlockState map(IBlockState blockState, int x, int y, int z);
 
     static World wrap(World world, IBlockMapper mapper) {
         if(!falsifiedWorlds.containsKey(world)) {
-            falsifiedWorlds.put(world, wrapDirect(world, mapper));
+            Map<IBlockMapper, World> map = new HashMap<>();
+            map.put(mapper, wrapDirect(world, mapper));
+            falsifiedWorlds.put(world, map);
+        } else {
+            Map<IBlockMapper, World> map = falsifiedWorlds.get(world);
+            if(!map.containsKey(mapper)) {
+                map.put(mapper, wrapDirect(world, mapper));
+            }
         }
-        return falsifiedWorlds.get(world);
+        return falsifiedWorlds.get(world).get(mapper);
     }
 
     static World wrapDirect(World world, IBlockMapper mapper) {

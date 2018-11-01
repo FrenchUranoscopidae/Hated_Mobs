@@ -8,6 +8,10 @@ import net.minecraft.world.World;
 public class SilkSpiderWorldWrapper implements IBlockMapper
 {
 
+    public static final SilkSpiderWorldWrapper INSTANCE = new SilkSpiderWorldWrapper();
+
+    private SilkSpiderWorldWrapper() {}
+
     @Override
     public IBlockState map(IBlockState blockState, int x, int y, int z)
     {
