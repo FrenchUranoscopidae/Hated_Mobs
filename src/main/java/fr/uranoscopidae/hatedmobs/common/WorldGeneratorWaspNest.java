@@ -3,6 +3,7 @@ package fr.uranoscopidae.hatedmobs.common;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
+import net.minecraft.block.BlockLog;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -22,28 +23,44 @@ public class WorldGeneratorWaspNest implements IWorldGenerator
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
     {
-        WorldServer worldserver = (WorldServer)world;
-
-        if(random.nextInt(100) != 0)
+        for (int i = 0; i < 10; i++)
         {
-            return;
-        }
-        int x = random.nextInt(16);
-        int z = random.nextInt(16);
-        int y = world.getHeight(x + chunkX * 16, z + chunkZ * 16);
+            WorldServer worldserver = (WorldServer)world;
 
-        BlockPos.PooledMutableBlockPos blockPos = BlockPos.PooledMutableBlockPos.retain(x + chunkX * 16, y, z + chunkZ * 16);
+            if(random.nextInt(10) != 0)
+            {
+                continue;
+            }
+            int x = random.nextInt(14) + 1;
+            int z = random.nextInt(14) + 1;
+            int y = random.nextInt(80 - 64) + 64;
+            int count = 0;
 
-        if(!world.isSideSolid(blockPos.down(), EnumFacing.UP))
-        {
+            BlockPos.PooledMutableBlockPos blockPos = BlockPos.PooledMutableBlockPos.retain(x + chunkX * 16, y, z + chunkZ * 16);
+
+            for (EnumFacing facing : EnumFacing.values())
+            {
+                if(world.isSideSolid(blockPos.offset(facing), facing.getOpposite()) && !world.isAirBlock(blockPos.offset(facing)))
+                {
+                    if(world.getBlockState(blockPos.offset(facing)).getBlock() instanceof BlockLog)
+                    {
+                        count++;
+                    }
+                    count++;
+                }
+            }
+
+            if(count < 2 || count > 4)
+            {
+                blockPos.release();
+                continue;
+            }
+
+            world.setBlockState(blockPos, HatedMobs.WASP_NEST.getDefaultState());
+
+            TileEntityWaspNest waspNest = (TileEntityWaspNest) world.getTileEntity(blockPos);
+
             blockPos.release();
-            return;
         }
-
-        world.setBlockState(blockPos, HatedMobs.WASP_NEST.getDefaultState());
-
-        TileEntityWaspNest waspNest = (TileEntityWaspNest) world.getTileEntity(blockPos);
-
-        blockPos.release();
     }
 }

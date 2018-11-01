@@ -50,7 +50,7 @@ public class BlockWaspNest extends Block
     @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!worldIn.isRemote/* && worldIn.getGameRules().getBoolean("doTileDrops")*/)
+        if (!worldIn.isRemote)
         {
             for (int i = 0; i < 6; i++)
             {

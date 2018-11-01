@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.0.1", acceptedMinecraftVersions = "1.12.2", dependencies = "required-after:llibrary@[1.7.9,)", updateJSON = "https://raw.githubusercontent.com/FrenchUranoscopidae/Hated_Mobs/master/updateCheck.json")
+@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.1.0", acceptedMinecraftVersions = "1.12.2", dependencies = "required-after:llibrary@[1.7.9,)", updateJSON = "https://raw.githubusercontent.com/FrenchUranoscopidae/Hated_Mobs/master/updateCheck.json")
 public class HatedMobs
 {
     public static final String MODID = "hatedmobs";

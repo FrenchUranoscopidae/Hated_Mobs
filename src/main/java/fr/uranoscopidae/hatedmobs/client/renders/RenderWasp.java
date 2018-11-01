@@ -62,6 +62,31 @@ public class RenderWasp extends RenderLiving<EntityWasp>
         {
             model.getCube("wing_left").scaleX = 0.001f;
             model.getCube("wing_right").scaleX = 0.001f;
+
+            AdvancedModelRenderer abdomen1 = model.getCube("abdomen1");
+            AdvancedModelRenderer abdomen2 = model.getCube("abdomen2");
+            AdvancedModelRenderer abdomen3 = model.getCube("abdomen3");
+            model.chainWave(new AdvancedModelRenderer[]{abdomen1, abdomen2, abdomen3}, 0.15f, (float) (Math.PI/18), 1f, ageInTicks, 0.4f);
+
+            if(!entity.onGround)
+            {
+                AdvancedModelRenderer wingLeft = model.getCube("wing_left");
+                AdvancedModelRenderer wingRight = model.getCube("wing_right");
+                wingLeft.rotateAngleX = wingLeft.rotateAngleX + (-(float)Math.PI/2 - wingLeft.rotateAngleX) * 0.7f;
+                wingRight.rotateAngleX = wingRight.rotateAngleX + (-(float)Math.PI/2 - wingRight.rotateAngleX) * 0.7f;
+                model.swing(model.getCube("wing_left"), 2f ,(float)Math.PI, false, 0, 1, ageInTicks, limbSwingAmount);
+                model.swing(model.getCube("wing_right"), 2f ,(float)Math.PI, true, 0, 1, ageInTicks, limbSwingAmount);
+            }
+            else
+            {
+                for (int i = 1; i <= 6; i++)
+                {
+                    AdvancedModelRenderer legOrigin = model.getCube("leg_origin" +i);
+                    AdvancedModelRenderer lowerLeg = model.getCube("lower_leg" +i);
+                    AdvancedModelRenderer upperLeg = model.getCube("upper_leg" +i);
+                    model.chainFlap(new AdvancedModelRenderer[]{legOrigin, lowerLeg, upperLeg}, 0.5f, (float) (Math.PI/8), 1f + i * 5, limbSwing, limbSwingAmount);
+                }
+            }
         }
     }
 }
