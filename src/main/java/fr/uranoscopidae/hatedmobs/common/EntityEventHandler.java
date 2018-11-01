@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
@@ -152,12 +153,18 @@ public class EntityEventHandler
     }
 
     @SubscribeEvent
-    public static void villagerFleesWasp(EntityJoinWorldEvent event)
+    public static void entityFleesWasp(EntityJoinWorldEvent event)
     {
         if(event.getEntity() instanceof EntityVillager)
         {
             EntityVillager villager = (EntityVillager)event.getEntity();
             villager.tasks.addTask(1, new EntityAIAvoidEntity<>(villager, EntityWasp.class, 8.0F, 0.6D, 0.6D));
+        }
+
+        if(event.getEntity() instanceof EntityCreeper)
+        {
+            EntityCreeper creeper = (EntityCreeper)event.getEntity();
+            creeper.tasks.addTask(1, new EntityAIAvoidEntity<>(creeper, EntityWasp.class, 8.0f, 1.2D, 1.2D));
         }
     }
 }

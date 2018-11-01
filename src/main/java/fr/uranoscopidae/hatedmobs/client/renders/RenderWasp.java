@@ -23,7 +23,7 @@ public class RenderWasp extends RenderLiving<EntityWasp>
 
     public RenderWasp(RenderManager rendermanagerIn)
     {
-        super(rendermanagerIn, loadModel(), 1);
+        super(rendermanagerIn, loadModel(), 0.5f);
     }
 
     @Nullable
@@ -51,7 +51,7 @@ public class RenderWasp extends RenderLiving<EntityWasp>
     {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
         GlStateManager.translate(0, 0.05, 0);
-        double scale = 0.45;
+        double scale = 0.45/2;
         GlStateManager.scale(scale, scale, scale);
     }
 
@@ -60,7 +60,8 @@ public class RenderWasp extends RenderLiving<EntityWasp>
         @Override
         public void setRotationAngles(TabulaModel model, Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale)
         {
-
+            model.getCube("wing_left").scaleX = 0.001f;
+            model.getCube("wing_right").scaleX = 0.001f;
         }
     }
 }

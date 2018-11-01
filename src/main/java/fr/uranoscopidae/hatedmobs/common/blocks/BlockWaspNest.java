@@ -52,7 +52,7 @@ public class BlockWaspNest extends Block
     {
         if (!worldIn.isRemote/* && worldIn.getGameRules().getBoolean("doTileDrops")*/)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 6; i++)
             {
                 EntityWasp wasp = new EntityWasp(worldIn);
                 wasp.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);

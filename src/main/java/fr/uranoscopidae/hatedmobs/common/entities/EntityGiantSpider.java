@@ -96,6 +96,7 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
     public void applyEntityAttributes()
     {
         super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
     }
 }
