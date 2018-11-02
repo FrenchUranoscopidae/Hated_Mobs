@@ -1,8 +1,8 @@
 [
 {
-  "modid": "mosquitos",
-  "name": "Mosquito Mod",
-  "description": "MOSQUITOOOOS",
+  "modid": "hatedmobs",
+  "name": "Hated Mobs",
+  "description": "Adds creatures most people don't like !",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

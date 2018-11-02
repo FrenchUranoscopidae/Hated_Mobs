@@ -61,7 +61,7 @@ public class BlockSpiderInfestedLeaves extends Block implements IShearable
 
     public boolean isOpaqueCube(IBlockState state)
     {
-        return !Minecraft.getMinecraft().gameSettings.fancyGraphics;
+        return false;
     }
 
     @SideOnly(Side.CLIENT)
