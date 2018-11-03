@@ -101,7 +101,18 @@ public class RegistryHandler
                 .build();
         event.getRegistry().register(waspEntry);
 
-        for(Biome biome : Biome.REGISTRY) {
+        EntityEntry toadEntry = EntityEntryBuilder.create()
+                .entity(EntityToad.class)
+                .id(new ResourceLocation(HatedMobs.MODID, "toad"), 5)
+                .name("hatedmobs.toad")
+                .tracker(64, 3, true)
+                .egg(0xFFDA6E, 0xE8650C)
+                .factory(EntityToad::new)
+                .build();
+        event.getRegistry().register(toadEntry);
+
+        for(Biome biome : Biome.REGISTRY)
+        {
             EntityRegistry.addSpawn(EntityMosquito.class, 75, 4, 6, EnumCreatureType.MONSTER, biome);
             EntityRegistry.addSpawn(EntityGiantSpider.class, 1, 1, 1, EnumCreatureType.MONSTER, biome);
         }
