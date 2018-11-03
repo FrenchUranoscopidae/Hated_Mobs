@@ -5,7 +5,7 @@
   "description": "Adds creatures most people don't like !",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "https://minecraft.curseforge.com/projects/hated-mobs?gameCategorySlug=mc-mods&projectID=301841",
+  "url": "https://minecraft.curseforge.com/projects/hated-mobs",
   "updateUrl": "",
   "authorList": ["French Uranoscopidae"],
   "credits": "jglrxavpok, BlitZEcho",
