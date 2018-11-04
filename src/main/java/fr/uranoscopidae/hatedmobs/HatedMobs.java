@@ -46,7 +46,7 @@ public class HatedMobs
             return new ItemStack(SWATTER);
         }
     };
-
+//truc
     public static final ItemArmor.ArmorMaterial silkBootsMaterial = EnumHelper.addArmorMaterial("silk_boots", MODID + ":silk_boots", 5, new int[]{0, 0, 0, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
     public static final Material WEB_MATERIAL = new Material(MapColor.SNOW);
     public static final Block NET = new BlockNet();
