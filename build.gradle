@@ -36,12 +36,13 @@ minecraft {
 repositories {
     mavenCentral()
     maven {
-        url "https://maven.mcmoddev.com/"
+        name = "ilexiconn"
+        url = "https://maven.mcmoddev.com"
     }
 }
 
 dependencies {
-    compile "net.ilexiconn:llibrary:1.7.9-1.12.2"
+    compile fileTree(dir: 'libs', include: '*.jar') // for some reason LLib does not like being downloaded from Gradle/IDEA
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"

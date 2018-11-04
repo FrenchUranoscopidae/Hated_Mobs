@@ -47,7 +47,7 @@ public class RegistryHandler
         waspNestItem.setRegistryName(HatedMobs.WASP_NEST.getRegistryName());
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
-                waspNestItem);
+                waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG);
     }
 
     @SubscribeEvent

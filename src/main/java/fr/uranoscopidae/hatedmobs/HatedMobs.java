@@ -2,6 +2,7 @@ package fr.uranoscopidae.hatedmobs;
 
 import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.*;
+import fr.uranoscopidae.hatedmobs.common.items.ItemFrogLeg;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSilkBoots;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSpiderEgg;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
@@ -11,11 +12,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemDoor;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
@@ -61,6 +61,8 @@ public class HatedMobs
     public static final Block NET_DOOR = new BlockNetDoor();
     public static final Item NET_DOOR_ITEM = new ItemDoor(HatedMobs.NET_DOOR).setRegistryName(NET_DOOR.getRegistryName()).setUnlocalizedName("net_door").setCreativeTab(HatedMobs.TAB);
     public static final Block WASP_NEST = new BlockWaspNest();
+    public static final Item FROG_LEG = new ItemFrogLeg(1, 1.5f, false);
+    public static final Item COOKED_FROG_LEG = new ItemFrogLeg(3, 1.5f, false);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -79,5 +81,6 @@ public class HatedMobs
     public void init(FMLInitializationEvent event)
     {
         proxy.init();
+        //FurnaceRecipes.instance().addSmelting(FROG_LEG, COOKED_FROG_LEG., 1f);
     }
 }
