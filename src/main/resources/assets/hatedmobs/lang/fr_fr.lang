@@ -21,3 +21,5 @@ item.net_door.name=Porte de moustiquaire
 entity.hatedmobs.wasp.name=Guêpe
 entity.hatedmobs.toad.name=Crapaud
 tile.wasp_nest.name=Nid de Guêpe
+item.frog_leg.name=Cuisses de Grenouille
+item.cooked_frog_leg.name=Cuisses de Grenouille Cuites

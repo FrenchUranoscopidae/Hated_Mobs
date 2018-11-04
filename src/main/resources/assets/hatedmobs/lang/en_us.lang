@@ -21,3 +21,5 @@ item.net_door.name=Net Door
 tile.wasp_nest.name=Wasp Hive
 entity.hatedmobs.wasp.name=Wasp
 entity.hatedmobs.toad.name=Toad
+item.frog_leg.name=Frog Leg
+item.cooked_frog_leg.name=Cooked Frog Leg

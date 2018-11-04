@@ -1,6 +1,7 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
 import com.google.common.base.Optional;
+import fr.uranoscopidae.hatedmobs.HatedMobs;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -13,6 +14,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -101,5 +103,12 @@ public class EntityToad extends EntityAnimal
     public Optional<BlockPos> getTongueTarget()
     {
         return dataManager.get(TONGUE_POS);
+    }
+
+    @Nullable
+    @Override
+    protected ResourceLocation getLootTable()
+    {
+        return new ResourceLocation(HatedMobs.MODID, "toad");
     }
 }

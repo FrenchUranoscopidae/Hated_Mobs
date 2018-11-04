@@ -2,10 +2,7 @@ package fr.uranoscopidae.hatedmobs;
 
 import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.*;
-import fr.uranoscopidae.hatedmobs.common.items.ItemFrogLeg;
-import fr.uranoscopidae.hatedmobs.common.items.ItemSilkBoots;
-import fr.uranoscopidae.hatedmobs.common.items.ItemSpiderEgg;
-import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
+import fr.uranoscopidae.hatedmobs.common.items.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -62,7 +59,7 @@ public class HatedMobs
     public static final Item NET_DOOR_ITEM = new ItemDoor(HatedMobs.NET_DOOR).setRegistryName(NET_DOOR.getRegistryName()).setUnlocalizedName("net_door").setCreativeTab(HatedMobs.TAB);
     public static final Block WASP_NEST = new BlockWaspNest();
     public static final Item FROG_LEG = new ItemFrogLeg(1, 1.5f, false);
-    public static final Item COOKED_FROG_LEG = new ItemFrogLeg(3, 1.5f, false);
+    public static final Item COOKED_FROG_LEG = new ItemCookedFrogLeg(3, 1.5f, false);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -81,6 +78,6 @@ public class HatedMobs
     public void init(FMLInitializationEvent event)
     {
         proxy.init();
-        //FurnaceRecipes.instance().addSmelting(FROG_LEG, COOKED_FROG_LEG., 1f);
+        FurnaceRecipes.instance().addSmelting(FROG_LEG, new ItemStack(COOKED_FROG_LEG), 0.35f);
     }
 }
