@@ -28,6 +28,7 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         RenderingRegistry.registerEntityRenderingHandler(EntityGiantSpider.class, RenderGiantSpider::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityPoisonBall.class, RenderPoisonBall::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityWasp.class, RenderWasp::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityToad.class, RenderToad::new);
     }
 
     @Override
