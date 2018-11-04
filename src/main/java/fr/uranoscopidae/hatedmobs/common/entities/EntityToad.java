@@ -3,6 +3,7 @@ package fr.uranoscopidae.hatedmobs.common.entities;
 import com.google.common.base.Optional;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,6 +45,7 @@ public class EntityToad extends EntityAnimal
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityWasp.class, true));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityMosquito.class, true));
         this.tasks.addTask(6, new EntityAIMlemAttack(this));
+        this.tasks.addTask(1, new EntityAIPanic(this, 1D));
     }
 
     public boolean attackEntityFrom(DamageSource source, float amount)
@@ -83,6 +85,7 @@ public class EntityToad extends EntityAnimal
     protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6);
     }
 
     public void target(BlockPos pos)

@@ -20,3 +20,4 @@ itemGroup.hatedmobs=Hated Mobs
 item.net_door.name=Net Door
 tile.wasp_nest.name=Wasp Hive
 entity.hatedmobs.wasp.name=Wasp
+entity.hatedmobs.toad.name=Toad
