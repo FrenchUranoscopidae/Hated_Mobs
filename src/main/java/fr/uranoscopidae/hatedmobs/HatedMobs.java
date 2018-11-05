@@ -60,6 +60,8 @@ public class HatedMobs
     public static final Block WASP_NEST = new BlockWaspNest();
     public static final Item FROG_LEG = new ItemFrogLeg(1, 1.5f, false);
     public static final Item COOKED_FROG_LEG = new ItemCookedFrogLeg(3, 1.5f, false);
+    public static final Item GIANT_SPIDER_FANG = new ItemGiantSpiderFang();
+    public static final Item GIANT_SPIDER_FANG_SWORD = new ItemGiantSpiderFangSword();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)

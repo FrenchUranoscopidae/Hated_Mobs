@@ -1,5 +1,6 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
+import fr.uranoscopidae.hatedmobs.HatedMobs;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
@@ -10,9 +11,12 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
 {
@@ -98,5 +102,12 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
+    }
+
+    @Nullable
+    @Override
+    protected ResourceLocation getLootTable()
+    {
+        return new ResourceLocation(HatedMobs.MODID, "giant_spider");
     }
 }

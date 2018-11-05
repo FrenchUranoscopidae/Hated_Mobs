@@ -23,3 +23,5 @@ entity.hatedmobs.wasp.name=Ampiainen
 entity.hatedmobs.toad.name=Rupikonna
 item.frog_leg.name=Sammakon jalka
 item.cooked_frog_leg.name=Paistettu sammakon jalka
+item.giant_spider_fang.name=Spider Fang
+item.giant_spider_fang_sword=Spider Fang Sword

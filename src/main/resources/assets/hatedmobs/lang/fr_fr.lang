@@ -23,3 +23,5 @@ entity.hatedmobs.toad.name=Crapaud
 tile.wasp_nest.name=Nid de Guêpe
 item.frog_leg.name=Cuisses de Grenouille
 item.cooked_frog_leg.name=Cuisses de Grenouille Cuites
+item.giant_spider_fang.name=Croc d'Araignée Géante
+item.giant_spider_fang_sword=Epée de Croc d'Araignée Géante
