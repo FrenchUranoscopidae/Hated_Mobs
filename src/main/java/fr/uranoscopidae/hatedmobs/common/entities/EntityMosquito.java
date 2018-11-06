@@ -1,5 +1,6 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
+import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.IBlockMapper;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
 import fr.uranoscopidae.hatedmobs.common.MosquitoWorldWrapper;
@@ -13,8 +14,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class EntityMosquito extends EntityMob
 {
@@ -82,5 +86,12 @@ public class EntityMosquito extends EntityMob
     protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
     {
 
+    }
+
+    @Nullable
+    @Override
+    protected ResourceLocation getLootTable()
+    {
+        return new ResourceLocation(HatedMobs.MODID, "mosquito");
     }
 }

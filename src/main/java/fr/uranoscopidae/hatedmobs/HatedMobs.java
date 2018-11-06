@@ -62,6 +62,8 @@ public class HatedMobs
     public static final Item COOKED_FROG_LEG = new ItemCookedFrogLeg(3, 1.5f, false);
     public static final Item GIANT_SPIDER_FANG = new ItemGiantSpiderFang();
     public static final Item GIANT_SPIDER_FANG_SWORD = new ItemGiantSpiderFangSword();
+    public static final Item DEAD_MOSQUITO = new ItemDeadMosquito();
+    public static final Item DEAD_WASP = new ItemDeadWasp();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
