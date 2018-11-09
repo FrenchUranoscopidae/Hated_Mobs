@@ -1,6 +1,7 @@
 package fr.uranoscopidae.hatedmobs.common.items;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import fr.uranoscopidae.hatedmobs.common.ConfigurationHandler;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -55,25 +56,24 @@ public class ItemSpiderEgg extends Item
             return EnumActionResult.FAIL;
         }
 
-        Optional<EntitySilkSpider> silkSpider = EntitySilkSpider.trySpawn(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D);
-
-        if(silkSpider.isPresent())
+        if(ConfigurationHandler.MOB_TOGGLE.silkSpider)
         {
-            if (itemstack.hasDisplayName())
-            {
-                silkSpider.get().setCustomNameTag(itemstack.getDisplayName());
+            Optional<EntitySilkSpider> silkSpider = EntitySilkSpider.trySpawn(worldIn, (double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D);
+
+            if (silkSpider.isPresent()) {
+                if (itemstack.hasDisplayName()) {
+                    silkSpider.get().setCustomNameTag(itemstack.getDisplayName());
+                }
+
+                applyItemEntityDataToEntity(worldIn, player, itemstack, silkSpider.get());
+
+                if (!player.capabilities.isCreativeMode) {
+                    itemstack.shrink(1);
+                }
+
+                return EnumActionResult.SUCCESS;
             }
-
-            applyItemEntityDataToEntity(worldIn, player, itemstack, silkSpider.get());
-
-            if (!player.capabilities.isCreativeMode)
-            {
-                itemstack.shrink(1);
-            }
-
-            return EnumActionResult.SUCCESS;
         }
-
         player.sendStatusMessage(CANT_SPAWN, true);
 
         return EnumActionResult.FAIL;

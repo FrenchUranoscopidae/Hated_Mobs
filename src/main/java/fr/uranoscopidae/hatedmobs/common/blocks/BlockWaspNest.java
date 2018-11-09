@@ -1,6 +1,7 @@
 package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import fr.uranoscopidae.hatedmobs.common.ConfigurationHandler;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityWasp;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
@@ -50,14 +51,17 @@ public class BlockWaspNest extends Block
     @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
     {
-        if (!worldIn.isRemote)
+        if(ConfigurationHandler.MOB_TOGGLE.wasp)
         {
-            for (int i = 0; i < 6; i++)
+            if (!worldIn.isRemote)
             {
-                EntityWasp wasp = new EntityWasp(worldIn);
-                wasp.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
-                worldIn.spawnEntity(wasp);
-                wasp.spawnExplosionParticle();
+                for (int i = 0; i < 6; i++)
+                {
+                    EntityWasp wasp = new EntityWasp(worldIn);
+                    wasp.setLocationAndAngles((double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
+                    worldIn.spawnEntity(wasp);
+                    wasp.spawnExplosionParticle();
+                }
             }
         }
     }

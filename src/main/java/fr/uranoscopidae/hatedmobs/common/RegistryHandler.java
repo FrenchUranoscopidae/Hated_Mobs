@@ -54,34 +54,43 @@ public class RegistryHandler
     @SubscribeEvent
     public void registerEntities(RegistryEvent.Register<EntityEntry> event)
     {
-        EntityEntry mosquitoEntry = EntityEntryBuilder.<EntityMosquito>create()
-                .entity(EntityMosquito.class)
-                .id(new ResourceLocation(HatedMobs.MODID, "mosquito"), 0)
-                .name("hatedmobs.mosquito")
-                .tracker(64, 3, true)
-                .factory(EntityMosquito::new)
-                .egg(0, 0)
-                .build();
-        event.getRegistry().register(mosquitoEntry);
+        if(ConfigurationHandler.MOB_TOGGLE.mosquito)
+        {
+            EntityEntry mosquitoEntry = EntityEntryBuilder.<EntityMosquito>create()
+                    .entity(EntityMosquito.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "mosquito"), 0)
+                    .name("hatedmobs.mosquito")
+                    .tracker(64, 3, true)
+                    .factory(EntityMosquito::new)
+                    .egg(0, 0)
+                    .build();
+            event.getRegistry().register(mosquitoEntry);
+        }
 
-        EntityEntry silkSpiderEntry = EntityEntryBuilder.<EntitySilkSpider>create()
-                .entity(EntitySilkSpider.class)
-                .id(new ResourceLocation(HatedMobs.MODID, "silk_spider"), 1)
-                .name("hatedmobs.silk_spider")
-                .tracker(64, 3, true)
-                .factory(EntitySilkSpider::new)
-                .build();
-        event.getRegistry().register(silkSpiderEntry);
+        if(ConfigurationHandler.MOB_TOGGLE.silkSpider)
+        {
+            EntityEntry silkSpiderEntry = EntityEntryBuilder.<EntitySilkSpider>create()
+                    .entity(EntitySilkSpider.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "silk_spider"), 1)
+                    .name("hatedmobs.silk_spider")
+                    .tracker(64, 3, true)
+                    .factory(EntitySilkSpider::new)
+                    .build();
+            event.getRegistry().register(silkSpiderEntry);
+        }
 
-        EntityEntry giantSpiderEntry = EntityEntryBuilder.create()
-                .entity(EntityGiantSpider.class)
-                .id(new ResourceLocation(HatedMobs.MODID, "giant_spider"), 2)
-                .name("hatedmobs.giant_spider")
-                .tracker(64, 3, true)
-                .egg(0x303030, 0x7f0000)
-                .factory(EntityGiantSpider::new)
-                .build();
-        event.getRegistry().register(giantSpiderEntry);
+        if(ConfigurationHandler.MOB_TOGGLE.giantSpider)
+        {
+            EntityEntry giantSpiderEntry = EntityEntryBuilder.create()
+                    .entity(EntityGiantSpider.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "giant_spider"), 2)
+                    .name("hatedmobs.giant_spider")
+                    .tracker(64, 3, true)
+                    .egg(0x303030, 0x7f0000)
+                    .factory(EntityGiantSpider::new)
+                    .build();
+            event.getRegistry().register(giantSpiderEntry);
+        }
 
         EntityEntry poisonBallEntry = EntityEntryBuilder.create()
                 .entity(EntityPoisonBall.class)
@@ -92,15 +101,18 @@ public class RegistryHandler
                 .build();
         event.getRegistry().register(poisonBallEntry);
 
-        EntityEntry waspEntry = EntityEntryBuilder.create()
-                .entity(EntityWasp.class)
-                .id(new ResourceLocation(HatedMobs.MODID, "wasp"), 4)
-                .name("hatedmobs.wasp")
-                .tracker(64, 3, true)
-                .egg(0xffe666, 0x4d4d4d)
-                .factory(EntityWasp::new)
-                .build();
-        event.getRegistry().register(waspEntry);
+        if(ConfigurationHandler.MOB_TOGGLE.wasp)
+        {
+            EntityEntry waspEntry = EntityEntryBuilder.create()
+                    .entity(EntityWasp.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "wasp"), 4)
+                    .name("hatedmobs.wasp")
+                    .tracker(64, 3, true)
+                    .egg(0xffe666, 0x4d4d4d)
+                    .factory(EntityWasp::new)
+                    .build();
+            event.getRegistry().register(waspEntry);
+        }
 
         EntityEntry toadEntry = EntityEntryBuilder.create()
                 .entity(EntityToad.class)
@@ -114,12 +126,23 @@ public class RegistryHandler
 
         for(Biome biome : Biome.REGISTRY)
         {
-            EntityRegistry.addSpawn(EntityMosquito.class, 75, 4, 6, EnumCreatureType.MONSTER, biome);
-            EntityRegistry.addSpawn(EntityGiantSpider.class, 1, 1, 1, EnumCreatureType.MONSTER, biome);
+            if(ConfigurationHandler.MOB_TOGGLE.mosquito)
+            {
+                EntityRegistry.addSpawn(EntityMosquito.class, 75, 4, 6, EnumCreatureType.MONSTER, biome);
+            }
+
+            if(ConfigurationHandler.MOB_TOGGLE.giantSpider)
+            {
+                EntityRegistry.addSpawn(EntityGiantSpider.class, 1, 1, 1, EnumCreatureType.MONSTER, biome);
+            }
         }
-        EntityRegistry.removeSpawn(EntityMosquito.class, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
-        EntityRegistry.addSpawn(EntityMosquito.class, 10, 4, 6, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT);
-        EntityRegistry.addSpawn(EntityMosquito.class, 100, 4, 6, EnumCreatureType.MONSTER, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
+
+        if(ConfigurationHandler.MOB_TOGGLE.mosquito)
+        {
+            EntityRegistry.removeSpawn(EntityMosquito.class, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
+            EntityRegistry.addSpawn(EntityMosquito.class, 10, 4, 6, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT);
+            EntityRegistry.addSpawn(EntityMosquito.class, 100, 4, 6, EnumCreatureType.MONSTER, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
+        }
     }
 
     @SubscribeEvent

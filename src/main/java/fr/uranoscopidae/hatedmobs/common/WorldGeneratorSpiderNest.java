@@ -97,11 +97,14 @@ public class WorldGeneratorSpiderNest implements IWorldGenerator
                     break;
 
                 case "giant_spider":
-                    EntityGiantSpider spider = new EntityGiantSpider(world);
-                    spider.setPosition(blockPos1.getX()+0.5, blockPos1.getY(), blockPos1.getZ()+0.5);
-                    spider.enablePersistence();
-                    world.spawnEntity(spider);
-                    world.setBlockToAir(blockPos1);
+                    if(ConfigurationHandler.MOB_TOGGLE.giantSpider)
+                    {
+                        EntityGiantSpider spider = new EntityGiantSpider(world);
+                        spider.setPosition(blockPos1.getX()+0.5, blockPos1.getY(), blockPos1.getZ()+0.5);
+                        spider.enablePersistence();
+                        world.spawnEntity(spider);
+                        world.setBlockToAir(blockPos1);
+                    }
                     break;
             }
         }

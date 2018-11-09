@@ -43,7 +43,7 @@ public class HatedMobs
             return new ItemStack(SWATTER);
         }
     };
-//truc
+
     public static final ItemArmor.ArmorMaterial silkBootsMaterial = EnumHelper.addArmorMaterial("silk_boots", MODID + ":silk_boots", 5, new int[]{0, 0, 0, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
     public static final Material WEB_MATERIAL = new Material(MapColor.SNOW);
     public static final Block NET = new BlockNet();
@@ -74,8 +74,14 @@ public class HatedMobs
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         GameRegistry.registerWorldGenerator(new WorldGeneratorSpiderNest(), 0);
         GameRegistry.registerWorldGenerator(new WorldGeneratorEggSack(), 0);
-        GameRegistry.registerWorldGenerator(new WorldGeneratorSpiderLeaves(), 0);
-        GameRegistry.registerWorldGenerator(new WorldGeneratorWaspNest(), 0);
+        if(ConfigurationHandler.MOB_TOGGLE.silkSpider)
+        {
+            GameRegistry.registerWorldGenerator(new WorldGeneratorSpiderLeaves(), 0);
+        }
+        if(ConfigurationHandler.MOB_TOGGLE.wasp)
+        {
+            GameRegistry.registerWorldGenerator(new WorldGeneratorWaspNest(), 0);
+        }
     }
 
     @Mod.EventHandler

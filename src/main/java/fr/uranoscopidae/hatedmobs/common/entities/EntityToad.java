@@ -53,8 +53,8 @@ public class EntityToad extends EntityAnimal
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityWasp.class, true));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityMosquito.class, true));
         this.tasks.addTask(6, new EntityAIMlemAttack(this));
-        this.tasks.addTask(1, new EntityAIPanic(this, 1D));
-        this.tasks.addTask(7, new EntityAITempt(this, 1D, false, TEMPTATION_ITEMS));
+        this.tasks.addTask(1, new EntityAIPanic(this, 0.5D));
+        this.tasks.addTask(7, new EntityAITempt(this, 0.5D, false, TEMPTATION_ITEMS));
         this.tasks.addTask(1, new EntityAIMate(this, 0.5D));
     }
 
