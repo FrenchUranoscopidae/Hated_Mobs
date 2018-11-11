@@ -2,9 +2,6 @@ package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.Configuration;
-
-import java.io.File;
 
 @Config(modid=HatedMobs.MODID)
 public class ConfigurationHandler
