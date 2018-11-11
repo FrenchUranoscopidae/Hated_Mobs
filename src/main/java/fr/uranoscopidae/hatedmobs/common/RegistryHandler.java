@@ -5,6 +5,8 @@ import fr.uranoscopidae.hatedmobs.common.entities.*;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.Item;
@@ -114,15 +116,18 @@ public class RegistryHandler
             event.getRegistry().register(waspEntry);
         }
 
-        EntityEntry toadEntry = EntityEntryBuilder.create()
-                .entity(EntityToad.class)
-                .id(new ResourceLocation(HatedMobs.MODID, "toad"), 5)
-                .name("hatedmobs.toad")
-                .tracker(64, 3, true)
-                .egg(0xFFDA6E, 0xE8650C)
-                .factory(EntityToad::new)
-                .build();
-        event.getRegistry().register(toadEntry);
+        if(ConfigurationHandler.MOB_TOGGLE.toad)
+        {
+            EntityEntry toadEntry = EntityEntryBuilder.create()
+                    .entity(EntityToad.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "toad"), 5)
+                    .name("hatedmobs.toad")
+                    .tracker(64, 3, true)
+                    .egg(0xFFDA6E, 0xE8650C)
+                    .factory(EntityToad::new)
+                    .build();
+            event.getRegistry().register(toadEntry);
+        }
 
         for(Biome biome : Biome.REGISTRY)
         {
@@ -135,7 +140,14 @@ public class RegistryHandler
             {
                 EntityRegistry.addSpawn(EntityGiantSpider.class, 1, 1, 1, EnumCreatureType.MONSTER, biome);
             }
+
+            if(ConfigurationHandler.MOB_TOGGLE.toad)
+            {
+                EntityRegistry.addSpawn(EntityToad.class, 100, 2, 5, EnumCreatureType.CREATURE, biome);
+            }
         }
+
+        EntitySpawnPlacementRegistry.setPlacementType(EntityToad.class, EntityLiving.SpawnPlacementType.IN_WATER);
 
         if(ConfigurationHandler.MOB_TOGGLE.mosquito)
         {

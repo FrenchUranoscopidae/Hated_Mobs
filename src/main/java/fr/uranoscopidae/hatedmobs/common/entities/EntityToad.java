@@ -9,7 +9,9 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
@@ -19,6 +21,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -34,6 +37,7 @@ public class EntityToad extends EntityAnimal
     {
         super(worldIn);
         setSize(0.25f, 0.25f);
+        this.moveHelper = new EntityToadMoveHelper(this);
     }
 
     @Nullable
@@ -45,16 +49,16 @@ public class EntityToad extends EntityAnimal
 
     protected void initEntityAI()
     {
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIWander(this, 0.5f));
-        this.tasks.addTask(1, new EntityAIWatchClosest(this, EntityPlayer.class, 8));
-        this.tasks.addTask(1, new EntityAILookIdle(this));
+        this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(5, new EntityAIWander(this, 0.5f));
+        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8));
+        this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityWasp.class, true));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityMosquito.class, true));
         this.tasks.addTask(6, new EntityAIMlemAttack(this));
         this.tasks.addTask(1, new EntityAIPanic(this, 0.5D));
-        this.tasks.addTask(7, new EntityAITempt(this, 0.5D, false, TEMPTATION_ITEMS));
+        this.tasks.addTask(3, new EntityAITempt(this, 0.5D, false, TEMPTATION_ITEMS));
         this.tasks.addTask(1, new EntityAIMate(this, 0.5D));
     }
 
@@ -123,5 +127,36 @@ public class EntityToad extends EntityAnimal
     public boolean isBreedingItem(ItemStack stack)
     {
         return TEMPTATION_ITEMS.contains(stack.getItem());
+    }
+
+    public int getJumpDelay()
+    {
+        return this.rand.nextInt(20) + 10;
+    }
+
+    @Override
+    public float getSoundVolume()
+    {
+        return super.getSoundVolume();
+    }
+
+    public SoundEvent getJumpSound()
+    {
+        return SoundEvents.ENTITY_SMALL_SLIME_JUMP;
+    }
+
+    public boolean canBreatheUnderwater()
+    {
+        return true;
+    }
+
+    public boolean getCanSpawnHere()
+    {
+        return true;
+    }
+
+    @Override
+    protected boolean canDespawn() {
+        return false;
     }
 }

@@ -59,6 +59,12 @@ public class RenderToad  extends RenderLiving<EntityToad>
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
         GlStateManager.translate(0, 0.05, 0);
         double scale = 0.45;
+
+        if(entitylivingbaseIn.isChild())
+        {
+            scale *= 0.5;
+        }
+
         GlStateManager.scale(scale, scale, scale);
     }
 
@@ -101,6 +107,21 @@ public class RenderToad  extends RenderLiving<EntityToad>
             float modelHeadYaw = yawHead - yawOffset;
             model.getCube("head").rotateAngleY = modelHeadYaw * (float)Math.PI/180;
             model.getCube("head").rotateAngleX = toad.rotationPitch * (float)Math.PI/180;
+
+            if(!entity.onGround)
+            {
+                model.getCube("upper_leg_right").rotateAngleX = 95;
+                model.getCube("lower_leg_right").rotateAngleX = 80;
+                model.getCube("foot_right").rotateAngleY = 85;
+                model.getCube("foot_right").rotateAngleX = 85;
+                model.getCube("foot_right").rotateAngleZ = 0;
+
+                model.getCube("upper_leg_left").rotateAngleX = 95 + 96;
+                model.getCube("lower_leg_left").rotateAngleX = -80;
+                model.getCube("foot_left").rotateAngleY = -85;
+                model.getCube("foot_left").rotateAngleX = -85;
+                model.getCube("foot_left").rotateAngleZ = 0;
+            }
         }
 
         protected float interpolateRotation(float prevYawOffset, float yawOffset, float partialTicks)
@@ -120,4 +141,6 @@ public class RenderToad  extends RenderLiving<EntityToad>
             return prevYawOffset + partialTicks * f;
         }
     }
+
+
 }
