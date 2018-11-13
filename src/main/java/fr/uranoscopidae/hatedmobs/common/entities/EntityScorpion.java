@@ -16,7 +16,10 @@ public class EntityScorpion extends EntityMob
     protected void initEntityAI()
     {
         this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.4D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.tasks.addTask(5, new EntityAIAttackMelee(this, 0.4, false));
+        this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
     }
 }

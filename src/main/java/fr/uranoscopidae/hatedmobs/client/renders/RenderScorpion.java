@@ -57,8 +57,7 @@ public class RenderScorpion extends RenderLiving<EntityScorpion> {
         public void setRotationAngles(TabulaModel model, Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale)
         {
             EntityScorpion scorpion = (EntityScorpion)entity;
-            //limbSwing = limbSwing/2;
-            //limbSwingAmount = limbSwingAmount/2;
+
             for (int i = 1; i <= 4; i++)
             {
                 AdvancedModelRenderer legOrigin = model.getCube("leg_origin_right" +i);
