@@ -129,6 +129,19 @@ public class RegistryHandler
             event.getRegistry().register(toadEntry);
         }
 
+        if(ConfigurationHandler.MOB_TOGGLE.scorpion)
+        {
+            EntityEntry scorpionEntry = EntityEntryBuilder.create()
+                    .entity(EntityScorpion.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "scorpion"), 6)
+                    .name("hatedmobs.scorpion")
+                    .tracker(64, 3, true)
+                    .egg(0xE2E085, 0x928355)
+                    .factory(EntityScorpion::new)
+                    .build();
+            event.getRegistry().register(scorpionEntry);
+        }
+
         for(Biome biome : Biome.REGISTRY)
         {
             if(ConfigurationHandler.MOB_TOGGLE.mosquito)

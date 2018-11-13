@@ -22,5 +22,7 @@ public class ConfigurationHandler
         public boolean wasp = true;
         @Config.Comment("Set to false to disable toads")
         public boolean toad = true;
+        @Config.Comment("Set to false to disable scorpions")
+        public boolean scorpion = true;
     }
 }
