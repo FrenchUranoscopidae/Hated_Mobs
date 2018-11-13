@@ -142,6 +142,19 @@ public class RegistryHandler
             event.getRegistry().register(scorpionEntry);
         }
 
+        if(ConfigurationHandler.MOB_TOGGLE.giantSpider)
+        {
+            EntityEntry tamedGiantSpiderEntry = EntityEntryBuilder.create()
+                    .entity(EntityTamedGiantSpider.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "tamed_giant_spider"), 7)
+                    .name("hatedmobs.tamed_giant_spider")
+                    .tracker(64, 3, true)
+                    .egg(0x303030, 0x7f0000)
+                    .factory(EntityTamedGiantSpider::new)
+                    .build();
+            event.getRegistry().register(tamedGiantSpiderEntry);
+        }
+
         for(Biome biome : Biome.REGISTRY)
         {
             if(ConfigurationHandler.MOB_TOGGLE.mosquito)
@@ -167,6 +180,11 @@ public class RegistryHandler
             EntityRegistry.removeSpawn(EntityMosquito.class, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
             EntityRegistry.addSpawn(EntityMosquito.class, 10, 4, 6, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT);
             EntityRegistry.addSpawn(EntityMosquito.class, 100, 4, 6, EnumCreatureType.MONSTER, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
+        }
+
+        if (ConfigurationHandler.MOB_TOGGLE.scorpion)
+        {
+            EntityRegistry.addSpawn(EntityScorpion.class, 50, 3, 4,EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS);
         }
     }
 

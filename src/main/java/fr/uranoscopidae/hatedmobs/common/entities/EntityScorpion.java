@@ -1,8 +1,13 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
+import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateFlying;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
 public class EntityScorpion extends EntityMob
@@ -21,5 +26,10 @@ public class EntityScorpion extends EntityMob
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.tasks.addTask(5, new EntityAIAttackMelee(this, 0.4, false));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+    }
+
+    public EnumCreatureAttribute getCreatureAttribute()
+    {
+        return EnumCreatureAttribute.ARTHROPOD;
     }
 }
