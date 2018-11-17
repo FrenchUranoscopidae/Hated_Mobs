@@ -16,10 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -112,8 +109,23 @@ public class EntityTamedGiantSpider extends EntityTameable
             }
             else if (itemstack.getItem() == Items.SADDLE)
             {
-                itemstack.interactWithEntity(player, this, hand);
-                return true;
+                if (this instanceof EntityTamedGiantSpider)
+                {
+                    EntityTamedGiantSpider entityTamedGiantSpider = this;
+
+                    if (!entityTamedGiantSpider.getSaddled() && !entityTamedGiantSpider.isChild())
+                    {
+                        entityTamedGiantSpider.setSaddled(true);
+                        entityTamedGiantSpider.world.playSound(player, entityTamedGiantSpider.posX, entityTamedGiantSpider.posY, entityTamedGiantSpider.posZ, SoundEvents.ENTITY_PIG_SADDLE, SoundCategory.NEUTRAL, 0.5F, 1.0F);
+                        itemstack.shrink(1);
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -129,6 +141,12 @@ public class EntityTamedGiantSpider extends EntityTameable
     public boolean getSaddled()
     {
         return ((Boolean)this.dataManager.get(SADDLED)).booleanValue();
+    }
+
+    public void writeEntityToNBT(NBTTagCompound compound)
+    {
+        super.writeEntityToNBT(compound);
+        compound.setBoolean("Saddle", this.getSaddled());
     }
 
     public void readEntityFromNBT(NBTTagCompound compound)
