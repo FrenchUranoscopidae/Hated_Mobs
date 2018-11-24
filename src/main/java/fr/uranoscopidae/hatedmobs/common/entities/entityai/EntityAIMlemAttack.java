@@ -1,6 +1,9 @@
-package fr.uranoscopidae.hatedmobs.common.entities;
+package fr.uranoscopidae.hatedmobs.common.entities.entityai;
 
 import com.google.common.base.Optional;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityToad;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityWasp;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.DamageSource;

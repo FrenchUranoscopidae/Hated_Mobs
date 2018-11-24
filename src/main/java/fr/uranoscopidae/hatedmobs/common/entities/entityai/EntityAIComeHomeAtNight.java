@@ -1,5 +1,6 @@
-package fr.uranoscopidae.hatedmobs.common.entities;
+package fr.uranoscopidae.hatedmobs.common.entities.entityai;
 
+import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
 import net.minecraft.entity.ai.EntityAIBase;
 
 public class EntityAIComeHomeAtNight extends EntityAIBase

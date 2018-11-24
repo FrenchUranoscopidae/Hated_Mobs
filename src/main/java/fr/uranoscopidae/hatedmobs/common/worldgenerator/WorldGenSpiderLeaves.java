@@ -1,4 +1,4 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.worldgenerator;
 
 import com.google.common.base.Predicate;
 

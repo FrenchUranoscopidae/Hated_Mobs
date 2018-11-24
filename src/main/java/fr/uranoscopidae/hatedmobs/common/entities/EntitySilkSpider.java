@@ -3,6 +3,7 @@ package fr.uranoscopidae.hatedmobs.common.entities;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockSpiderInfestedLeaves;
+import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAIComeHomeAtNight;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
