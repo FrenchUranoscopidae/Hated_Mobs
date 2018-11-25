@@ -1,5 +1,6 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
+import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAICloseMeleeAttack;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
@@ -24,7 +25,7 @@ public class EntityScorpion extends EntityMob
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.4D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.tasks.addTask(5, new EntityAIAttackMelee(this, 0.4, false));
+        this.tasks.addTask(5, new EntityAICloseMeleeAttack(this, 0.4, false));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
     }
 

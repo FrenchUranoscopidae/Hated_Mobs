@@ -20,6 +20,7 @@ import java.io.IOException;
 public class RenderTamedGiantSpider extends RenderLiving<EntityTamedGiantSpider>
 {
     public static final ResourceLocation TEXTURE = new ResourceLocation(HatedMobs.MODID, "textures/entity/tamed_giant_spider.png");
+    public static final ResourceLocation TEXTURE_SADDLE = new ResourceLocation(HatedMobs.MODID, "textures/entity/tamed_giant_spider_saddle.png");
 
     public RenderTamedGiantSpider(RenderManager rendermanagerIn)
     {
@@ -52,7 +53,14 @@ public class RenderTamedGiantSpider extends RenderLiving<EntityTamedGiantSpider>
     @Override
     protected ResourceLocation getEntityTexture(EntityTamedGiantSpider entity)
     {
-        return TEXTURE;
+        if(entity.getSaddled())
+        {
+            return TEXTURE_SADDLE;
+        }
+        else
+        {
+            return TEXTURE;
+        }
     }
 
     private static class Animator implements ITabulaModelAnimator

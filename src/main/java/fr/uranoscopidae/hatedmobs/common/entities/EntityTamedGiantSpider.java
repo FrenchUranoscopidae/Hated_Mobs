@@ -1,11 +1,12 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
+import com.google.common.base.Optional;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAICloseMeleeAttack;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.*;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,8 +23,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
-public class EntityTamedGiantSpider extends EntityTameable
+public class EntityTamedGiantSpider extends EntityTameable implements IRangedAttackMob
 {
     private boolean boosting;
     private int boostTime;
@@ -43,11 +45,100 @@ public class EntityTamedGiantSpider extends EntityTameable
         this.dataManager.register(SADDLED, Boolean.valueOf(false));
     }
 
+    public void applyEntityAttributes()
+    {
+        super.applyEntityAttributes();
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
+    }
+
+    protected void initEntityAI()
+    {
+        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
+        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.4D));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.tasks.addTask(5, new EntityAICloseMeleeAttack(this, 0.4, false));
+        this.tasks.addTask(3, new EntityAILookIdle(this));
+        this.tasks.addTask(6, new EntityAIFollowOwner(this, 1.0D, 10.0F, 2.0F));
+        this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
+        this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
+        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.tasks.addTask(5, new EntityAIAttackRanged(this, 0.5, 40, 10f));
+    }
+
+    public boolean attackEntityAsMob(Entity entityIn)
+    {
+        float f = (float)this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+        int i = 0;
+
+        if (entityIn instanceof EntityLivingBase)
+        {
+            f += EnchantmentHelper.getModifierForCreature(this.getHeldItemMainhand(), ((EntityLivingBase)entityIn).getCreatureAttribute());
+            i += EnchantmentHelper.getKnockbackModifier(this);
+        }
+
+        boolean flag = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), f);
+
+        if (flag)
+        {
+            if (i > 0 && entityIn instanceof EntityLivingBase)
+            {
+                ((EntityLivingBase)entityIn).knockBack(this, (float)i * 0.5F, (double)MathHelper.sin(this.rotationYaw * 0.017453292F), (double)(-MathHelper.cos(this.rotationYaw * 0.017453292F)));
+                this.motionX *= 0.6D;
+                this.motionZ *= 0.6D;
+            }
+
+            int j = EnchantmentHelper.getFireAspectModifier(this);
+
+            if (j > 0)
+            {
+                entityIn.setFire(j * 4);
+            }
+
+            if (entityIn instanceof EntityPlayer)
+            {
+                EntityPlayer entityplayer = (EntityPlayer)entityIn;
+                ItemStack itemstack = this.getHeldItemMainhand();
+                ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
+
+                if (!itemstack.isEmpty() && !itemstack1.isEmpty() && itemstack.getItem().canDisableShield(itemstack, itemstack1, entityplayer, this) && itemstack1.getItem().isShield(itemstack1, entityplayer))
+                {
+                    float f1 = 0.25F + (float)EnchantmentHelper.getEfficiencyModifier(this) * 0.05F;
+
+                    if (this.rand.nextFloat() < f1)
+                    {
+                        entityplayer.getCooldownTracker().setCooldown(itemstack1.getItem(), 100);
+                        this.world.setEntityState(entityplayer, (byte)30);
+                    }
+                }
+            }
+
+            this.applyEnchantments(this, entityIn);
+        }
+
+        return flag;
+    }
+
     @Nullable
     @Override
     public EntityAgeable createChild(EntityAgeable ageable)
     {
         return null;
+    }
+
+    @Override
+    public void updatePassenger(Entity passenger)
+    {
+        if(this.isPassenger(passenger))
+        {
+            float distance = -0.4f;
+            double angle = Math.toRadians(180 - passenger.rotationYaw);
+            double x = this.posX + Math.sin(angle) * distance;
+            double z = this.posZ + Math.cos(angle) * distance;
+            passenger.setPosition(x, this.posY + this.getMountedYOffset() + passenger.getYOffset(), z);
+        }
     }
 
     public EnumCreatureAttribute getCreatureAttribute()
@@ -210,17 +301,16 @@ public class EntityTamedGiantSpider extends EntityTameable
                 this.boosting = false;
             }
 
-            if (this.canPassengerSteer())
+            if (this.canPassengerSteer() && entity instanceof EntityLivingBase)
             {
-                float f = (float)this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 0.225F;
+                float maxSpeed = 0.50f;
+                float passengerForward = ((EntityLivingBase)entity).moveForward * maxSpeed;
+                float passengerStrafe = ((EntityLivingBase)entity).moveStrafing * maxSpeed;
 
-                if (this.boosting)
-                {
-                    f += f * 1.15F * MathHelper.sin((float)this.boostTime / (float)this.totalBoostTime * (float)Math.PI);
-                }
+                double speed = Math.sqrt(passengerForward * passengerForward + passengerStrafe * passengerStrafe);
 
-                this.setAIMoveSpeed(f);
-                super.travel(0.0F, 0.0F, 1.0F);
+                this.setAIMoveSpeed((float)speed);
+                super.travel(passengerStrafe, 0.0F, passengerForward);
             }
             else
             {
@@ -264,5 +354,24 @@ public class EntityTamedGiantSpider extends EntityTameable
             this.getDataManager().set(BOOST_TIME, Integer.valueOf(this.totalBoostTime));
             return true;
         }
+    }
+
+    @Override
+    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
+    {
+        double accX = target.posX - posX;
+        double accY = (target.posY + getEyeHeight()) - (posY + getEyeHeight());
+        double accZ = target.posZ - posZ;
+
+        EntityPoisonBall ball = new EntityPoisonBall(world, this);
+        ball.setPosition(posX, posY + getEyeHeight(), posZ);
+        ball.shoot(accX, accY, accZ, 1.2f, 10f);
+        world.spawnEntity(ball);
+    }
+
+    @Override
+    public void setSwingingArms(boolean swingingArms)
+    {
+
     }
 }
