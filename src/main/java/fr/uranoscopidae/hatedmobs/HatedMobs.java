@@ -20,13 +20,17 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.2.0", acceptedMinecraftVersions = "1.12.2", dependencies = "required-after:llibrary@[1.7.9,)", updateJSON = "https://raw.githubusercontent.com/FrenchUranoscopidae/Hated_Mobs/master/updateCheck.json")
+@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.2.0", acceptedMinecraftVersions = "1.12.2",
+        dependencies = "required-after:llibrary@[1.7.9,)", updateJSON = "https://raw.githubusercontent.com/FrenchUranoscopidae/Hated_Mobs/master/updateCheck.json",
+        certificateFingerprint = "@FINGERPRINT@"
+)
 public class HatedMobs
 {
     public static final String MODID = "hatedmobs";
@@ -91,5 +95,11 @@ public class HatedMobs
     {
         proxy.init();
         FurnaceRecipes.instance().addSmelting(FROG_LEG, new ItemStack(COOKED_FROG_LEG), 0.35f);
+    }
+
+    @Mod.EventHandler
+    public void onFingerprintViolation(FMLFingerprintViolationEvent event)
+    {
+        System.err.println("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported by the author!");
     }
 }
