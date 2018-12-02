@@ -28,3 +28,5 @@ item.giant_spider_fang_sword.name=Spider Fang Sword
 item.dead_mosquito=Dead Mosquito
 item.dead_wasp=Dead Wasp
 entity.hatedmobs.scorpion.name=Scorpion
+entity.hatedmobs.tamed_giant_spider.name=Tamed Giant Spider
+item.spider_candy.name=Spider Candy

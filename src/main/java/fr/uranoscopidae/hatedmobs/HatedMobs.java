@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.2.0", acceptedMinecraftVersions = "1.12.2",
+@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.3.0", acceptedMinecraftVersions = "1.12.2",
         dependencies = "required-after:llibrary@[1.7.9,)", updateJSON = "https://raw.githubusercontent.com/FrenchUranoscopidae/Hated_Mobs/master/updateCheck.json",
         certificateFingerprint = "@FINGERPRINT@"
 )
@@ -70,6 +70,7 @@ public class HatedMobs
     public static final Item GIANT_SPIDER_FANG_SWORD = new ItemGiantSpiderFangSword();
     public static final Item DEAD_MOSQUITO = new ItemDeadMosquito();
     public static final Item DEAD_WASP = new ItemDeadWasp();
+    public static final Item SPIDER_CANDY = new ItemSpiderCandy();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)

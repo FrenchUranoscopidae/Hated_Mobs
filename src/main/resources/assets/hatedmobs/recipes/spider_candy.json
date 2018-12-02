@@ -1,0 +1,24 @@
+{
+  "type":"minecraft:crafting_shaped",
+  "pattern":
+  [
+    "###",
+    "#/#",
+    "###"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item":"minecraft:gold_ingot"
+    },
+    "/":
+    {
+      "item":"minecraft:fermented_spider_eye"
+    }
+  },
+  "result":
+  {
+    "item":"hatedmobs:spider_candy"
+  }
+}

@@ -50,7 +50,7 @@ public class RegistryHandler
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,
-                HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP);
+                HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP, HatedMobs.SPIDER_CANDY);
     }
 
     @SubscribeEvent
@@ -149,7 +149,6 @@ public class RegistryHandler
                     .id(new ResourceLocation(HatedMobs.MODID, "tamed_giant_spider"), 7)
                     .name("hatedmobs.tamed_giant_spider")
                     .tracker(64, 3, true)
-                    .egg(0x303030, 0x7f0000)
                     .factory(EntityTamedGiantSpider::new)
                     .build();
             event.getRegistry().register(tamedGiantSpiderEntry);
