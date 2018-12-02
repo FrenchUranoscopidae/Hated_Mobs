@@ -86,10 +86,17 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
     @Override
     protected boolean processInteract(EntityPlayer player, EnumHand hand)
     {
-        if(player.getHeldItemMainhand().getItem() == Items.POTATO)
+        if(player.getHeldItemMainhand().getItem() == HatedMobs.SPIDER_CANDY)
         {
+            ItemStack itemstack = player.getHeldItem(hand);
+
             if(!isDead && !world.isRemote)
             {
+                if (!player.capabilities.isCreativeMode)
+                {
+                    itemstack.shrink(1);
+                }
+
                 EntityTamedGiantSpider spider = new EntityTamedGiantSpider(world);
                 spider.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
                 spider.setTamedBy(player);

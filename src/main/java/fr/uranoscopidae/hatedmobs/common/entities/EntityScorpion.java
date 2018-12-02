@@ -5,6 +5,7 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateFlying;
@@ -27,6 +28,7 @@ public class EntityScorpion extends EntityMob
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
         this.tasks.addTask(5, new EntityAICloseMeleeAttack(this, 0.4, false));
         this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityRabbit.class, true));
     }
 
     public EnumCreatureAttribute getCreatureAttribute()
