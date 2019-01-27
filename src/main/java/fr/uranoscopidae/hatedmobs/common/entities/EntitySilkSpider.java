@@ -77,6 +77,11 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     }
 
     @Override
+    public void travel(float strafe, float vertical, float forward) {
+        super.travel(strafe, vertical, forward);
+    }
+
+    @Override
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);

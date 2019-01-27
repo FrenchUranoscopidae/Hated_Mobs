@@ -17,6 +17,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.PathNavigate;
+import net.minecraft.pathfinding.PathNavigateClimber;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -30,8 +32,9 @@ public class EntityTamedGiantSpider extends EntityTameable implements IRangedAtt
     private boolean boosting;
     private int boostTime;
     private int totalBoostTime;
-    private static final DataParameter<Integer> BOOST_TIME = EntityDataManager.<Integer>createKey(EntityPig.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> BOOST_TIME = EntityDataManager.<Integer>createKey(EntityTamedGiantSpider.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> SADDLED = EntityDataManager.<Boolean>createKey(EntityTamedGiantSpider.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityTamedGiantSpider.class, DataSerializers.BYTE);
 
     public EntityTamedGiantSpider(World worldIn)
     {
@@ -43,6 +46,7 @@ public class EntityTamedGiantSpider extends EntityTameable implements IRangedAtt
     {
         super.entityInit();
         this.dataManager.register(SADDLED, Boolean.valueOf(false));
+        this.dataManager.register(CLIMBING, Byte.valueOf((byte)0));
     }
 
     public void applyEntityAttributes()
@@ -55,7 +59,9 @@ public class EntityTamedGiantSpider extends EntityTameable implements IRangedAtt
 
     protected void initEntityAI()
     {
+        this.aiSit = new EntityAISit(this);
         this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(2, this.aiSit);
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.4D));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
@@ -194,7 +200,7 @@ public class EntityTamedGiantSpider extends EntityTameable implements IRangedAtt
                 itemstack.interactWithEntity(player, this, hand);
                 return true;
             }
-            else if (this.getSaddled() && !this.isBeingRidden())
+            else if (this.getSaddled() && !this.isBeingRidden() && !player.isSneaking())
             {
                 if (!this.world.isRemote)
                 {
@@ -225,13 +231,72 @@ public class EntityTamedGiantSpider extends EntityTameable implements IRangedAtt
             }
             else
             {
-                return false;
+                if(world.isRemote)
+                    return true;
+                if(player.isSneaking())
+                {
+                    this.aiSit.setSitting(!this.isSitting());
+                    this.isJumping = false;
+                    this.navigator.clearPath();
+                    this.setAttackTarget((EntityLivingBase)null);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         else
         {
             return true;
         }
+    }
+
+    protected PathNavigate createNavigator(World worldIn)
+    {
+        return new PathNavigateClimber(this, worldIn);
+    }
+    public boolean isBesideClimbableBlock()
+    {
+        return (this.dataManager.get(CLIMBING) & 1) != 0;
+    }
+
+
+    public void setBesideClimbableBlock(boolean climbing)
+    {
+        byte b0 = this.dataManager.get(CLIMBING);
+
+        if (climbing)
+        {
+            b0 = (byte)(b0 | 1);
+        }
+        else
+        {
+            b0 = (byte)(b0 & -2);
+        }
+
+        this.dataManager.set(CLIMBING, Byte.valueOf(b0));
+    }
+
+    public void onUpdate()
+    {
+        super.onUpdate();
+
+      //  if (!this.world.isRemote)
+        {
+            this.setBesideClimbableBlock(this.collidedHorizontally);
+        }
+    }
+
+    @Override
+    protected boolean canTriggerWalking() {
+        return false;
+    }
+
+    public boolean isOnLadder()
+    {
+        return this.isBesideClimbableBlock();
     }
 
     public boolean getSaddled()
@@ -278,14 +343,14 @@ public class EntityTamedGiantSpider extends EntityTameable implements IRangedAtt
 
     public boolean canBeSteered()
     {
-        return true;
+        return this.getControllingPassenger() instanceof EntityLivingBase;
     }
 
     public void travel(float strafe, float vertical, float forward)
     {
         Entity entity = this.getPassengers().isEmpty() ? null : (Entity)this.getPassengers().get(0);
 
-        if (this.isBeingRidden() && this.canBeSteered())
+        if (this.isBeingRidden() && this.canBeSteered() && dataManager.get(SADDLED))
         {
             this.rotationYaw = entity.rotationYaw;
             this.prevRotationYaw = this.rotationYaw;
@@ -307,10 +372,11 @@ public class EntityTamedGiantSpider extends EntityTameable implements IRangedAtt
                 float passengerForward = ((EntityLivingBase)entity).moveForward * maxSpeed;
                 float passengerStrafe = ((EntityLivingBase)entity).moveStrafing * maxSpeed;
 
+
                 double speed = Math.sqrt(passengerForward * passengerForward + passengerStrafe * passengerStrafe);
 
                 this.setAIMoveSpeed((float)speed);
-                super.travel(passengerStrafe, 0.0F, passengerForward);
+                super.travel(passengerStrafe, vertical, passengerForward);
             }
             else
             {
