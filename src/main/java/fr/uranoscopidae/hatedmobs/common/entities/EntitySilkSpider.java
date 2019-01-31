@@ -17,6 +17,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -37,11 +38,13 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
 {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntitySilkSpider.class, DataSerializers.BYTE);
     private BlockPos.MutableBlockPos homePos = new BlockPos.MutableBlockPos();
+    public int timeUntilNextString;
 
     public EntitySilkSpider(World worldIn)
     {
         super(IBlockMapper.wrap(worldIn, SilkSpiderWorldWrapper.INSTANCE));
         this.setSize(1.4F/4, 0.9F/4);
+        this.timeUntilNextString = this.rand.nextInt(6000) + 6000;
     }
 
     public EntitySilkSpider(World worldIn, BlockPos home)
@@ -86,6 +89,10 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     {
         super.readEntityFromNBT(compound);
         homePos.setPos(compound.getInteger("homeX"), compound.getInteger("homeY"), compound.getInteger("homeZ"));
+        if (compound.hasKey("EggLayTime"))
+        {
+            this.timeUntilNextString = compound.getInteger("EggLayTime");
+        }
     }
 
     @Override
@@ -95,6 +102,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
         compound.setInteger("homeX", homePos.getX());
         compound.setInteger("homeZ", homePos.getZ());
         compound.setInteger("homeY", homePos.getY());
+        compound.setInteger("EggLayTime", this.timeUntilNextString);
     }
 
     @Nullable
@@ -177,6 +185,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     @Override
     public void onLivingUpdate()
     {
+        System.out.println(timeUntilNextString);
         super.onLivingUpdate();
         if(rand.nextInt(20*60*2) == 0)
         {
@@ -193,6 +202,13 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
             {
                 attackEntityFrom(DamageSource.MAGIC, 10000);
             }
+        }
+
+        if (!this.world.isRemote && !this.isChild() && --this.timeUntilNextString <= 0)
+        {
+            this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            this.dropItem(Items.STRING, 1);
+            this.timeUntilNextString = this.rand.nextInt(6000) + 6000;
         }
     }
 
