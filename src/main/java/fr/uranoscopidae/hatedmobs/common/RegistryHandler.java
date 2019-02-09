@@ -2,6 +2,7 @@ package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.*;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityAntHive;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
 import net.minecraft.block.Block;
@@ -32,6 +33,7 @@ public class RegistryHandler
                 HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
+        GameRegistry.registerTileEntity(TileEntityAntHive.class, HatedMobs.ANT_HIVE.getRegistryName());
     }
 
     @SubscribeEvent

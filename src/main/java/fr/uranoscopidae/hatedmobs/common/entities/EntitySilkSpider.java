@@ -89,9 +89,9 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     {
         super.readEntityFromNBT(compound);
         homePos.setPos(compound.getInteger("homeX"), compound.getInteger("homeY"), compound.getInteger("homeZ"));
-        if (compound.hasKey("EggLayTime"))
+        if (compound.hasKey("StringShedTime"))
         {
-            this.timeUntilNextString = compound.getInteger("EggLayTime");
+            this.timeUntilNextString = compound.getInteger("StringShedTime");
         }
     }
 
@@ -102,7 +102,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
         compound.setInteger("homeX", homePos.getX());
         compound.setInteger("homeZ", homePos.getZ());
         compound.setInteger("homeY", homePos.getY());
-        compound.setInteger("EggLayTime", this.timeUntilNextString);
+        compound.setInteger("StringShedTime", this.timeUntilNextString);
     }
 
     @Nullable
@@ -185,7 +185,6 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     @Override
     public void onLivingUpdate()
     {
-        System.out.println(timeUntilNextString);
         super.onLivingUpdate();
         if(rand.nextInt(20*60*2) == 0)
         {
