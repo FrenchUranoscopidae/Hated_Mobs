@@ -6,6 +6,7 @@ import fr.uranoscopidae.hatedmobs.client.renders.*;
 import fr.uranoscopidae.hatedmobs.common.entities.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -31,6 +32,7 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         RenderingRegistry.registerEntityRenderingHandler(EntityToad.class, RenderToad::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityScorpion.class, RenderScorpion::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityTamedGiantSpider.class, RenderTamedGiantSpider::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRedAnt.class, RenderRedAnt::new);
     }
 
     @Override

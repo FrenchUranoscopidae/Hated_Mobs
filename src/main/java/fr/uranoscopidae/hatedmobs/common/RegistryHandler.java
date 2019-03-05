@@ -161,6 +161,19 @@ public class RegistryHandler
             event.getRegistry().register(tamedGiantSpiderEntry);
         }
 
+        if(ConfigurationHandler.MOB_TOGGLE.ant)
+        {
+            EntityEntry redAntEntry = EntityEntryBuilder.create()
+                    .entity(EntityRedAnt.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "red_ant"), 8)
+                    .name("hatedmobs.red_ant")
+                    .tracker(64, 3, true)
+                    .egg(0x822323, 0xff7878)
+                    .factory(EntityRedAnt::new)
+                    .build();
+            event.getRegistry().register(redAntEntry);
+        }
+
         for(Biome biome : Biome.REGISTRY)
         {
             if(ConfigurationHandler.MOB_TOGGLE.mosquito)
