@@ -30,3 +30,6 @@ item.dead_wasp=Dead Wasp
 entity.hatedmobs.scorpion.name=Scorpion
 entity.hatedmobs.tamed_giant_spider.name=Tamed Giant Spider
 item.spider_candy.name=Spider Candy
+entity.hatedmobs.red_ant.name=Red Ant
+item.red_ant_queen.name=Queen Red Ant
+tile.ant_hive.name=Anthill

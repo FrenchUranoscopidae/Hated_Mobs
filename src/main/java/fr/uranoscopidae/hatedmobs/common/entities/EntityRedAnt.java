@@ -1,28 +1,32 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
-import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAIComeHomeAtNight;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
 public class EntityRedAnt extends EntityAnimal
 {
-
     public EntityRedAnt(World worldIn)
     {
         super(worldIn);
-        setSize(2f, 1f);
+        setSize(0.75f, 0.5f);
     }
 
     @Nullable
     @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
         return null;
+    }
+
+    public void applyEntityAttributes()
+    {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1);
     }
 
     @Override
@@ -32,7 +36,7 @@ public class EntityRedAnt extends EntityAnimal
         this.tasks.addTask(2, new EntityAILookIdle(this));
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIAttackMelee(this, 1f, false));
-        this.tasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityMob.class, true));
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
     }
 }

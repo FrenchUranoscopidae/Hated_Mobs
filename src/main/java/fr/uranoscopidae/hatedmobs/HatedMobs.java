@@ -72,6 +72,8 @@ public class HatedMobs
     public static final Item DEAD_WASP = new ItemDeadWasp();
     public static final Item SPIDER_CANDY = new ItemSpiderCandy();
     public static final Block ANT_HIVE = new BlockAntHive();
+    public static final Item RED_ANT_QUEEN = new ItemRedAntQueen();
+    public static final Block DOMESTICATED_ANTHILL = new BlockDomesticatedAnthill();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
