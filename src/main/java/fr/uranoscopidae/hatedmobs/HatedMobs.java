@@ -3,6 +3,7 @@ package fr.uranoscopidae.hatedmobs;
 import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.*;
 import fr.uranoscopidae.hatedmobs.common.items.*;
+import fr.uranoscopidae.hatedmobs.common.potions.PotionInsomnia;
 import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorEggSack;
 import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorSpiderLeaves;
 import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorSpiderNest;
@@ -74,6 +75,7 @@ public class HatedMobs
     public static final Block ANT_HIVE = new BlockAntHive();
     public static final Item RED_ANT_QUEEN = new ItemRedAntQueen();
     public static final Block DOMESTICATED_ANTHILL = new BlockDomesticatedAnthill();
+    public static final Item BLACK_ANT_QUEEN = new ItemBlackAntQueen();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)

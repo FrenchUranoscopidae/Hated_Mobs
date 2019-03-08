@@ -1,12 +1,13 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.worldwrappers;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSetMultimap;
-import net.minecraft.block.Block;
+import fr.uranoscopidae.hatedmobs.common.worldwrappers.FalsifiedChunk;
+import fr.uranoscopidae.hatedmobs.common.worldwrappers.IBlockMapper;
+import fr.uranoscopidae.hatedmobs.common.worldwrappers.IFalsifiedWorld;
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
@@ -15,27 +16,20 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.village.VillageCollection;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeProvider;
-import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
-import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.MapStorage;
-import net.minecraft.world.storage.WorldInfo;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -48,17 +42,23 @@ import java.util.*;
 /**
  * Send (almost) everything to a World delegate. Falsifies blocks for entities
  */
-public class FalsifiedWorldClient extends WorldClient implements IFalsifiedWorld
+public class FalsifiedWorldServer extends WorldServer implements IFalsifiedWorld
 {
     private final IBlockMapper mapper;
     private World delegate;
 
-    public FalsifiedWorldClient(WorldClient world, IBlockMapper mapper)
+    public FalsifiedWorldServer(WorldServer world, IBlockMapper mapper)
     {
-        super(Minecraft.getMinecraft().getConnection(), new WorldSettings(world.getWorldInfo()), world.provider.getDimension(), world.getDifficulty(), world.profiler);
+        super(world.getMinecraftServer(), world.getSaveHandler(), world.getWorldInfo(), world.provider.getDimension(), world.profiler);
         chunkProvider = world.getChunkProvider();
+        net.minecraftforge.common.DimensionManager.setWorld(world.provider.getDimension(), world, world.getMinecraftServer());
         this.mapper = mapper;
         delegate = world;
+    }
+
+    @Override
+    public File getChunkSaveLocation() {
+        return new File("/invalid_world_save_hated_mobs");
     }
 
     @Override
@@ -122,13 +122,6 @@ public class FalsifiedWorldClient extends WorldClient implements IFalsifiedWorld
     public BiomeProvider getBiomeProvider()
     {
         return delegate.getBiomeProvider();
-    }
-
-    @Nullable
-    @Override
-    public MinecraftServer getMinecraftServer()
-    {
-        return delegate.getMinecraftServer();
     }
 
     @Override
@@ -491,12 +484,6 @@ public class FalsifiedWorldClient extends WorldClient implements IFalsifiedWorld
     }
 
     @Override
-    public int calculateSkylightSubtracted(float partialTicks)
-    {
-        return delegate.calculateSkylightSubtracted(partialTicks);
-    }
-
-    @Override
     public float getSunBrightnessFactor(float partialTicks)
     {
         return 0f;
@@ -642,7 +629,7 @@ public class FalsifiedWorldClient extends WorldClient implements IFalsifiedWorld
     @Override
     public void addTileEntities(Collection<TileEntity> tileEntityCollection)
     {
-
+        delegate.addTileEntities(tileEntityCollection);
     }
 
     @Override
@@ -1074,11 +1061,6 @@ public class FalsifiedWorldClient extends WorldClient implements IFalsifiedWorld
     public BlockPos getSpawnPoint()
     {
         return delegate.getSpawnPoint();
-    }
-
-    @Override
-    public void setSpawnPoint(BlockPos pos)
-    {
     }
 
     @Override

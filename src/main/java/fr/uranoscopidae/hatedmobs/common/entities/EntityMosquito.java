@@ -1,9 +1,9 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import fr.uranoscopidae.hatedmobs.common.IBlockMapper;
+import fr.uranoscopidae.hatedmobs.common.worldwrappers.IBlockMapper;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
-import fr.uranoscopidae.hatedmobs.common.MosquitoWorldWrapper;
+import fr.uranoscopidae.hatedmobs.common.worldwrappers.MosquitoWorldWrapper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;

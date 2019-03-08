@@ -1,6 +1,7 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.worldwrappers;
 
 import com.google.common.base.Predicate;
+import fr.uranoscopidae.hatedmobs.common.worldwrappers.IBlockMapper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;

@@ -33,3 +33,5 @@ item.spider_candy.name=Bonbon Araignée
 entity.hatedmobs.red_ant.name=Fourmi Rouge
 item.red_ant_queen.name=Reine Fourmi Rouge
 tile.ant_hive.name=Fourmilière
+tile.domesticated_anthill.name=Fourmilière Domestiquée
+item.black_ant_queen.name=Reine Fourmi Noire

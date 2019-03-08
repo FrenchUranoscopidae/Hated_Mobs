@@ -1,6 +1,6 @@
 package fr.uranoscopidae.hatedmobs.client.gui;
 
-import fr.uranoscopidae.hatedmobs.common.ContainerEggSack;
+import fr.uranoscopidae.hatedmobs.common.containers.ContainerEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;

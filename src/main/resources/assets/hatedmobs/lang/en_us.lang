@@ -33,3 +33,5 @@ item.spider_candy.name=Spider Candy
 entity.hatedmobs.red_ant.name=Red Ant
 item.red_ant_queen.name=Queen Red Ant
 tile.ant_hive.name=Anthill
+tile.domesticated_anthill.name=Domesticated Anthill
+item.black_ant_queen.name=Black Ant Queen

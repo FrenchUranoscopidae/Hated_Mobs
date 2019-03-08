@@ -2,18 +2,23 @@ package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityAntHive;
-import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class BlockAntHive extends Block
 {
@@ -86,8 +91,25 @@ public class BlockAntHive extends Block
     {
         if(!canPlaceBlockAt(worldIn, pos))
         {
-            worldIn.destroyBlock(pos, false);
-            // TODO: drop l'item
+            worldIn.destroyBlock(pos, true);
         }
+    }
+
+    @Override
+    public int quantityDropped(Random random)
+    {
+        return 0;
+    }
+
+    @Override
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        super.getDrops(drops, world, pos, state, fortune);
+        drops.add(new ItemStack(HatedMobs.RED_ANT_QUEEN));
+    }
+
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune)
+    {
+        return super.getItemDropped(state, rand, fortune);
     }
 }

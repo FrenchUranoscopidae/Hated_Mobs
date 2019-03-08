@@ -1,9 +1,8 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.worldwrappers;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 
 public class SilkSpiderWorldWrapper implements IBlockMapper
 {

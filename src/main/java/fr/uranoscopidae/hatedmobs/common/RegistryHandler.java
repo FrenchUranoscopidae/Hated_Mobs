@@ -3,6 +3,7 @@ package fr.uranoscopidae.hatedmobs.common;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.*;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityAntHive;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
 import net.minecraft.block.Block;
@@ -34,6 +35,7 @@ public class RegistryHandler
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityAntHive.class, HatedMobs.ANT_HIVE.getRegistryName());
+        GameRegistry.registerTileEntity(TileEntityDomesticatedAnthill.class, HatedMobs.DOMESTICATED_ANTHILL.getRegistryName());
     }
 
     @SubscribeEvent
@@ -59,7 +61,7 @@ public class RegistryHandler
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,
                 HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP, HatedMobs.SPIDER_CANDY,
-                antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem);
+                antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem, HatedMobs.BLACK_ANT_QUEEN);
     }
 
     @SubscribeEvent
