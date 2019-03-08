@@ -1,15 +1,18 @@
 package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import fr.uranoscopidae.hatedmobs.common.GuiHandler;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -99,7 +102,18 @@ public class BlockDomesticatedAnthill extends Block
         if(!canPlaceBlockAt(worldIn, pos))
         {
             worldIn.destroyBlock(pos, false);
-            // TODO: drop l'item
         }
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    {
+        if (worldIn.isRemote)
+        {
+            return true;
+        }
+
+        playerIn.openGui(HatedMobs.instance, GuiHandler.DOMESTICATED_ANTHILL_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        return true;
     }
 }
