@@ -1,14 +1,11 @@
 package fr.uranoscopidae.hatedmobs.client.renders;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityRedAnt;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityScorpion;
 import net.ilexiconn.llibrary.client.model.tabula.ITabulaModelAnimator;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModel;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModelHandler;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
-import net.minecraft.client.model.ModelCow;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -60,6 +57,13 @@ public class RenderRedAnt extends RenderLiving<EntityRedAnt>
         @Override
         public void setRotationAngles(TabulaModel model, Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale)
         {
+            EntityRedAnt redAnt = (EntityRedAnt) entity;
+            float yawOffset = interpolateRotation(redAnt.prevRenderYawOffset, redAnt.renderYawOffset, 1);
+            float yawHead = interpolateRotation(redAnt.prevRotationYawHead, redAnt.rotationYawHead, 1);
+            float modelHeadYaw = yawHead - yawOffset;
+            model.getCube("head").rotateAngleY = modelHeadYaw * (float)Math.PI/180;
+            model.getCube("head").rotateAngleX = redAnt.rotationPitch * (float)Math.PI/180;
+
             AdvancedModelRenderer antennaLeft1 = model.getCube("antenna_base_left");
             AdvancedModelRenderer antennaLeft2 = model.getCube("antenna_tip_left");
             AdvancedModelRenderer antennaRight1 = model.getCube("antenna_base_right");
@@ -85,6 +89,23 @@ public class RenderRedAnt extends RenderLiving<EntityRedAnt>
                 AdvancedModelRenderer legEnd = model.getCube("leg_end_left" +i);
                 model.chainFlap(new AdvancedModelRenderer[]{legBase, legMiddle, legEnd}, 0.5f, (float) (Math.PI/4), 1f + i * 5, limbSwing, limbSwingAmount);
             }
+        }
+
+        protected float interpolateRotation(float prevYawOffset, float yawOffset, float partialTicks)
+        {
+            float f;
+
+            for (f = yawOffset - prevYawOffset; f < -180.0F; f += 360.0F)
+            {
+                ;
+            }
+
+            while (f >= 180.0F)
+            {
+                f -= 360.0F;
+            }
+
+            return prevYawOffset + partialTicks * f;
         }
     }
 }

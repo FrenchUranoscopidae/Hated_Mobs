@@ -178,6 +178,19 @@ public class RegistryHandler
             event.getRegistry().register(redAntEntry);
         }
 
+        if(ConfigurationHandler.MOB_TOGGLE.slug)
+        {
+            EntityEntry slugEntry = EntityEntryBuilder.create()
+                    .entity(EntitySlug.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "slug"), 9)
+                    .name("hatedmobs.slug")
+                    .tracker(64, 3, true)
+                    .egg(0xb04c39, 0xfa9682)
+                    .factory(EntitySlug::new)
+                    .build();
+            event.getRegistry().register(slugEntry);
+        }
+
         for(Biome biome : Biome.REGISTRY)
         {
             if(ConfigurationHandler.MOB_TOGGLE.mosquito)

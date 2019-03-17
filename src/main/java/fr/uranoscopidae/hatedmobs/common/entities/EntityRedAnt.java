@@ -6,6 +6,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -41,6 +42,7 @@ public class EntityRedAnt extends EntityAnimal
         this.tasks.addTask(1, new EntityAIAttackMelee(this, 1f, false));
         this.targetTasks.addTask(1, new EntityAINearestAttackableTarget<>(this, EntityMob.class, true));
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
+        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8));
     }
 
     public boolean attackEntityAsMob(Entity entityIn)

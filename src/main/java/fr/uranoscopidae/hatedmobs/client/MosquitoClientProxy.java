@@ -4,14 +4,17 @@ import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.MosquitoCommonProxy;
 import fr.uranoscopidae.hatedmobs.client.renders.*;
 import fr.uranoscopidae.hatedmobs.common.entities.*;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityAntHive;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -33,6 +36,9 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         RenderingRegistry.registerEntityRenderingHandler(EntityScorpion.class, RenderScorpion::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityTamedGiantSpider.class, RenderTamedGiantSpider::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRedAnt.class, RenderRedAnt::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntitySlug.class, RenderSlug::new);
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAntHive.class, new TileEntityAnthiveSpecialRenderer());
     }
 
     @Override

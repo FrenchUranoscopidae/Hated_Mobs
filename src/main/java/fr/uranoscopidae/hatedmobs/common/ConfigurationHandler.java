@@ -26,5 +26,7 @@ public class ConfigurationHandler
         public boolean scorpion = true;
         @Config.Comment("Set to false to disable ants")
         public boolean ant = true;
+        @Config.Comment("Set to false to disable slugs")
+        public boolean slug = true;
     }
 }

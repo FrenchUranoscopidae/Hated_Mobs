@@ -8,18 +8,22 @@ import fr.uranoscopidae.hatedmobs.common.items.ItemBlackAntQueen;
 import fr.uranoscopidae.hatedmobs.common.items.ItemRedAntQueen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -33,7 +37,8 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
     private Map<EntityMob, List<EntityRedAnt>> map = new HashMap<>();
 
     public static final int INDEX_QUEEN = 0;
-    public InventoryBasic inventory = new InventoryBasic("hatedmobs.inventory.domesticatedanthill", false, 10);
+    public InventoryBasic inventoryQueen = new InventoryBasic("hatedmobs.inventory.domesticatedanthill", false, 1);
+    public InventoryBasic inventoryLoot = new InventoryBasic("hatedmobs.inventory.domesticatedanthill", false, 9);
 
     public static final int RADIUS = 20;
     private int xoffset = -RADIUS;
@@ -43,8 +48,9 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
     private Item currentItem;
 
     public int progressTick;
-    public static final int DURATION_IN_TICKS = /*16 * 60*/3 * 20;
+    public static final int DURATION_IN_TICKS = 16 * 60 * 20;
     static List<LootItem> loot = new ArrayList<>();
+    private InvWrapper invWrapper = new InvWrapper(inventoryLoot);
 
     public static void loadLoot(File file)
     {
@@ -66,7 +72,7 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
     @Override
     public void update()
     {
-        ItemStack stack = inventory.getStackInSlot(INDEX_QUEEN);
+        ItemStack stack = inventoryQueen.getStackInSlot(INDEX_QUEEN);
 
         if(progressTick == 0)
         {
@@ -83,14 +89,14 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
             progressTick--;
             if(currentItem instanceof ItemBlackAntQueen)
             {
-                if (progressTick % (/*60 **/ 20) == 0)
+                if (progressTick % (30 * 20) == 0)
                 {
                     if(!world.isRemote) {
                         if(world.rand.nextBoolean())
                         {
                             ResourceLocation id = WeightedRandom.getRandomItem(world.rand, loot).itemName;
                             Item item = Item.REGISTRY.getObject(id);
-                            inventory.addItem(new ItemStack(item));
+                            inventoryLoot.addItem(new ItemStack(item));
                         }
                     }
                 }
@@ -170,9 +176,12 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
         super.readFromNBT(compound);
         for (int i = 0; i < 9; i++)
         {
-            ItemStack itemStack = new ItemStack(compound.getCompoundTag("Stack" + i));
-            inventory.setInventorySlotContents(i, itemStack);
+            ItemStack itemStackLoot = new ItemStack(compound.getCompoundTag("StackLoot" + i));
+            inventoryLoot.setInventorySlotContents(i, itemStackLoot);
         }
+        ItemStack itemStackQueen = new ItemStack(compound.getCompoundTag("StackQueen"));
+        inventoryQueen.setInventorySlotContents(0, itemStackQueen);
+        progressTick = compound.getInteger("progressTick");
     }
 
     @Override
@@ -180,11 +189,35 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
     {
         for (int i = 0; i < 9; i++)
         {
-            ItemStack itemStack = inventory.getStackInSlot(i);
-            compound.setTag("Stack" + i, itemStack.writeToNBT(new NBTTagCompound()));
+            ItemStack itemStackLoot = inventoryLoot.getStackInSlot(i);
+            compound.setTag("StackLoot" + i, itemStackLoot.writeToNBT(new NBTTagCompound()));
         }
+        ItemStack itemStackQueen = inventoryQueen.getStackInSlot(0);
+        compound.setTag("StackQueen", itemStackQueen.writeToNBT(new NBTTagCompound()));
+        compound.setInteger("progressTick", progressTick);
 
         return super.writeToNBT(compound);
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing)
+    {
+        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+        {
+            return true;
+        }
+        return super.hasCapability(capability, facing);
+    }
+
+    @Nullable
+    @Override
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing)
+    {
+        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+        {
+            return (T)invWrapper;
+        }
+        return super.getCapability(capability, facing);
     }
 
     private static class LootItem extends WeightedRandom.Item

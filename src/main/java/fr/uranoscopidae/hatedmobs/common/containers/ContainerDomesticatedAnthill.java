@@ -19,11 +19,11 @@ public class ContainerDomesticatedAnthill extends Container
 
     public ContainerDomesticatedAnthill(InventoryPlayer inventory, TileEntityDomesticatedAnthill tileEntity)
     {
-        this.addSlotToContainer(new SlotQueen(tileEntity.inventory, TileEntityDomesticatedAnthill.INDEX_QUEEN, 80, 17));
+        this.addSlotToContainer(new SlotQueen(tileEntity.inventoryQueen, TileEntityDomesticatedAnthill.INDEX_QUEEN, 80, 17));
 
         for (int i = 0; i < 9; i++)
         {
-            this.addSlotToContainer(new SlotLoot(tileEntity.inventory, 1 + i, 8 + i * 18, 53));
+            this.addSlotToContainer(new SlotLoot(tileEntity.inventoryLoot, 1 + i, 8 + i * 18, 53));
         }
 
         for (int l = 0; l < 3; ++l)

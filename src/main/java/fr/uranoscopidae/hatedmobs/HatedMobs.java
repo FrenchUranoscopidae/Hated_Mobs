@@ -5,10 +5,7 @@ import fr.uranoscopidae.hatedmobs.common.blocks.*;
 import fr.uranoscopidae.hatedmobs.common.items.*;
 import fr.uranoscopidae.hatedmobs.common.potions.PotionInsomnia;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
-import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorEggSack;
-import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorSpiderLeaves;
-import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorSpiderNest;
-import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorWaspNest;
+import fr.uranoscopidae.hatedmobs.common.worldgenerator.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -120,6 +117,10 @@ public class HatedMobs
         if(ConfigurationHandler.MOB_TOGGLE.wasp)
         {
             GameRegistry.registerWorldGenerator(new WorldGeneratorWaspNest(), 0);
+        }
+        if (ConfigurationHandler.MOB_TOGGLE.ant)
+        {
+            GameRegistry.registerWorldGenerator(new WorldGeneratorAnthill(), 0);
         }
     }
 
