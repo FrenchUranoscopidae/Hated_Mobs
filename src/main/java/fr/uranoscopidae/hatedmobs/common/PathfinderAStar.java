@@ -5,10 +5,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class PathfinderAStar
 {
@@ -18,10 +15,12 @@ public class PathfinderAStar
         double cost;
         double heuristic;
         Node parent;
+        EnumFacing side;
 
-        public Node(BlockPos pos)
+        public Node(BlockPos pos, EnumFacing side)
         {
             this.pos = pos;
+            this.side = side;
         }
 
         @Override
@@ -42,7 +41,14 @@ public class PathfinderAStar
 
     public static List<BlockPos> findPath(World world, BlockPos start, BlockPos objective, int maxDistance)
     {
-        return shortestPath(world, new Node(start), new Node(objective), maxDistance);
+        for(EnumFacing sideStart : EnumFacing.VALUES) {
+            for(EnumFacing sideEnd : EnumFacing.VALUES) {
+                List<BlockPos> path = shortestPath(world, new Node(start.offset(sideStart), sideStart.getOpposite()), new Node(objective.offset(sideEnd), sideEnd.getOpposite()), maxDistance);
+                if(path != null)
+                    return path;
+            }
+        }
+        return null;
     }
 
     private static List<BlockPos> shortestPath(World world, Node start, Node objective, int maxDistance)
@@ -51,16 +57,26 @@ public class PathfinderAStar
         Queue<Node> openList = new PriorityQueue<>(PathfinderAStar::compare);
         openList.add(start);
         double maxDistanceSq = maxDistance*maxDistance;
+        int testedCount = 0;
         while (!openList.isEmpty())
         {
+            testedCount++;
             Node current = openList.poll();
             if(current.equals(objective))
             {
                 return recontructPath(current);
             }
-            if(closedList.contains(current))
+            if(testedCount > 250)
+                break;
+         /*   if(!world.isAirBlock(current.pos))
+            {
+                closedList.add(current);
                 continue;
-
+            }*/
+            if(current.pos.distanceSq(start.pos) >= maxDistanceSq) {
+                closedList.add(current);
+                continue;
+            }
             neighborLoop : for (Node neighbor : getNeighbors(world, current))
             {
                 if(closedList.contains(neighbor))
@@ -77,14 +93,11 @@ public class PathfinderAStar
                         }
                     }
                 }
-                if(neighbor.pos.distanceSq(start.pos) >= maxDistanceSq) {
-                    closedList.add(neighbor);
-                    continue;
-                }
+
                 neighbor.cost = current.cost + current.pos.distanceSq(neighbor.pos);
                 neighbor.heuristic = neighbor.cost + heuristicDistance(neighbor, objective);
                 neighbor.parent = current;
-                System.out.println("Add "+neighbor.pos+" / "+openList.contains(neighbor));
+          //      System.out.println("Add "+neighbor.pos+" / "+openList.contains(neighbor));
                 openList.add(neighbor);
             }
             closedList.add(current);
@@ -114,22 +127,70 @@ public class PathfinderAStar
     private static List<Node> getNeighbors(World world, Node current)
     {
         List<Node> neighbors = new LinkedList<>();
+        EnumFacing currentFace = current.side;
         for (EnumFacing facing : EnumFacing.values())
         {
-            BlockPos neighborPos = current.pos.offset(facing);
-            if(world.isBlockLoaded(neighborPos))
+            if(facing == currentFace || facing == currentFace.getOpposite())  // don't go through walls
             {
-                if(world.isAirBlock(neighborPos))
+                continue;
+            }
+            BlockPos neighborPos = current.pos.offset(facing).offset(currentFace.getOpposite());
+            IBlockState neighborState = world.getBlockState(neighborPos);
+            if(neighborState.isSideSolid(world, neighborPos, currentFace.getOpposite())) { // check that there is continuity in the path (stay on the same face)
+                neighbors.add(new Node(current.pos.offset(facing), currentFace));
+            }
+        }
+
+        // Allow to go on another face of a given cube
+        EnumFacing[] clockwiseAccessibleFaces;
+        switch (currentFace)
+        {
+            case UP:
+            case DOWN:
+                clockwiseAccessibleFaces = EnumFacing.HORIZONTALS;
+                break;
+
+            case NORTH:
+            case SOUTH:
+                clockwiseAccessibleFaces = new EnumFacing[]{EnumFacing.UP, EnumFacing.DOWN, EnumFacing.EAST, EnumFacing.WEST};
+                break;
+
+            case EAST:
+            case WEST:
+                clockwiseAccessibleFaces = new EnumFacing[]{EnumFacing.UP, EnumFacing.DOWN, EnumFacing.NORTH, EnumFacing.SOUTH};
+                break;
+
+            default:
+                // never happens
+                clockwiseAccessibleFaces = EnumFacing.HORIZONTALS;
+                break;
+        }
+        // rotations outside a block
+        for(EnumFacing clockwiseFace : clockwiseAccessibleFaces)
+        {
+            BlockPos supportingPos = current.pos.offset(currentFace);
+            IBlockState supportingState = world.getBlockState(supportingPos);
+            if(supportingState.isSideSolid(world, supportingPos, clockwiseFace))
+            {
+                // TODO: check for air
+                if(world.isAirBlock(supportingPos.offset(clockwiseFace)))
                 {
-                    for (EnumFacing facingAir : EnumFacing.values())
-                    {
-                        BlockPos airNeighbor = neighborPos.offset(facingAir);
-                        IBlockState state = world.getBlockState(airNeighbor);
-                        if(state.isSideSolid(world, airNeighbor, facingAir.getOpposite()))
-                        {
-                            neighbors.add(new Node(neighborPos));
-                        }
-                    }
+                    neighbors.add(new Node(supportingPos.offset(clockwiseFace), clockwiseFace.getOpposite()));
+                }
+            }
+        }
+
+        // rotations inside same block
+        for(EnumFacing clockwiseFace : clockwiseAccessibleFaces)
+        {
+            BlockPos supportingPos = current.pos.offset(clockwiseFace);
+            IBlockState supportingState = world.getBlockState(supportingPos);
+            if(supportingState.isSideSolid(world, supportingPos, clockwiseFace.getOpposite()))
+            {
+                // TODO: check for air
+                if(!world.isAirBlock(supportingPos))
+                {
+                    neighbors.add(new Node(current.pos, clockwiseFace));
                 }
             }
         }

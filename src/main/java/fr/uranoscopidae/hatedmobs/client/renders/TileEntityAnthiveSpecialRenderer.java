@@ -23,15 +23,18 @@ public class TileEntityAnthiveSpecialRenderer extends TileEntitySpecialRenderer<
         for (BlockPos target : te.posSet)
         {
             List<BlockPos> path = PathfinderAStar.findPath(getWorld(), te.getPos(), target, TileEntityAntHive.RADIUS);
-            for(BlockPos element : path)
+            if(path != null)
             {
-                double relativeX = element.getX()-startX + x;
-                double relativeY = element.getY()-startY + y;
-                double relativeZ = element.getZ()-startZ + z;
-                GlStateManager.pushMatrix();
-                GlStateManager.translate(relativeX, relativeY, relativeZ);
-                Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(Blocks.TNT.getDefaultState(), 1f);
-                GlStateManager.popMatrix();
+                for(BlockPos element : path)
+                {
+                    double relativeX = element.getX()-startX + x;
+                    double relativeY = element.getY()-startY + y;
+                    double relativeZ = element.getZ()-startZ + z;
+                    GlStateManager.pushMatrix();
+                    GlStateManager.translate(relativeX, relativeY, relativeZ);
+                    Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(Blocks.TNT.getDefaultState(), 1f);
+                    GlStateManager.popMatrix();
+                }
             }
         }
     }
