@@ -7,13 +7,20 @@ import net.minecraft.world.World;
 
 import java.util.*;
 
+/**
+ * Pathfinder used for Anthills to find a path to containers
+ * @author jglrxavpok
+ */
 public class PathfinderAStar
 {
-    private static class Node
+    /**
+     * Single node: block and face of said block
+     */
+    public static class Node
     {
         BlockPos pos;
-        double cost;
-        double heuristic;
+        double gScore = Double.POSITIVE_INFINITY;
+        double fScore = Double.POSITIVE_INFINITY;
         Node parent;
         EnumFacing side;
 
@@ -23,12 +30,20 @@ public class PathfinderAStar
             this.side = side;
         }
 
+        public BlockPos getPos() {
+            return pos;
+        }
+
+        public EnumFacing getSide() {
+            return side;
+        }
+
         @Override
         public boolean equals(Object obj)
         {
             if(obj instanceof Node)
             {
-                return pos.equals(((Node) obj).pos);
+                return pos.equals(((Node) obj).pos) && side == ((Node) obj).side;
             }
             return super.equals(obj);
         }
@@ -36,85 +51,87 @@ public class PathfinderAStar
 
     public static int compare(Node node1, Node node2)
     {
-        return Double.compare(node1.heuristic, node2.heuristic);
+        return Double.compare(node1.fScore, node2.fScore);
     }
 
-    public static List<BlockPos> findPath(World world, BlockPos start, BlockPos objective, int maxDistance)
-    {
+    public static List<Node> findPath(World world, BlockPos start, BlockPos objective, int maxDistance) {
         for(EnumFacing sideStart : EnumFacing.VALUES) {
             for(EnumFacing sideEnd : EnumFacing.VALUES) {
-                List<BlockPos> path = shortestPath(world, new Node(start.offset(sideStart), sideStart.getOpposite()), new Node(objective.offset(sideEnd), sideEnd.getOpposite()), maxDistance);
-                if(path != null)
+                List<Node> path = shortestPath(world, new Node(start.offset(sideStart), sideStart.getOpposite()), new Node(objective.offset(sideEnd), sideEnd.getOpposite()), maxDistance);
+                if(path != null) {
+               //     System.out.println(">> "+start+"("+sideStart+") -> "+objective+"("+sideEnd+")");
+                 //   System.out.println(path.stream().map(Vec3i::toString).collect(Collectors.joining(", ")));
                     return path;
+                }
             }
         }
         return null;
     }
 
-    private static List<BlockPos> shortestPath(World world, Node start, Node objective, int maxDistance)
+    private static List<Node> shortestPath(World world, Node start, Node objective, int maxDistance)
     {
+        if(!world.isAirBlock(start.pos))
+            return null;
+
+        // implementation based on Wikipedia article on A*
         List<Node> closedList = new LinkedList<>();
-        Queue<Node> openList = new PriorityQueue<>(PathfinderAStar::compare);
-        openList.add(start);
+        Queue<Node> openSet = new PriorityQueue<>(PathfinderAStar::compare);
+        openSet.add(start);
         double maxDistanceSq = maxDistance*maxDistance;
         int testedCount = 0;
-        while (!openList.isEmpty())
-        {
-            testedCount++;
-            Node current = openList.poll();
-            if(current.equals(objective))
-            {
+
+        start.gScore = 0.0;
+        start.fScore = heuristicDistance(start, objective);
+
+        while(!openSet.isEmpty()) {
+            Node current = openSet.poll();
+            if(current.equals(objective)) {
                 return recontructPath(current);
             }
-            if(testedCount > 250)
-                break;
-         /*   if(!world.isAirBlock(current.pos))
-            {
-                closedList.add(current);
-                continue;
-            }*/
-            if(current.pos.distanceSq(start.pos) >= maxDistanceSq) {
-                closedList.add(current);
-                continue;
-            }
-            neighborLoop : for (Node neighbor : getNeighbors(world, current))
-            {
-                if(closedList.contains(neighbor))
-                {
+
+            if(testedCount++ >= 250)
+                return null;
+
+            closedList.add(current);
+
+            for(Node neighbor : getNeighbors(world, current)) {
+                if(neighbor.pos.distanceSq(start.pos) >= maxDistanceSq)
+                    continue;
+                if(closedList.contains(neighbor)) {
                     continue;
                 }
-                for (Node neighbor2 : openList)
-                {
-                    if(neighbor.equals(neighbor2))
-                    {
-                        if(neighbor2.cost <= neighbor.cost)
-                        {
-                            continue neighborLoop;
+
+                double tentativeGScore = current.gScore + Math.sqrt(current.pos.distanceSq(neighbor.pos));
+
+                if( ! openSet.contains(neighbor)) {
+                    openSet.add(neighbor);
+                } else {
+                    // get previous score of neighbor (need to check openSet because the one inside the set and 'neighbor' have different references)
+                    Optional<Double> previousGScore = openSet.stream().filter(neighbor::equals).map(it -> it.gScore).findFirst();
+                    if(previousGScore.isPresent()) {
+                        if(tentativeGScore >= previousGScore.get()) {
+                            continue;
                         }
                     }
                 }
 
-                neighbor.cost = current.cost + current.pos.distanceSq(neighbor.pos);
-                neighbor.heuristic = neighbor.cost + heuristicDistance(neighbor, objective);
                 neighbor.parent = current;
-          //      System.out.println("Add "+neighbor.pos+" / "+openList.contains(neighbor));
-                openList.add(neighbor);
+                neighbor.gScore = tentativeGScore;
+                neighbor.fScore = neighbor.gScore + heuristicDistance(neighbor, objective);
             }
-            closedList.add(current);
         }
         return null;
     }
 
-    private static List<BlockPos> recontructPath(Node current)
+    private static List<Node> recontructPath(Node current)
     {
-        List<BlockPos> posList = new LinkedList<>();
-        posList.add(current.pos);
+        List<Node> posList = new LinkedList<>();
+        posList.add(current);
         Node parent = current.parent;
         while(parent != null)
         {
-            posList.add(parent.pos);
-            current = parent;
-            parent = current.parent;
+            posList.add(parent);
+            parent = parent.parent;
         }
         return posList;
     }
@@ -124,22 +141,55 @@ public class PathfinderAStar
         return Math.abs(b.pos.getX() - a.pos.getX()) + Math.abs(b.pos.getY() - a.pos.getY()) + Math.abs(b.pos.getZ() - a.pos.getZ());
     }
 
+    /**
+     * List the valid neighbors of a given node
+     * @param world
+     * @param current
+     * @return
+     */
     private static List<Node> getNeighbors(World world, Node current)
     {
         List<Node> neighbors = new LinkedList<>();
         EnumFacing currentFace = current.side;
+
+        // list of faces accessible to the current face (90° inside the same block)
+        List<EnumFacing> accessibleFaces = new LinkedList<>();
+
+        // directly next to this face
         for (EnumFacing facing : EnumFacing.values())
         {
             if(facing == currentFace || facing == currentFace.getOpposite())  // don't go through walls
             {
                 continue;
             }
-            BlockPos neighborPos = current.pos.offset(facing).offset(currentFace.getOpposite());
+            accessibleFaces.add(facing);
+            BlockPos neighborPos = current.pos.offset(facing).offset(currentFace);
             IBlockState neighborState = world.getBlockState(neighborPos);
-            if(neighborState.isSideSolid(world, neighborPos, currentFace.getOpposite())) { // check that there is continuity in the path (stay on the same face)
-                neighbors.add(new Node(current.pos.offset(facing), currentFace));
+
+            // N are checked neighbors, C is the current location, X is not checked: (on a 2d plane)
+            //  XNX
+            //  NCN
+            //  XNX
+
+            // TODO: method to check if face valid
+            BlockPos potentialNextPosition = current.pos.offset(facing);
+            if(world.isAirBlock(potentialNextPosition)) {
+                if(!world.isAirBlock(neighborPos)/*neighborState.isSideSolid(world, neighborPos, currentFace.getOpposite())*/) { // check that there is continuity in the path (stay on the same face)
+                    neighbors.add(new Node(current.pos.offset(facing), currentFace));
+                } else {
+                    neighbors.add(new Node(neighborPos, facing.getOpposite()));
+                }
+            }
+
+
+            // check if accessible faces inside the same block are valid
+            if(!world.isAirBlock(current.pos.offset(facing))) {
+                neighbors.add(new Node(current.pos, facing));
             }
         }
+
+
+        /*
 
         // Allow to go on another face of a given cube
         EnumFacing[] clockwiseAccessibleFaces;
@@ -193,7 +243,7 @@ public class PathfinderAStar
                     neighbors.add(new Node(current.pos, clockwiseFace));
                 }
             }
-        }
+        }*/
         return neighbors;
     }
 }
