@@ -20,6 +20,7 @@ public class EntityScorpion extends EntityMob
         setSize(2f, 1f);
     }
 
+    @Override
     protected void initEntityAI()
     {
         this.tasks.addTask(1, new EntityAISwimming(this));
