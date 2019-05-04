@@ -1,37 +1,46 @@
 entity.hatedmobs.mosquito.name=Mosquito
-item.swatter.name=Swatter
-tile.net.name=Net
 entity.hatedmobs.silk_spider.name=Silk Spider
-hatedmobs.wake_up_by_mosquito=You've been bitten by a mosquito !
-tile.web_block.name=Web Block
-tile.egg_sack.name=Egg Sack
-item.spider_egg.name=Spider Egg
-tile.spider_infested_leaves.name=Infested Leaves
-hatedmobs.cant_spawn_silk_spider=Maximum number of spiders has been reached for this block.
-hatedmobs.spider_egg_description=Right Click on infested leaves to spawn a silk spider.
-hatedmobs.infested_leaves_description=Can be used to house silk spiders.
-item.silk_boots.name=Silk Boots
-attribute.name.hatedmobs.silk_walk=Movement speed in Cobwebs and on Web Blocks
 entity.hatedmobs.giant_spider.name=Giant Spider
-hatedmobs.cant_sleep_insomnia=You can't sleep because of insomnia
-effect.insomnia=Insomnia
-tile.anti_mosquito_glass.name=Anti-mosquito Glass
-itemGroup.hatedmobs=Hated Mobs
-item.net_door.name=Net Door
-tile.wasp_nest.name=Wasp Hive
 entity.hatedmobs.wasp.name=Wasp
 entity.hatedmobs.toad.name=Toad
+entity.hatedmobs.scorpion.name=Scorpion
+entity.hatedmobs.tamed_giant_spider.name=Tamed Giant Spider
+entity.hatedmobs.red_ant.name=Red Ant
+entity.hatedmobs.slug.name=Slug
+
+item.swatter.name=Swatter
+item.spider_egg.name=Spider Egg
+item.silk_boots.name=Silk Boots
+item.net_door.name=Net Door
 item.frog_leg.name=Frog Leg
 item.cooked_frog_leg.name=Cooked Frog Leg
 item.giant_spider_fang.name=Spider Fang
 item.giant_spider_fang_sword.name=Spider Fang Sword
 item.dead_mosquito=Dead Mosquito
 item.dead_wasp=Dead Wasp
-entity.hatedmobs.scorpion.name=Scorpion
-entity.hatedmobs.tamed_giant_spider.name=Tamed Giant Spider
 item.spider_candy.name=Spider Candy
-entity.hatedmobs.red_ant.name=Red Ant
 item.red_ant_queen.name=Queen Red Ant
+item.black_ant_queen.name=Black Ant Queen
+
+tile.net.name=Net
+tile.web_block.name=Web Block
+tile.egg_sack.name=Egg Sack
+tile.spider_infested_leaves.name=Infested Leaves
+tile.anti_mosquito_glass.name=Anti-mosquito Glass
+tile.wasp_nest.name=Wasp Hive
 tile.ant_hive.name=Anthill
 tile.domesticated_anthill.name=Domesticated Anthill
-item.black_ant_queen.name=Black Ant Queen
+
+effect.insomnia=Insomnia
+
+hatedmobs.wake_up_by_mosquito=You've been bitten by a mosquito !
+hatedmobs.cant_spawn_silk_spider=Maximum number of spiders has been reached for this block.
+hatedmobs.spider_egg_description=Right Click on infested leaves to spawn a silk spider.
+hatedmobs.infested_leaves_description=Can be used to house silk spiders.
+hatedmobs.cant_sleep_insomnia=You can't sleep because of insomnia
+
+attribute.name.hatedmobs.silk_walk=Movement speed in Cobwebs and on Web Blocks
+
+itemGroup.hatedmobs=Hated Mobs
+
+

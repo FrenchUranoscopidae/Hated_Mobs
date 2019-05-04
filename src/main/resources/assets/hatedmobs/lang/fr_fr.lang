@@ -1,37 +1,49 @@
 entity.hatedmobs.mosquito.name=Moustique
-item.swatter.name=Tapette
-tile.net.name=Moustiquaire
 entity.hatedmobs.silk_spider.name=Araignée à soie
-hatedmobs.wake_up_by_mosquito=Vous avez été piqué par un moustique !
-tile.web_block.name=Bloc de Toile
-tile.egg_sack.name=Sac d'Oeufs
-item.spider_egg.name=Oeuf d'Araignée
-tile.spider_infested_leaves.name=Feuillage Infesté
-hatedmobs.cant_spawn_silk_spider=Le nombre maximum d'araignées a été atteint pour ce bloc.
-hatedmobs.spider_egg_description=Clic droit sur un feuillage infesté pour faire spawner une araignée à soie.
-hatedmobs.infested_leaves_description=Peut être utilisé pour abritter des araignées à soie.
-item.silk_boots.name=Bottes de soie
-attribute.name.hatedmobs.silk_walk=Vitesse de mouvements dans les toiles et sur les Blocs de Toile
 entity.hatedmobs.giant_spider.name=Araignée Géante
-hatedmobs.cant_sleep_insomnia=Vous ne pouvez pas dormir à cause d'une insomnie
-effect.insomnia=Insomnie
-tile.anti_mosquito_glass.name=Bloc de verre anti-moustique
-itemGroup.hatedmobs=Hated Mobs
-item.net_door.name=Porte de moustiquaire
 entity.hatedmobs.wasp.name=Guêpe
 entity.hatedmobs.toad.name=Crapaud
-tile.wasp_nest.name=Nid de Guêpe
+entity.hatedmobs.scorpion.name=Scorpion
+entity.hatedmobs.tamed_giant_spider.name=Araignée Géante Apprivoisée
+entity.hatedmobs.red_ant.name=Fourmi Rouge
+entity.hatedmobs.slug.name=Limace
+
+item.swatter.name=Tapette
+item.spider_egg.name=Oeuf d'Araignée
+item.silk_boots.name=Bottes de soie
+item.net_door.name=Porte de moustiquaire
 item.frog_leg.name=Cuisses de Grenouille
 item.cooked_frog_leg.name=Cuisses de Grenouille Cuites
 item.giant_spider_fang.name=Croc d'Araignée Géante
 item.giant_spider_fang_sword.name=Epée de Croc d'Araignée Géante
 item.dead_mosquito.name=Moustique Mort
 item.dead_wasp.name=Guêpe Morte
-entity.hatedmobs.scorpion.name=Scorpion
-entity.hatedmobs.tamed_giant_spider.name=Araignée Géante Apprivoisée
 item.spider_candy.name=Bonbon Araignée
-entity.hatedmobs.red_ant.name=Fourmi Rouge
 item.red_ant_queen.name=Reine Fourmi Rouge
+item.black_ant_queen.name=Reine Fourmi Noire
+
+tile.net.name=Moustiquaire
+tile.web_block.name=Bloc de Toile
+tile.egg_sack.name=Sac d'Oeufs
+tile.spider_infested_leaves.name=Feuillage Infesté
+tile.anti_mosquito_glass.name=Bloc de verre anti-moustique
+tile.wasp_nest.name=Nid de Guêpe
 tile.ant_hive.name=Fourmilière
 tile.domesticated_anthill.name=Fourmilière Domestiquée
-item.black_ant_queen.name=Reine Fourmi Noire
+
+effect.insomnia=Insomnie
+
+hatedmobs.wake_up_by_mosquito=Vous avez été piqué par un moustique !
+hatedmobs.cant_spawn_silk_spider=Le nombre maximum d'araignées a été atteint pour ce bloc.
+hatedmobs.spider_egg_description=Clic droit sur un feuillage infesté pour faire spawner une araignée à soie.
+hatedmobs.infested_leaves_description=Peut être utilisé pour abritter des araignées à soie.
+hatedmobs.cant_sleep_insomnia=Vous ne pouvez pas dormir à cause d'une insomnie
+
+attribute.name.hatedmobs.silk_walk=Vitesse de mouvements dans les toiles et sur les Blocs de Toile
+
+itemGroup.hatedmobs=Hated Mobs
+
+
+
+
+

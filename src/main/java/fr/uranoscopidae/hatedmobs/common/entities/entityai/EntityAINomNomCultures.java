@@ -3,9 +3,7 @@ package fr.uranoscopidae.hatedmobs.common.entities.entityai;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySlug;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIMoveToBlock;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -86,11 +84,6 @@ public class EntityAINomNomCultures extends EntityAIMoveToBlock
         }
     }
 
-    /**
-     * Searches and sets new destination block and returns true if a suitable block (specified in {@link
-     * net.minecraft.entity.ai.EntityAIMoveToBlock#shouldMoveTo(World, BlockPos) EntityAIMoveToBlock#shouldMoveTo(World,
-     * BlockPos)}) can be found.
-     */
     private boolean searchForDestination()
     {
         int i = this.searchDistance;
