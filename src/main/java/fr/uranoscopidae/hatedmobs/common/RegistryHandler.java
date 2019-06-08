@@ -195,33 +195,30 @@ public class RegistryHandler
         {
             if(ConfigurationHandler.MOB_TOGGLE.mosquito)
             {
-                EntityRegistry.addSpawn(EntityMosquito.class, 75, 4, 6, EnumCreatureType.MONSTER, biome);
+                int mosquitoSpawnrate = ConfigurationHandler.MOB_FREQUENCY.mosquito.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.mosquitoDefault);
+                EntityRegistry.addSpawn(EntityMosquito.class, mosquitoSpawnrate, 4, 6, EnumCreatureType.MONSTER, biome);
             }
 
             if(ConfigurationHandler.MOB_TOGGLE.giantSpider)
             {
-                EntityRegistry.addSpawn(EntityGiantSpider.class, 1, 1, 1, EnumCreatureType.MONSTER, biome);
+                int giantSpiderSpawnrate = ConfigurationHandler.MOB_FREQUENCY.giantSpider.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.giantSpiderDefault);
+                EntityRegistry.addSpawn(EntityGiantSpider.class, giantSpiderSpawnrate, 1, 1, EnumCreatureType.MONSTER, biome);
             }
 
             if(ConfigurationHandler.MOB_TOGGLE.toad)
             {
-                EntityRegistry.addSpawn(EntityToad.class, 100, 2, 5, EnumCreatureType.CREATURE, biome);
+                int toadSpawnrate = ConfigurationHandler.MOB_FREQUENCY.toad.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.toadDefault);
+                EntityRegistry.addSpawn(EntityToad.class, toadSpawnrate, 2, 5, EnumCreatureType.CREATURE, biome);
+            }
+
+            if(ConfigurationHandler.MOB_TOGGLE.scorpion)
+            {
+                int scorpionSpawnrate = ConfigurationHandler.MOB_FREQUENCY.scorpion.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.scorpionDefault);
+                EntityRegistry.addSpawn(EntityScorpion.class, scorpionSpawnrate, 3, 4,EnumCreatureType.MONSTER, Biomes.DESERT, biome);
             }
         }
 
         EntitySpawnPlacementRegistry.setPlacementType(EntityToad.class, EntityLiving.SpawnPlacementType.IN_WATER);
-
-        if(ConfigurationHandler.MOB_TOGGLE.mosquito)
-        {
-            EntityRegistry.removeSpawn(EntityMosquito.class, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
-            EntityRegistry.addSpawn(EntityMosquito.class, 10, 4, 6, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT);
-            EntityRegistry.addSpawn(EntityMosquito.class, 100, 4, 6, EnumCreatureType.MONSTER, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
-        }
-
-        if (ConfigurationHandler.MOB_TOGGLE.scorpion)
-        {
-            EntityRegistry.addSpawn(EntityScorpion.class, 50, 3, 4,EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS);
-        }
     }
 
     @SubscribeEvent
