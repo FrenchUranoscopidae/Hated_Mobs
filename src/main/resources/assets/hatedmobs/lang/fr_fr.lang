@@ -39,6 +39,34 @@ hatedmobs.spider_egg_description=Clic droit sur un feuillage infesté pour faire
 hatedmobs.infested_leaves_description=Peut être utilisé pour abritter des araignées à soie.
 hatedmobs.cant_sleep_insomnia=Vous ne pouvez pas dormir à cause d'une insomnie
 
+hatedmobs.mob_toggle=Activation des Mobs
+hatedmobs.mob_spawnrate=Fréquence d'apparition des Mobs
+entity.hatedmobs.mosquito.name.tooltip=Choisir false pour désactiver les moustiques
+entity.hatedmobs.silk_spider.name.tooltip=Choisir false pour désactiver les araignées à soie
+entity.hatedmobs.giant_spider.name.tooltip=Choisir false pour désactiver les araignées géantes
+entity.hatedmobs.wasp.name.tooltip=Choisir false pour désactiver les guêpes
+entity.hatedmobs.toad.name.tooltip=Choisir false pour désactiver les crapaux
+entity.hatedmobs.scorpion.name.tooltip=Choisir false pour désactiver les scorpions
+hatedmobs.ant_toggle.tooltip=Choisir false pour désactiver les fourmis
+entity.hatedmobs.slug.name.tooltip=Choisir false pour désactiver les limaces
+hatedmobs.mosquito_biomes=Moustiques par biome
+hatedmobs.giant_spider_biomes=Araignées géantes par biome
+hatedmobs.toad_biomes=Crapaux par biome
+hatedmobs.scorpion_biomes=Scorpions par biome
+hatedmobs.mosquito_biomes.tooltip=Fréquence d'apparition des moustiques par biome. Entrer un plus grand nombre pour une plus grande fréquence.
+hatedmobs.giant_spider_biomes.tooltip=Fréquence d'apparition des araignées géantes par biome. Entrer un plus grand nombre pour une plus grande fréquence.
+hatedmobs.toad_biomes.tooltip=Fréquence d'apparition des crapaux par biome. Entrer un plus grand nombre pour une plus grande fréquence.
+hatedmobs.scorpion_biomes.tooltip=Fréquence d'apparition des scorpions par biome. Entrer un plus grand nombre pour une plus grande fréquence.
+hatedmobs.mosquito_default_name.tooltip=Fréquence d'apparition par défaut des moustiques dans les biomes qui ne sont pas cités dans la liste de biomes.
+hatedmobs.giant_spider_default_name.tooltip=Fréquence d'apparition par défaut des araignées géantes dans les biomes qui ne sont pas cités dans la liste de biomes.
+hatedmobs.toad_default.tooltip=Fréquence d'apparition par défaut des crapaux dans les biomes qui ne sont pas cités dans la liste de biomes.
+hatedmobs.scorpion_default_name.tooltip=Fréquence d'apparition par défaut des scorpions dans les biomes qui ne sont pas cités dans la liste de biomes.
+hatedmobs.mosquito_default_name=Moustiques par défaut
+hatedmobs.giant_spider_default_name=Araignées géantes par défaut
+hatedmobs.toad_default_name=Crapaux par défaut
+hatedmobs.scorpion_default_name=Scorpions par défaut
+hatedmobs.ant_toggle=Fourmi
+
 attribute.name.hatedmobs.silk_walk=Vitesse de mouvements dans les toiles et sur les Blocs de Toile
 
 itemGroup.hatedmobs=Hated Mobs
