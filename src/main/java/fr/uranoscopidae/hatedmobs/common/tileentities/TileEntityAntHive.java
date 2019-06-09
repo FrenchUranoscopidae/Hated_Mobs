@@ -33,7 +33,9 @@ public class TileEntityAntHive extends TileEntity implements ITickable
     public void update()
     {
         ensureAllStillExist();
-        stepScan();
+        for (int i = 0; i < 100; i++) {
+            stepScan();
+        }
         stealChests();
         tick++;
     }
@@ -80,13 +82,17 @@ public class TileEntityAntHive extends TileEntity implements ITickable
      */
     private void ensureAllStillExist() {
         posSet.removeIf(pos -> {
-            boolean valid = !isValid(pos);
+            boolean valid = isValid(pos);
             boolean noPath = false;
-            if(tick % TIME_TO_CHECK_PATH == 0) {
+            if(valid && tick % TIME_TO_CHECK_PATH == 0) {
                 List<PathfinderAStar.Node> path = PathfinderAStar.findPath(world, TileEntityAntHive.this.pos, pos, RADIUS);
                 noPath = path == null;
+
+                if(path != null) {
+                    paths.put(pos,path);
+                }
             }
-            return valid || noPath;
+            return !valid || noPath;
         });
     }
 
