@@ -1,0 +1,26 @@
+{
+  "parent":"hatedmobs:root",
+  "rewards":
+  {
+    "recipes":
+    [
+      "hatedmobs:domesticated_anthill"
+    ]
+  },
+  "criteria":
+  {
+    "has_anthill":
+    {
+      "trigger":"minecraft:inventory_changed",
+      "conditions":
+      {
+        "items":
+        [
+          {
+            "item":"hatedmobs:ant_hive"
+          }
+        ]
+      }
+    }
+  }
+}
