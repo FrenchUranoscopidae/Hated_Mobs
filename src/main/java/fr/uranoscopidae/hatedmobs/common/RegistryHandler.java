@@ -214,7 +214,7 @@ public class RegistryHandler
             if(ConfigurationHandler.MOB_TOGGLE.scorpion)
             {
                 int scorpionSpawnrate = ConfigurationHandler.MOB_FREQUENCY.scorpion.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.scorpionDefault);
-                EntityRegistry.addSpawn(EntityScorpion.class, scorpionSpawnrate, 3, 4,EnumCreatureType.MONSTER, Biomes.DESERT, biome);
+                EntityRegistry.addSpawn(EntityScorpion.class, scorpionSpawnrate, 3, 4,EnumCreatureType.MONSTER, biome);
             }
 
             if(ConfigurationHandler.MOB_TOGGLE.slug)
