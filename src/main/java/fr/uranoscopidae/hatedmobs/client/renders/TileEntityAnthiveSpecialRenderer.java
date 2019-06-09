@@ -24,7 +24,7 @@ public class TileEntityAnthiveSpecialRenderer extends TileEntitySpecialRenderer<
         this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         for (BlockPos target : te.posSet)
         {
-            List<PathfinderAStar.Node> path = PathfinderAStar.findPath(getWorld(), te.getPos(), target, TileEntityAntHive.RADIUS);
+            List<PathfinderAStar.Node> path = te.getPath(target);
             if(path != null)
             {
                 for(PathfinderAStar.Node node : path)
