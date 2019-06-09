@@ -124,5 +124,24 @@ public class ConfigurationHandler
         @Config.LangKey("hatedmobs.scorpion_default_name")
         @Config.Comment("Default scorpion spawnrate in all biomes that are not defined in the biome list")
         public int scorpionDefault = 0;
+
+        @Config.LangKey("hatedmobs.slug_biomes")
+        @Config.Comment("Biome to slug spawnrate mapping, more is higher frequency. Keys are biome IDs")
+        public Map<String, Integer> slug = new HashMap<String, Integer>()
+        {
+            {
+                for(Biome biome : Biome.REGISTRY)
+                {
+                    put(biome.getRegistryName().toString(), 100);
+                }
+                put(Biomes.DESERT.getRegistryName().toString(), 0);
+                put(Biomes.DESERT_HILLS.getRegistryName().toString(), 0);
+                put(Biomes.MUTATED_DESERT.getRegistryName().toString(), 0);
+            }
+        };
+
+        @Config.LangKey("hatedmobs.slug_default_name")
+        @Config.Comment("Default slug spawnrate in all biomes that are not defined in the biome list")
+        public int slugDefault = 0;
     }
 }

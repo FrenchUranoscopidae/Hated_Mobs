@@ -216,6 +216,12 @@ public class RegistryHandler
                 int scorpionSpawnrate = ConfigurationHandler.MOB_FREQUENCY.scorpion.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.scorpionDefault);
                 EntityRegistry.addSpawn(EntityScorpion.class, scorpionSpawnrate, 3, 4,EnumCreatureType.MONSTER, Biomes.DESERT, biome);
             }
+
+            if(ConfigurationHandler.MOB_TOGGLE.slug)
+            {
+                int slugSpawnrate = ConfigurationHandler.MOB_FREQUENCY.slug.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.slugDefault);
+                EntityRegistry.addSpawn(EntitySlug.class, slugSpawnrate, 2, 4, EnumCreatureType.MONSTER, biome);
+            }
         }
 
         EntitySpawnPlacementRegistry.setPlacementType(EntityToad.class, EntityLiving.SpawnPlacementType.IN_WATER);
