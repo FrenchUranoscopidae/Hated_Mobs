@@ -2,7 +2,7 @@ package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityAntHive;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -119,5 +119,23 @@ public class BlockAntHive extends Block
         return EnumBlockRenderType.MODEL;
     }
 
+    @Override
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+    {
+        super.onBlockDestroyedByPlayer(worldIn, pos, state);
+        int newX = (pos.getX()/16) * 16 + worldIn.rand.nextInt(16);
+        int newZ = (pos.getZ()/16) * 16 + worldIn.rand.nextInt(16);
+        int newY = worldIn.getHeight(newX, newZ);
+        BlockPos blockPos = new BlockPos(newX, newY, newZ);
+        Block blockUnder = worldIn.getBlockState(blockPos.down()).getBlock();
+        if (blockUnder instanceof BlockTallGrass)
+        {
+            worldIn.setBlockState(blockPos.down(), this.getDefaultState());
+        }
 
+        else if(blockUnder instanceof BlockDirt || blockUnder instanceof BlockSand || blockUnder instanceof BlockSandStone || blockUnder instanceof BlockGrass)
+        {
+            worldIn.setBlockState(blockPos, this.getDefaultState());
+        }
+    }
 }

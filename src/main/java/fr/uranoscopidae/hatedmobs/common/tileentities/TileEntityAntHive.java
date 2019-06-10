@@ -184,13 +184,13 @@ public class TileEntityAntHive extends TileEntity implements ITickable
     @Override
     public AxisAlignedBB getRenderBoundingBox()
     {
-        return new AxisAlignedBB(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);
+        return INFINITE_EXTENT_AABB;
     }
 
     @SideOnly(Side.CLIENT)
     public double getMaxRenderDistanceSquared()
     {
-        return 65536.0D;
+        return Double.POSITIVE_INFINITY;
     }
 
     public List<PathfinderAStar.Node> getPath(BlockPos target) {

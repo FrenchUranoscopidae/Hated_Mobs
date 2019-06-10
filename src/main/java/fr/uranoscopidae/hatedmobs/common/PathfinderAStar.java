@@ -1,5 +1,6 @@
 package fr.uranoscopidae.hatedmobs.common;
 
+import fr.uranoscopidae.hatedmobs.HatedMobs;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -188,62 +189,6 @@ public class PathfinderAStar
             }
         }
 
-
-        /*
-
-        // Allow to go on another face of a given cube
-        EnumFacing[] clockwiseAccessibleFaces;
-        switch (currentFace)
-        {
-            case UP:
-            case DOWN:
-                clockwiseAccessibleFaces = EnumFacing.HORIZONTALS;
-                break;
-
-            case NORTH:
-            case SOUTH:
-                clockwiseAccessibleFaces = new EnumFacing[]{EnumFacing.UP, EnumFacing.DOWN, EnumFacing.EAST, EnumFacing.WEST};
-                break;
-
-            case EAST:
-            case WEST:
-                clockwiseAccessibleFaces = new EnumFacing[]{EnumFacing.UP, EnumFacing.DOWN, EnumFacing.NORTH, EnumFacing.SOUTH};
-                break;
-
-            default:
-                // never happens
-                clockwiseAccessibleFaces = EnumFacing.HORIZONTALS;
-                break;
-        }
-        // rotations outside a block
-        for(EnumFacing clockwiseFace : clockwiseAccessibleFaces)
-        {
-            BlockPos supportingPos = current.pos.offset(currentFace);
-            IBlockState supportingState = world.getBlockState(supportingPos);
-            if(supportingState.isSideSolid(world, supportingPos, clockwiseFace))
-            {
-                // TODO: check for air
-                if(world.isAirBlock(supportingPos.offset(clockwiseFace)))
-                {
-                    neighbors.add(new Node(supportingPos.offset(clockwiseFace), clockwiseFace.getOpposite()));
-                }
-            }
-        }
-
-        // rotations inside same block
-        for(EnumFacing clockwiseFace : clockwiseAccessibleFaces)
-        {
-            BlockPos supportingPos = current.pos.offset(clockwiseFace);
-            IBlockState supportingState = world.getBlockState(supportingPos);
-            if(supportingState.isSideSolid(world, supportingPos, clockwiseFace.getOpposite()))
-            {
-                // TODO: check for air
-                if(!world.isAirBlock(supportingPos))
-                {
-                    neighbors.add(new Node(current.pos, clockwiseFace));
-                }
-            }
-        }*/
         return neighbors;
     }
 }
