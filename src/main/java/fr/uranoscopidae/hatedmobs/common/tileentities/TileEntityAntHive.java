@@ -11,8 +11,11 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.*;
 
@@ -176,6 +179,18 @@ public class TileEntityAntHive extends TileEntity implements ITickable
                 iterator.remove();
             }
         }
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox()
+    {
+        return new AxisAlignedBB(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,Double.POSITIVE_INFINITY);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public double getMaxRenderDistanceSquared()
+    {
+        return 65536.0D;
     }
 
     public List<PathfinderAStar.Node> getPath(BlockPos target) {

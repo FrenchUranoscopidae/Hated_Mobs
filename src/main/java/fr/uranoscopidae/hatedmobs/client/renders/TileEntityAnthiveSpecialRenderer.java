@@ -21,7 +21,7 @@ import java.util.List;
 public class TileEntityAnthiveSpecialRenderer extends TileEntitySpecialRenderer<TileEntityAntHive>
 {
 
-    public static final ResourceLocation ANT_HILE_LOCATION = new ResourceLocation(HatedMobs.MODID, "textures/ant_hile.png");
+    public static final ResourceLocation ANT_HILE_LOCATION = new ResourceLocation(HatedMobs.MODID, "textures/ant_tile.png");
 
     @Override
     public void render(TileEntityAntHive te, double x, double y, double z, float partialTicks, int destroyStage, float alpha)
@@ -95,4 +95,6 @@ public class TileEntityAnthiveSpecialRenderer extends TileEntitySpecialRenderer<
             }
         }
     }
+
+
 }
