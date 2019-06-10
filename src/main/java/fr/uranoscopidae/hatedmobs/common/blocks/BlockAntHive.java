@@ -106,6 +106,7 @@ public class BlockAntHive extends Block
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
         super.getDrops(drops, world, pos, state, fortune);
         drops.add(new ItemStack(HatedMobs.RED_ANT_QUEEN));
+        drops.add(new ItemStack(HatedMobs.BLACK_ANT_QUEEN));
     }
 
     @Override
