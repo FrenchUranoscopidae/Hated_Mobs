@@ -17,6 +17,42 @@ public class ContainerDomesticatedAnthill extends Container
         return true;
     }
 
+    @Override
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
+    {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (index < 3 * 9)
+            {
+                if (!this.mergeItemStack(itemstack1, 3 * 9, this.inventorySlots.size(), true))
+                {
+                    return ItemStack.EMPTY;
+                }
+            }
+            else if (!this.mergeItemStack(itemstack1, 0, 3 * 9, false))
+            {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty())
+            {
+                slot.putStack(ItemStack.EMPTY);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return itemstack;
+    }
+
     public ContainerDomesticatedAnthill(InventoryPlayer inventory, TileEntityDomesticatedAnthill tileEntity)
     {
         this.addSlotToContainer(new SlotQueen(tileEntity.inventoryQueen, TileEntityDomesticatedAnthill.INDEX_QUEEN, 80, 17));
@@ -67,4 +103,6 @@ public class ContainerDomesticatedAnthill extends Container
             return false;
         }
     }
+
+
 }
