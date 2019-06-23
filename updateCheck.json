@@ -2,6 +2,7 @@
   "homepage":"https://minecraft.curseforge.com/projects/hated-mobs",
   "1.12.2":
   {
+    "1.4.0":"Slugs, ants and fixes",
     "1.1.2":"Fix bug crashing servers",
     "1.1.1":"Fix compatibility issues",
     "1.1.0":"wasps and wasp hives added, bug fixes",
@@ -10,7 +11,7 @@
   },
   "promos":
   {
-    "1.12.2-recommended":"1.3.0",
-    "1.12.2-latest":"1.3.0"
+    "1.12.2-recommended":"1.4.0",
+    "1.12.2-latest":"1.4.0"
   }
 }

@@ -213,4 +213,31 @@ public class BlockNet extends Block
         return getDefaultState();
     }
 
+    public static PropertyBool getPropertyFor(EnumFacing facing) {
+        if(facing == null)
+            throw new NullPointerException("facing");
+        switch (facing) {
+            case UP:
+                return UP;
+
+            case DOWN:
+                return DOWN;
+
+            case EAST:
+                return EAST;
+
+            case WEST:
+                return WEST;
+
+            case NORTH:
+                return NORTH;
+
+            case SOUTH:
+                return SOUTH;
+
+            default: // should never happen
+                return UP;
+        }
+    }
+
 }

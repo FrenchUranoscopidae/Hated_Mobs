@@ -1,9 +1,11 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.BlockSpiderInfestedLeaves;
 import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAIComeHomeAtNight;
+import fr.uranoscopidae.hatedmobs.common.worldwrappers.IBlockMapper;
+import fr.uranoscopidae.hatedmobs.common.worldwrappers.IFalsifiedWorld;
+import fr.uranoscopidae.hatedmobs.common.worldwrappers.SilkSpiderWorldWrapper;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -17,6 +19,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -37,11 +40,13 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
 {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntitySilkSpider.class, DataSerializers.BYTE);
     private BlockPos.MutableBlockPos homePos = new BlockPos.MutableBlockPos();
+    public int timeUntilNextString;
 
     public EntitySilkSpider(World worldIn)
     {
         super(IBlockMapper.wrap(worldIn, SilkSpiderWorldWrapper.INSTANCE));
         this.setSize(1.4F/4, 0.9F/4);
+        this.timeUntilNextString = this.rand.nextInt(6000) + 6000;
     }
 
     public EntitySilkSpider(World worldIn, BlockPos home)
@@ -77,10 +82,19 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     }
 
     @Override
+    public void travel(float strafe, float vertical, float forward) {
+        super.travel(strafe, vertical, forward);
+    }
+
+    @Override
     public void readEntityFromNBT(NBTTagCompound compound)
     {
         super.readEntityFromNBT(compound);
         homePos.setPos(compound.getInteger("homeX"), compound.getInteger("homeY"), compound.getInteger("homeZ"));
+        if (compound.hasKey("StringShedTime"))
+        {
+            this.timeUntilNextString = compound.getInteger("StringShedTime");
+        }
     }
 
     @Override
@@ -90,6 +104,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
         compound.setInteger("homeX", homePos.getX());
         compound.setInteger("homeZ", homePos.getZ());
         compound.setInteger("homeY", homePos.getY());
+        compound.setInteger("StringShedTime", this.timeUntilNextString);
     }
 
     @Nullable
@@ -188,6 +203,13 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
             {
                 attackEntityFrom(DamageSource.MAGIC, 10000);
             }
+        }
+
+        if (!this.world.isRemote && !this.isChild() && --this.timeUntilNextString <= 0)
+        {
+            this.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+            this.dropItem(Items.STRING, 1);
+            this.timeUntilNextString = this.rand.nextInt(6000) + 6000;
         }
     }
 

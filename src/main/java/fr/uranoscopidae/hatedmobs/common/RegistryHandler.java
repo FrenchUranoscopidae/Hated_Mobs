@@ -2,6 +2,8 @@ package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.*;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityAntHive;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
 import net.minecraft.block.Block;
@@ -27,9 +29,13 @@ public class RegistryHandler
     @SubscribeEvent
     public void registerBlocks(RegistryEvent.Register<Block> event)
     {
-        event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK, HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR, HatedMobs.WASP_NEST);
+        event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK,
+                HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR,
+                HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE, HatedMobs.DOMESTICATED_ANTHILL);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
+        GameRegistry.registerTileEntity(TileEntityAntHive.class, HatedMobs.ANT_HIVE.getRegistryName());
+        GameRegistry.registerTileEntity(TileEntityDomesticatedAnthill.class, HatedMobs.DOMESTICATED_ANTHILL.getRegistryName());
     }
 
     @SubscribeEvent
@@ -47,10 +53,15 @@ public class RegistryHandler
         antiMosquitoGlassItem.setRegistryName(HatedMobs.ANTI_MOSQUITO_GLASS.getRegistryName());
         ItemBlock waspNestItem = new ItemBlock(HatedMobs.WASP_NEST);
         waspNestItem.setRegistryName(HatedMobs.WASP_NEST.getRegistryName());
+        ItemBlock antHiveItem = new ItemBlock(HatedMobs.ANT_HIVE);
+        antHiveItem.setRegistryName(HatedMobs.ANT_HIVE.getRegistryName());
+        ItemBlock domesticatedAnthillItem = new ItemBlock(HatedMobs.DOMESTICATED_ANTHILL);
+        domesticatedAnthillItem.setRegistryName(HatedMobs.DOMESTICATED_ANTHILL.getRegistryName());
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,
-                HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP, HatedMobs.SPIDER_CANDY);
+                HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP, HatedMobs.SPIDER_CANDY,
+                antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem, HatedMobs.BLACK_ANT_QUEEN);
     }
 
     @SubscribeEvent
@@ -154,37 +165,66 @@ public class RegistryHandler
             event.getRegistry().register(tamedGiantSpiderEntry);
         }
 
+        if(ConfigurationHandler.MOB_TOGGLE.ant)
+        {
+            EntityEntry redAntEntry = EntityEntryBuilder.create()
+                    .entity(EntityRedAnt.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "red_ant"), 8)
+                    .name("hatedmobs.red_ant")
+                    .tracker(64, 3, true)
+                    .egg(0x822323, 0xff7878)
+                    .factory(EntityRedAnt::new)
+                    .build();
+            event.getRegistry().register(redAntEntry);
+        }
+
+        if(ConfigurationHandler.MOB_TOGGLE.slug)
+        {
+            EntityEntry slugEntry = EntityEntryBuilder.create()
+                    .entity(EntitySlug.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "slug"), 9)
+                    .name("hatedmobs.slug")
+                    .tracker(64, 3, true)
+                    .egg(0xb04c39, 0xfa9682)
+                    .factory(EntitySlug::new)
+                    .build();
+            event.getRegistry().register(slugEntry);
+        }
+
         for(Biome biome : Biome.REGISTRY)
         {
             if(ConfigurationHandler.MOB_TOGGLE.mosquito)
             {
-                EntityRegistry.addSpawn(EntityMosquito.class, 75, 4, 6, EnumCreatureType.MONSTER, biome);
+                int mosquitoSpawnrate = ConfigurationHandler.MOB_FREQUENCY.mosquito.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.mosquitoDefault);
+                EntityRegistry.addSpawn(EntityMosquito.class, mosquitoSpawnrate, 4, 6, EnumCreatureType.MONSTER, biome);
             }
 
             if(ConfigurationHandler.MOB_TOGGLE.giantSpider)
             {
-                EntityRegistry.addSpawn(EntityGiantSpider.class, 1, 1, 1, EnumCreatureType.MONSTER, biome);
+                int giantSpiderSpawnrate = ConfigurationHandler.MOB_FREQUENCY.giantSpider.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.giantSpiderDefault);
+                EntityRegistry.addSpawn(EntityGiantSpider.class, giantSpiderSpawnrate, 1, 1, EnumCreatureType.MONSTER, biome);
             }
 
             if(ConfigurationHandler.MOB_TOGGLE.toad)
             {
-                EntityRegistry.addSpawn(EntityToad.class, 100, 2, 5, EnumCreatureType.CREATURE, biome);
+                int toadSpawnrate = ConfigurationHandler.MOB_FREQUENCY.toad.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.toadDefault);
+                EntityRegistry.addSpawn(EntityToad.class, toadSpawnrate, 2, 5, EnumCreatureType.CREATURE, biome);
+            }
+
+            if(ConfigurationHandler.MOB_TOGGLE.scorpion)
+            {
+                int scorpionSpawnrate = ConfigurationHandler.MOB_FREQUENCY.scorpion.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.scorpionDefault);
+                EntityRegistry.addSpawn(EntityScorpion.class, scorpionSpawnrate, 3, 4,EnumCreatureType.MONSTER, biome);
+            }
+
+            if(ConfigurationHandler.MOB_TOGGLE.slug)
+            {
+                int slugSpawnrate = ConfigurationHandler.MOB_FREQUENCY.slug.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.slugDefault);
+                EntityRegistry.addSpawn(EntitySlug.class, slugSpawnrate, 2, 4, EnumCreatureType.MONSTER, biome);
             }
         }
 
         EntitySpawnPlacementRegistry.setPlacementType(EntityToad.class, EntityLiving.SpawnPlacementType.IN_WATER);
-
-        if(ConfigurationHandler.MOB_TOGGLE.mosquito)
-        {
-            EntityRegistry.removeSpawn(EntityMosquito.class, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
-            EntityRegistry.addSpawn(EntityMosquito.class, 10, 4, 6, EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS, Biomes.MUTATED_DESERT);
-            EntityRegistry.addSpawn(EntityMosquito.class, 100, 4, 6, EnumCreatureType.MONSTER, Biomes.JUNGLE, Biomes.JUNGLE, Biomes.JUNGLE_EDGE, Biomes.JUNGLE_HILLS, Biomes.MUTATED_JUNGLE, Biomes.MUTATED_JUNGLE_EDGE);
-        }
-
-        if (ConfigurationHandler.MOB_TOGGLE.scorpion)
-        {
-            EntityRegistry.addSpawn(EntityScorpion.class, 50, 3, 4,EnumCreatureType.MONSTER, Biomes.DESERT, Biomes.DESERT_HILLS);
-        }
     }
 
     @SubscribeEvent

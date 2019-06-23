@@ -3,10 +3,9 @@ package fr.uranoscopidae.hatedmobs;
 import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.*;
 import fr.uranoscopidae.hatedmobs.common.items.*;
-import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorEggSack;
-import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorSpiderLeaves;
-import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorSpiderNest;
-import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorWaspNest;
+import fr.uranoscopidae.hatedmobs.common.potions.PotionInsomnia;
+import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
+import fr.uranoscopidae.hatedmobs.common.worldgenerator.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -27,7 +26,12 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.3.0", acceptedMinecraftVersions = "1.12.2",
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.4.0", acceptedMinecraftVersions = "1.12.2",
         dependencies = "required-after:llibrary@[1.7.9,)", updateJSON = "https://raw.githubusercontent.com/FrenchUranoscopidae/Hated_Mobs/master/updateCheck.json",
         certificateFingerprint = "@FINGERPRINT@"
 )
@@ -71,13 +75,38 @@ public class HatedMobs
     public static final Item DEAD_MOSQUITO = new ItemDeadMosquito();
     public static final Item DEAD_WASP = new ItemDeadWasp();
     public static final Item SPIDER_CANDY = new ItemSpiderCandy();
+    public static final Block ANT_HIVE = new BlockAntHive();
+    public static final Item RED_ANT_QUEEN = new ItemRedAntQueen();
+    public static final Block DOMESTICATED_ANTHILL = new BlockDomesticatedAnthill();
+    public static final Item BLACK_ANT_QUEEN = new ItemBlackAntQueen();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
         MinecraftForge.EVENT_BUS.register(new RegistryHandler());
         logger = event.getModLog();
-        proxy.preInit(event.getSuggestedConfigurationFile());
+        File configFile = event.getSuggestedConfigurationFile();
+        proxy.preInit(configFile);
+        File configFolder = new File(configFile.getParentFile(), MODID);
+
+        if(!configFolder.exists())
+        {
+            configFolder.mkdirs();
+        }
+
+        File antLoot = new File(configFolder, "ant_loot.json");
+
+        if (!antLoot.exists())
+        {
+            try {
+                Files.copy(getClass().getResourceAsStream("/assets/hatedmobs/default_ant_loot.json"), Paths.get(antLoot.toURI()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        TileEntityDomesticatedAnthill.loadLoot(antLoot);
+
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
         GameRegistry.registerWorldGenerator(new WorldGeneratorSpiderNest(), 0);
         GameRegistry.registerWorldGenerator(new WorldGeneratorEggSack(), 0);
@@ -88,6 +117,10 @@ public class HatedMobs
         if(ConfigurationHandler.MOB_TOGGLE.wasp)
         {
             GameRegistry.registerWorldGenerator(new WorldGeneratorWaspNest(), 0);
+        }
+        if (ConfigurationHandler.MOB_TOGGLE.ant)
+        {
+            GameRegistry.registerWorldGenerator(new WorldGeneratorAnthill(), 0);
         }
     }
 

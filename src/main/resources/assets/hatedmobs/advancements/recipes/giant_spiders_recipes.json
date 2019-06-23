@@ -1,0 +1,25 @@
+{
+  "parent":"hatedmobs:root",
+  "rewards":
+  {
+    "recipes":
+    [
+      "hatedmobs:giant_spider_fang",
+      "hatedmobs:spider_candy"
+    ]
+  },
+  "criteria":
+  {
+    "killed_giant_spider":
+    {
+      "trigger":"minecraft:player_killed_entity",
+      "conditions":
+      {
+        "entity":
+        {
+          "type":"hatedmobs:giant_spider"
+        }
+      }
+    }
+  }
+}

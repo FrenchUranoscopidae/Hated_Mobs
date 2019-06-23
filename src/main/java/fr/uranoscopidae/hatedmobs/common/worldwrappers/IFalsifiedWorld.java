@@ -1,4 +1,4 @@
-package fr.uranoscopidae.hatedmobs.common;
+package fr.uranoscopidae.hatedmobs.common.worldwrappers;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;

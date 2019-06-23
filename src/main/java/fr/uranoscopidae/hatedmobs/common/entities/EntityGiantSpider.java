@@ -30,6 +30,7 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
         setSize(2, 1.25f);
     }
 
+    @Override
     protected void initEntityAI()
     {
         this.tasks.addTask(1, new EntityAISwimming(this));
