@@ -50,9 +50,9 @@ public class RenderWasp extends RenderLiving<EntityWasp>
     protected void preRenderCallback (EntityWasp entitylivingbaseIn,float partialTickTime)
     {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
-        GlStateManager.translate(0, 0.05, 0);
+        GlStateManager.translated(0, 0.05, 0);
         double scale = 0.45/2;
-        GlStateManager.scale(scale, scale, scale);
+        GlStateManager.scaled(scale, scale, scale);
     }
 
     public static class Animator implements ITabulaModelAnimator

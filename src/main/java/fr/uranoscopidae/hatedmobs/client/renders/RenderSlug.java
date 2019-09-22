@@ -48,7 +48,7 @@ public class RenderSlug extends RenderLiving<EntitySlug>
     {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
         double scale = 0.5;
-        GlStateManager.scale(scale, scale, scale);
+        GlStateManager.scaled(scale, scale, scale);
     }
 
     private static class Animator implements ITabulaModelAnimator

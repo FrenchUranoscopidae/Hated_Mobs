@@ -44,9 +44,9 @@ public class RenderTamedGiantSpider extends RenderLiving<EntityTamedGiantSpider>
     protected void preRenderCallback(EntityTamedGiantSpider entitylivingbaseIn, float partialTickTime)
     {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
-        GlStateManager.translate(0, 0.65, 1);
+        GlStateManager.translated(0, 0.65, 1);
         double scale = 1.75;
-        GlStateManager.scale(scale, scale, scale);
+        GlStateManager.scaled(scale, scale, scale);
     }
 
     @Nullable

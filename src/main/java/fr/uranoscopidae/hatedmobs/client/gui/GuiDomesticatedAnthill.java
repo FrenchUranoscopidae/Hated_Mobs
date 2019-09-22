@@ -1,20 +1,20 @@
 package fr.uranoscopidae.hatedmobs.client.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.containers.ContainerDomesticatedAnthill;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 
 
-public class GuiDomesticatedAnthill extends GuiContainer
+public class GuiDomesticatedAnthill extends ContainerScreen
 {
     ResourceLocation backgroundTexture = new ResourceLocation(HatedMobs.MODID, "textures/gui/domesticated_anthill.png");
     TileEntityDomesticatedAnthill tileEntity;
 
-    public GuiDomesticatedAnthill(InventoryPlayer inventory, TileEntityDomesticatedAnthill tileEntity)
+    public GuiDomesticatedAnthill(PlayerInventory inventory, TileEntityDomesticatedAnthill tileEntity)
     {
         super(new ContainerDomesticatedAnthill(inventory, tileEntity));
         this.tileEntity = tileEntity;

@@ -46,9 +46,9 @@ public class RenderScorpion extends RenderLiving<EntityScorpion> {
     protected void preRenderCallback (EntityScorpion entitylivingbaseIn, float partialTickTime)
     {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
-        GlStateManager.translate(0, 1, 0);
+        GlStateManager.translated(0, 1, 0);
         //double scale = 0.45/2;
-        //GlStateManager.scale(scale, scale, scale);
+        //GlStateManager.scaled(scale, scale, scale);
     }
 
     public static class Animator implements ITabulaModelAnimator

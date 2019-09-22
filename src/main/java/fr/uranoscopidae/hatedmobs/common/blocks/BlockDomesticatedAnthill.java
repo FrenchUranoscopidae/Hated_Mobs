@@ -54,7 +54,7 @@ public class BlockDomesticatedAnthill extends Block
         return new TileEntityDomesticatedAnthill();
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getBlockLayer()
     {
         return BlockRenderLayer.CUTOUT;

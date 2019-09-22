@@ -187,7 +187,7 @@ public class TileEntityAntHive extends TileEntity implements ITickable
         return INFINITE_EXTENT_AABB;
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public double getMaxRenderDistanceSquared()
     {
         return Double.POSITIVE_INFINITY;

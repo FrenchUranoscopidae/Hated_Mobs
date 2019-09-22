@@ -52,7 +52,7 @@ public interface IBlockMapper {
         throw new IllegalArgumentException("Unknown world type: "+world.getClass());
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     static World attemptWrapClient(World world, IBlockMapper mapper) {
         if(world instanceof WorldClient) {
             return new FalsifiedWorldClient((WorldClient) world, mapper);

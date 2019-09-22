@@ -4,6 +4,7 @@ import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -53,7 +54,7 @@ public class ContainerDomesticatedAnthill extends Container
         return itemstack;
     }
 
-    public ContainerDomesticatedAnthill(InventoryPlayer inventory, TileEntityDomesticatedAnthill tileEntity)
+    public ContainerDomesticatedAnthill(PlayerInventory inventory, TileEntityDomesticatedAnthill tileEntity)
     {
         this.addSlotToContainer(new SlotQueen(tileEntity.inventoryQueen, TileEntityDomesticatedAnthill.INDEX_QUEEN, 80, 17));
 

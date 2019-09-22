@@ -26,7 +26,7 @@ public class BlockAntiMosquitoGlass extends BlockBreakable
         setSoundType(SoundType.GLASS);
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getBlockLayer()
     {
         return BlockRenderLayer.CUTOUT;

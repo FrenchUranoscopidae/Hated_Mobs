@@ -30,6 +30,6 @@ public class RenderSilkSpider extends RenderLiving<EntitySilkSpider>
     protected void preRenderCallback(EntitySilkSpider entitylivingbaseIn, float partialTickTime)
     {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
-        GlStateManager.scale(0.25, 0.25, 0.25);
+        GlStateManager.scaled(0.25, 0.25, 0.25);
     }
 }

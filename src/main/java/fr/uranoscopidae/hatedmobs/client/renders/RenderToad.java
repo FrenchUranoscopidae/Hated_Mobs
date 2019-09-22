@@ -57,7 +57,7 @@ public class RenderToad  extends RenderLiving<EntityToad>
     protected void preRenderCallback (EntityToad entitylivingbaseIn,float partialTickTime)
     {
         super.preRenderCallback(entitylivingbaseIn, partialTickTime);
-        GlStateManager.translate(0, 0.05, 0);
+        GlStateManager.translated(0, 0.05, 0);
         double scale = 0.45;
 
         if(entitylivingbaseIn.isChild())
@@ -65,7 +65,7 @@ public class RenderToad  extends RenderLiving<EntityToad>
             scale *= 0.5;
         }
 
-        GlStateManager.scale(scale, scale, scale);
+        GlStateManager.scaled(scale, scale, scale);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class RenderToad  extends RenderLiving<EntityToad>
             double dz = tonguePos.getZ() + 0.5 - entity.posZ;
 
             GlStateManager.pushMatrix();
-            GlStateManager.translate(x, y, z);
+            GlStateManager.translated(x, y, z);
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder buffer = tessellator.getBuffer();
             buffer.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);

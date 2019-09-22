@@ -43,41 +43,41 @@ public class TileEntityAnthiveSpecialRenderer extends TileEntitySpecialRenderer<
                     double relativeY = position.getY()-startY + y;
                     double relativeZ = position.getZ()-startZ + z;
                     GlStateManager.pushMatrix();
-                    GlStateManager.translate(relativeX+1, relativeY, relativeZ+1);
-                    GlStateManager.scale(-1,1,-1);
+                    GlStateManager.translated(relativeX+1, relativeY, relativeZ+1);
+                    GlStateManager.scaled(-1,1,-1);
 
                     double centerX = 0.5;
                     double centerY = 0.5;
                     double centerZ = 0.5;
-                    GlStateManager.translate(centerX, centerY, centerZ);
+                    GlStateManager.translated(centerX, centerY, centerZ);
                     switch (facing) {
                         case DOWN:
-                            GlStateManager.rotate(180f, 1f, 0f, 0f);
+                            GlStateManager.rotated(180f, 1f, 0f, 0f);
                             break;
 
                         case UP:
                             break;
 
                         case NORTH:
-                            GlStateManager.rotate(90f, 1f, 0f, 0f);
+                            GlStateManager.rotated(90f, 1f, 0f, 0f);
                             break;
 
                         case SOUTH:
-                            GlStateManager.rotate(-90f, 1f, 0f, 0f);
+                            GlStateManager.rotated(-90f, 1f, 0f, 0f);
                             break;
 
                         case WEST:
-                            GlStateManager.rotate(90f, 0f, 1f, 0f);
-                            GlStateManager.rotate(90f, 1f, 0f, 0f);
+                            GlStateManager.rotated(90f, 0f, 1f, 0f);
+                            GlStateManager.rotated(90f, 1f, 0f, 0f);
                             break;
 
                         case EAST:
-                            GlStateManager.rotate(-90f, 0f, 1f, 0f);
-                            GlStateManager.rotate(90f, 1f, 0f, 0f);
+                            GlStateManager.rotated(-90f, 0f, 1f, 0f);
+                            GlStateManager.rotated(90f, 1f, 0f, 0f);
                             break;
                     }
 
-                    GlStateManager.translate(-centerX, -centerY, -centerZ);
+                    GlStateManager.translated(-centerX, -centerY, -centerZ);
 
                     Tessellator tess = Tessellator.getInstance();
                     BufferBuilder builder = tess.getBuffer();

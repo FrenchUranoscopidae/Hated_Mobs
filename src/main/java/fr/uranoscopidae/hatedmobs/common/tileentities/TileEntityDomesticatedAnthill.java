@@ -7,21 +7,24 @@ import fr.uranoscopidae.hatedmobs.common.entities.EntityRedAnt;
 import fr.uranoscopidae.hatedmobs.common.items.ItemBlackAntQueen;
 import fr.uranoscopidae.hatedmobs.common.items.ItemRedAntQueen;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.inventory.InventoryBasic;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.registries.GameData;
+import net.minecraftforge.registries.RegistryManager;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -34,11 +37,11 @@ import java.util.Map;
 
 public class TileEntityDomesticatedAnthill extends TileEntity implements ITickable
 {
-    private Map<EntityMob, List<EntityRedAnt>> map = new HashMap<>();
+    private Map<MobEntity, List<EntityRedAnt>> map = new HashMap<>();
 
     public static final int INDEX_QUEEN = 0;
-    public InventoryBasic inventoryQueen = new InventoryBasic("hatedmobs.inventory.domesticatedanthill", false, 1);
-    public InventoryBasic inventoryLoot = new InventoryBasic("hatedmobs.inventory.domesticatedanthill", false, 9);
+    public Inventory inventoryQueen = new Inventory(1);
+    public Inventory inventoryLoot = new Inventory(9);
 
     public static final int RADIUS = 20;
     private int xoffset = -RADIUS;
@@ -95,7 +98,7 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
                         if(world.rand.nextBoolean())
                         {
                             ResourceLocation id = WeightedRandom.getRandomItem(world.rand, loot).itemName;
-                            Item item = Item.REGISTRY.getObject(id);
+                            Item item = (Item) RegistryManager.ACTIVE.getRegistry(GameData.ITEMS).getValue(id);
                             inventoryLoot.addItem(new ItemStack(item));
                         }
                     }
@@ -139,11 +142,11 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
                 {
                     Entity entity = entityList.get(j);
 
-                    if (entity instanceof EntityMob)
+                    if (entity instanceof MobEntity)
                     {
                         List<EntityRedAnt> redAntList = map.get(entity);
                         boolean canSpawn = redAntList == null
-                                || redAntList.stream().noneMatch(Entity::isEntityAlive);
+                                || redAntList.stream().noneMatch(Entity::isAlive);
 
                         if(canSpawn)
                         {
@@ -158,11 +161,11 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
                             {
                                 EntityRedAnt redAnt = new EntityRedAnt(world);
                                 redAnt.setPosition(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-                                world.spawnEntity(redAnt);
+                                world.addEntity(redAnt);
                                 redAnt.spawnExplosionParticle();
                                 redAntList.add(redAnt);
                             }
-                            map.put((EntityMob)entity, redAntList);
+                            map.put((MobEntity) entity, redAntList);
                         }
                     }
                 }
@@ -171,51 +174,41 @@ public class TileEntityDomesticatedAnthill extends TileEntity implements ITickab
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound)
+    public void read(CompoundNBT compound)
     {
-        super.readFromNBT(compound);
+        super.read(compound);
         for (int i = 0; i < 9; i++)
         {
-            ItemStack itemStackLoot = new ItemStack(compound.getCompoundTag("StackLoot" + i));
+            ItemStack itemStackLoot = ItemStack.read(compound.getCompound("StackLoot" + i));
             inventoryLoot.setInventorySlotContents(i, itemStackLoot);
         }
-        ItemStack itemStackQueen = new ItemStack(compound.getCompoundTag("StackQueen"));
+        ItemStack itemStackQueen = ItemStack.read(compound.getCompound("StackQueen"));
         inventoryQueen.setInventorySlotContents(0, itemStackQueen);
-        progressTick = compound.getInteger("progressTick");
+        progressTick = compound.getInt("progressTick");
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound)
+    public CompoundNBT write(CompoundNBT compound)
     {
         for (int i = 0; i < 9; i++)
         {
             ItemStack itemStackLoot = inventoryLoot.getStackInSlot(i);
-            compound.setTag("StackLoot" + i, itemStackLoot.writeToNBT(new NBTTagCompound()));
+            compound.put("StackLoot" + i, itemStackLoot.write(new CompoundNBT()));
         }
         ItemStack itemStackQueen = inventoryQueen.getStackInSlot(0);
-        compound.setTag("StackQueen", itemStackQueen.writeToNBT(new NBTTagCompound()));
-        compound.setInteger("progressTick", progressTick);
+        compound.put("StackQueen", itemStackQueen.write(new CompoundNBT()));
+        compound.putInt("progressTick", progressTick);
 
-        return super.writeToNBT(compound);
-    }
-
-    @Override
-    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing)
-    {
-        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-        {
-            return true;
-        }
-        return super.hasCapability(capability, facing);
+        return super.write(compound);
     }
 
     @Nullable
     @Override
-    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing)
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing)
     {
         if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
         {
-            return (T)invWrapper;
+            return (LazyOptional<T>) LazyOptional.of(() -> invWrapper);
         }
         return super.getCapability(capability, facing);
     }

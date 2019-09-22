@@ -3662,9 +3662,9 @@ Build 1.9-12.16.0.1886:
 	LexManos: Fixed NPE in dedicated server languages. And fixed logger for main FML event bus.
 	fry: Made forge fluids use smooth lighting.
 	kashike:
-		Remove @SideOnly(Side.CLIENT) from BossInfo/BossInfoServer methods
+		Remove @OnlyIn(Dist.CLIENT) from BossInfo/BossInfoServer methods
 		
-		These methods can also be used by the server (see BossInfoServer, it sends packets to the client but the methods are @SideOnly(Side.CLIENT))
+		These methods can also be used by the server (see BossInfoServer, it sends packets to the client but the methods are @OnlyIn(Dist.CLIENT))
 	LexManos: Fix potential desync between Forge's Villager profession and vanilla's int based system.
 	LexManos: Fix being kicked from server when climbing ladders.
 	matti.j.ruohonen: Fix ForgeChunkManager world unloading check (#2736)
@@ -3918,9 +3918,9 @@ Build 1.8.9-11.15.1.1855:
 
 Build 1.9-12.16.0.1854-1.9:
 	kashike:
-		Remove @SideOnly(Side.CLIENT) from BossInfo/BossInfoServer methods
+		Remove @OnlyIn(Dist.CLIENT) from BossInfo/BossInfoServer methods
 		
-		These methods can also be used by the server (see BossInfoServer, it sends packets to the client but the methods are @SideOnly(Side.CLIENT))
+		These methods can also be used by the server (see BossInfoServer, it sends packets to the client but the methods are @OnlyIn(Dist.CLIENT))
 
 Build 1.9-12.16.0.1853-1.9:
 	fry: Made forge fluids use smooth lighting.
@@ -6191,7 +6191,7 @@ Build 1.8-11.14.1.1397:
 	Parker Young: Fixes MC-52974: Host's skin doesn't load in LAN
 
 Build 1.8-11.14.1.1396:
-	Zaggy1024: Removed @SideOnly(Side.CLIENT) from EnumWorldBlockLayer.
+	Zaggy1024: Removed @OnlyIn(Dist.CLIENT) from EnumWorldBlockLayer.
 
 Build 1.7.10-10.13.3.1395-1710ls:
 	cpw: MinecraftForge/FML@94821fac98e64d9b8ad7434ed23a621850a8e11c Add a config file that lets you add additional soft dependencies at runtime - injectedDependencies.json

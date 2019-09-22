@@ -194,7 +194,7 @@ public class BlockNet extends Block
         return this.getDefaultState();
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public BlockRenderLayer getBlockLayer()
     {
         return BlockRenderLayer.CUTOUT;
