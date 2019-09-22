@@ -3,26 +3,20 @@ package fr.uranoscopidae.hatedmobs.common.entities;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAICloseMeleeAttack;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.*;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
+public class EntityGiantSpider extends MobEntity implements IRangedAttackMob
 {
     public EntityGiantSpider(World worldIn)
     {
@@ -31,21 +25,17 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
     }
 
     @Override
-    protected void initEntityAI()
+    protected void registerGoals()
     {
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
-        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.4D));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.tasks.addTask(5, new EntityAICloseMeleeAttack(this, 0.4, false));
-        this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
-        this.tasks.addTask(5, new EntityAIAttackRanged(this, 0.5, 40, 10f));
+        this.goalSelector.addGoal(1, new SwimGoal(this));
+        this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4D));
+        this.goalSelector.addGoal(5, new EntityAICloseMeleeAttack(this, 0.4, false));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.goalSelector.addGoal(5, new EntityAIAttackRanged(this, 0.5, 40, 10f));
     }
 
-    public EnumCreatureAttribute getCreatureAttribute()
-    {
-        return EnumCreatureAttribute.ARTHROPOD;
-    }
+    public CreatureAttribute getCreatureAttribute() { return CreatureAttribute.ARTHROPOD; }
 
     protected SoundEvent getAmbientSound()
     {
@@ -72,7 +62,7 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
     }
 
     @Override
-    public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor)
+    public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor)
     {
         double accX = target.posX - posX;
         double accY = (target.posY + getEyeHeight()) - (posY + getEyeHeight());
@@ -81,17 +71,17 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
         EntityPoisonBall ball = new EntityPoisonBall(world, this);
         ball.setPosition(posX, posY + getEyeHeight(), posZ);
         ball.shoot(accX, accY, accZ, 1.2f, 10f);
-        world.spawnEntity(ball);
+        world.addEntity(ball);
     }
 
     @Override
-    protected boolean processInteract(EntityPlayer player, EnumHand hand)
+    protected boolean processInteract(PlayerEntity player, Hand hand)
     {
         if(player.getHeldItemMainhand().getItem() == HatedMobs.SPIDER_CANDY)
         {
             ItemStack itemstack = player.getHeldItem(hand);
 
-            if(!isDead && !world.isRemote)
+            if(isAlive() && !world.isRemote)
             {
                 if (!player.capabilities.isCreativeMode)
                 {
@@ -101,7 +91,7 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
                 EntityTamedGiantSpider spider = new EntityTamedGiantSpider(world);
                 spider.setLocationAndAngles(posX, posY, posZ, rotationYaw, rotationPitch);
                 spider.setTamedBy(player);
-                world.spawnEntity(spider);
+                world.addEntity(spider);
                 setDead();
                 return true;
             }
@@ -127,11 +117,11 @@ public class EntityGiantSpider extends EntityMob implements IRangedAttackMob
         return 0.5f;
     }
 
-    public void applyEntityAttributes()
+    public void registerAttributes()
     {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
+        super.registerAttributes();
+        this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40);
     }
 
     @Nullable

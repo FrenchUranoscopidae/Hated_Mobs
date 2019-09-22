@@ -1,22 +1,21 @@
 package fr.uranoscopidae.hatedmobs.client.renders;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
-import net.minecraft.client.model.ModelSpider;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.model.SpiderModel;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderLivingEvent;
 
 import javax.annotation.Nullable;
 
-public class RenderSilkSpider extends RenderLiving<EntitySilkSpider>
+public class RenderSilkSpider extends RenderLivingEvent<EntitySilkSpider>
 {
     private static final ResourceLocation SILK_SPIDER_TEXTURES = new ResourceLocation(HatedMobs.MODID,"textures/entity/silk_spider.png");
 
     public RenderSilkSpider(RenderManager rendermanagerIn)
     {
-        super(rendermanagerIn, new ModelSpider(), 1.0F/4);
+        super(rendermanagerIn, new SpiderModel<>(), 1.0F/4);
     }
 
     @Nullable

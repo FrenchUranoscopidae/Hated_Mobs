@@ -2,15 +2,15 @@ package fr.uranoscopidae.hatedmobs.client.gui;
 
 import fr.uranoscopidae.hatedmobs.common.containers.ContainerEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiEggSack extends GuiContainer
+public class GuiEggSack extends ContainerScreen
 {
     ResourceLocation backgroundTexture = new ResourceLocation("textures/gui/container/generic_54.png");
 
-    public GuiEggSack(InventoryPlayer inventoryPlayer, TileEntityEggSack tileEntityEggSack)
+    public GuiEggSack(PlayerEntity inventoryPlayer, TileEntityEggSack tileEntityEggSack)
     {
         super(new ContainerEggSack(inventoryPlayer, tileEntityEggSack));
     }

@@ -1,20 +1,19 @@
 package fr.uranoscopidae.hatedmobs.client.renders;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySlug;
 import net.ilexiconn.llibrary.client.model.tabula.ITabulaModelAnimator;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModel;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModelHandler;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 
-public class RenderSlug extends RenderLiving<EntitySlug>
+public class RenderSlug extends LivingEntity<EntitySlug>
 {
     private static final ResourceLocation SLUG_TEXTURE = new ResourceLocation(HatedMobs.MODID,"textures/entity/slug.png");
 

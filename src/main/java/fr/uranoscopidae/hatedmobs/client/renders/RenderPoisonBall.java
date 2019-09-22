@@ -1,19 +1,18 @@
 package fr.uranoscopidae.hatedmobs.client.renders;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityPoisonBall;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 
-public class RenderPoisonBall extends Render<EntityPoisonBall>
+public class RenderPoisonBall extends RenderLivingEvent<EntityPoisonBall>
 {
     public static final ResourceLocation TEXTURE = new ResourceLocation(HatedMobs.MODID,"textures/entity/poison_ball.png");
 

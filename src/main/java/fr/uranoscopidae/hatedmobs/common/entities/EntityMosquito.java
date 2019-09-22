@@ -4,15 +4,14 @@ import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.worldwrappers.IBlockMapper;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
 import fr.uranoscopidae.hatedmobs.common.worldwrappers.MosquitoWorldWrapper;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.*;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.pathfinding.PathNavigateFlying;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -20,7 +19,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class EntityMosquito extends EntityMob
+public class EntityMosquito extends MobEntity
 {
     public EntityMosquito(World world)
     {
@@ -39,12 +38,12 @@ public class EntityMosquito extends EntityMob
         return fly;
     }
 
-    public void applyEntityAttributes()
+    public void registerAttributes()
     {
-        super.applyEntityAttributes();
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1);
-        this.getEntityAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.4D);
+        super.registerAttributes();
+        this.getAttribute().registerAttribute(SharedMonsterAttributes.FLYING_SPEED);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(1);
+        this.getAttribute(SharedMonsterAttributes.FLYING_SPEED).setBaseValue(0.4D);
     }
 
     @Override
@@ -52,26 +51,26 @@ public class EntityMosquito extends EntityMob
     {
         Entity attacker = source.getTrueSource();
 
-        if(attacker instanceof EntityPlayer)
+        if(attacker instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer)attacker;
+            PlayerEntity player = (PlayerEntity) attacker;
             ItemStack item = player.getHeldItemMainhand();
 
             return !(item.getItem() instanceof ItemSwatter);
         }
-        return super.isEntityInvulnerable(source);
+        return super.isInvulnerable(source);
     }
 
     @Override
-    protected void initEntityAI()
+    protected void registerGoals()
     {
-        this.tasks.addTask(0, new EntityAIWanderAvoidWaterFlying(this, 0.30));
-        this.tasks.addTask(5, new EntityAIAttackMelee(this, 1, false));
-        this.targetTasks.addTask(6, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.goalSelector.addGoal(0, new WaterAvoidingRandomFlyingGoal(this, 0.30));
+        this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1, false));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     @Override
-    public boolean isPreventingPlayerRest(EntityPlayer playerIn)
+    public boolean isPreventingPlayerRest(PlayerEntity playerIn)
     {
         return false;
     }

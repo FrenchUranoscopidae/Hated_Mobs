@@ -2,20 +2,14 @@ package fr.uranoscopidae.hatedmobs.common.tileentities;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ICrashReportDetail;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ITickable;
+import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ReportedException;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
@@ -80,19 +74,19 @@ public class TileEntityEggSack extends TileEntity implements IInventory, ITickab
     }
 
     @Override
-    public boolean isUsableByPlayer(EntityPlayer player)
+    public boolean isUsableByPlayer(PlayerEntity player)
     {
         return true;
     }
 
     @Override
-    public void openInventory(EntityPlayer player)
+    public void openInventory(PlayerEntity player)
     {
 
     }
 
     @Override
-    public void closeInventory(EntityPlayer player)
+    public void closeInventory(PlayerEntity player)
     {
 
     }
@@ -150,7 +144,7 @@ public class TileEntityEggSack extends TileEntity implements IInventory, ITickab
             int spiderCount = 0;
             cooldown = 5 * 20 * 60;
 
-            for (EnumFacing facing : EnumFacing.VALUES)
+            for (Direction facing : Direction.values())
             {
                 BlockPos blockPos = pos.offset(facing);
 

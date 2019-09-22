@@ -8,27 +8,22 @@ import fr.uranoscopidae.hatedmobs.common.worldwrappers.IFalsifiedWorld;
 import fr.uranoscopidae.hatedmobs.common.worldwrappers.SilkSpiderWorldWrapper;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.EnumCreatureAttribute;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.passive.EntityAnimal;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.pathfinding.PathNavigateClimber;
+import net.minecraft.pathfinding.ClimberPathNavigator;
+import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -36,7 +31,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalSpawnData
+public class EntitySilkSpider extends AnimalEntity implements IEntityAdditionalSpawnData
 {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntitySilkSpider.class, DataSerializers.BYTE);
     private BlockPos.MutableBlockPos homePos = new BlockPos.MutableBlockPos();
@@ -76,7 +71,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
         EntitySilkSpider silkSpider = new EntitySilkSpider(world, pos);
         silkSpider.setPosition(x, y, z);
         world.setBlockState(pos, blockState.withProperty(BlockSpiderInfestedLeaves.SPIDER_COUNT, spiderCount + 1), 3);
-        world.spawnEntity(silkSpider);
+        world.addEntity(silkSpider);
         pos.release();
         return Optional.of(silkSpider);
     }
@@ -87,29 +82,29 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     }
 
     @Override
-    public void readEntityFromNBT(NBTTagCompound compound)
+    public void read(CompoundNBT compound)
     {
-        super.readEntityFromNBT(compound);
-        homePos.setPos(compound.getInteger("homeX"), compound.getInteger("homeY"), compound.getInteger("homeZ"));
+        super.read(compound);
+        homePos.setPos(compound.getInt("homeX"), compound.getInt("homeY"), compound.getInt("homeZ"));
         if (compound.hasKey("StringShedTime"))
         {
-            this.timeUntilNextString = compound.getInteger("StringShedTime");
+            this.timeUntilNextString = compound.getInt("StringShedTime");
         }
     }
 
     @Override
-    public void writeEntityToNBT(NBTTagCompound compound)
+    public void write(CompoundNBT compound)
     {
-        super.writeEntityToNBT(compound);
-        compound.setInteger("homeX", homePos.getX());
-        compound.setInteger("homeZ", homePos.getZ());
-        compound.setInteger("homeY", homePos.getY());
-        compound.setInteger("StringShedTime", this.timeUntilNextString);
+        super.write(compound);
+        compound.putInt("homeX", homePos.getX());
+        compound.putInt("homeZ", homePos.getZ());
+        compound.putInt("homeY", homePos.getY());
+        compound.putInt("StringShedTime", this.timeUntilNextString);
     }
 
     @Nullable
     @Override
-    public EntityAgeable createChild(EntityAgeable ageable)
+    public AgeableEntity createChild(AgeableEntity ageable)
     {
         return null;
     }
@@ -131,25 +126,23 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     }
 
     @Override
-    public EnumCreatureAttribute getCreatureAttribute() {
-        return EnumCreatureAttribute.ARTHROPOD;
-    }
+    public CreatureAttribute getCreatureAttribute() { return CreatureAttribute.ARTHROPOD; }
 
     @Override
-    protected void initEntityAI()
+    protected void registerGoals()
     {
-        this.tasks.addTask(3, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(2, new EntityAIWanderAvoidWater(this, 0.8D));
-        this.tasks.addTask(2, new EntityAILookIdle(this));
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIComeHomeAtNight(this));
+        this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
+        this.goalSelector.addGoal(2, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new EntityAIComeHomeAtNight(this));
     }
 
-    protected void applyEntityAttributes()
+    protected void registerAttributes()
     {
-        super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(16.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
+        super.registerAttributes();
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(16.0D);
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.30000001192092896D);
     }
 
     protected SoundEvent getAmbientSound()
@@ -217,9 +210,9 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     {
     }
 
-    protected PathNavigate createNavigator(World worldIn)
+    protected PathNavigator createNavigator(World worldIn)
     {
-        return new PathNavigateClimber(this, worldIn);
+        return new ClimberPathNavigator(this, worldIn);
     }
     public boolean isBesideClimbableBlock()
     {
@@ -269,7 +262,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     }
 
     @Override
-    public float getEyeHeight()
+    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
     {
         return this.height * 0.25f;
     }

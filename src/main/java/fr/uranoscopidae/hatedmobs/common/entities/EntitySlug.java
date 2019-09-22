@@ -2,19 +2,19 @@ package fr.uranoscopidae.hatedmobs.common.entities;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAINomNomCultures;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.pathfinding.PathNavigateClimber;
+import net.minecraft.pathfinding.ClimberPathNavigator;
+import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class EntitySlug extends EntityMob
+public class EntitySlug extends MobEntity
 {
     private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntitySilkSpider.class, DataSerializers.BYTE);
 
@@ -32,11 +32,11 @@ public class EntitySlug extends EntityMob
     }
 
     @Override
-    protected void initEntityAI()
+    protected void registerGoals()
     {
-        super.initEntityAI();
-        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.2D));
-        this.tasks.addTask(6, new EntityAINomNomCultures(this, 0.2D));
+        super.registerGoals();
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.2D));
+        this.goalSelector.addGoal(6, new EntityAINomNomCultures(this, 0.2D));
     }
 
     public void onUpdate()
@@ -54,9 +54,9 @@ public class EntitySlug extends EntityMob
         return true;
     }
 
-    protected PathNavigate createNavigator(World worldIn)
+    protected PathNavigator createNavigator(World worldIn)
     {
-        return new PathNavigateClimber(this, worldIn);
+        return new ClimberPathNavigator(this, worldIn);
     }
     public boolean isBesideClimbableBlock()
     {
