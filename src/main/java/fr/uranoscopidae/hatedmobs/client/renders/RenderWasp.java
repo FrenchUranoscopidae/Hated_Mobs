@@ -1,23 +1,20 @@
 package fr.uranoscopidae.hatedmobs.client.renders;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityWasp;
 import net.ilexiconn.llibrary.client.model.tabula.ITabulaModelAnimator;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModel;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModelHandler;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.RenderLivingEvent;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 
-public class RenderWasp extends RenderLiving<EntityWasp>
+public class RenderWasp extends RenderLivingEvent<EntityWasp>
 {
     public static final ResourceLocation TEXTURE = new ResourceLocation(HatedMobs.MODID, "textures/entity/wasp.png");
 

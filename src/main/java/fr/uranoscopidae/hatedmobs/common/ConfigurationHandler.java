@@ -1,10 +1,8 @@
 package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.config.Config;
-
 import java.util.HashMap;
 import java.util.Map;
 

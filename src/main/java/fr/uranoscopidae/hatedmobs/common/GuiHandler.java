@@ -6,7 +6,7 @@ import fr.uranoscopidae.hatedmobs.common.containers.ContainerDomesticatedAnthill
 import fr.uranoscopidae.hatedmobs.common.containers.ContainerEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -21,7 +21,7 @@ public class GuiHandler implements IGuiHandler
 
     @Nullable
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
+    public Object getServerGuiElement(int ID, PlayerEntity player, World world, int x, int y, int z)
     {
         switch (ID)
         {
@@ -54,7 +54,7 @@ public class GuiHandler implements IGuiHandler
 
     @Nullable
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
+    public Object getClientGuiElement(int ID, PlayerEntity player, World world, int x, int y, int z)
     {
         switch (ID)
         {

@@ -3,19 +3,12 @@ package fr.uranoscopidae.hatedmobs.common.blocks;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityAntHive;
 import net.minecraft.block.*;
-import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -123,7 +116,7 @@ public class BlockAntHive extends Block
     @Override
     public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
     {
-        super.onBlockDestroyedByPlayer(worldIn, pos, state);
+        super.onPlayerDestroy(worldIn, pos, state);
 
         if(worldIn.rand.nextInt(4) == 3)
         {
@@ -137,7 +130,7 @@ public class BlockAntHive extends Block
                 worldIn.setBlockState(blockPos.down(), this.getDefaultState());
             }
 
-            else if(blockUnder instanceof BlockDirt || blockUnder instanceof BlockSand || blockUnder instanceof BlockSandStone || blockUnder instanceof BlockGrass)
+            else if(blockUnder instanceof BlockDirt || blockUnder instanceof SandBlock || blockUnder instanceof BlockSandStone || blockUnder instanceof GrassBlock)
             {
                 worldIn.setBlockState(blockPos, this.getDefaultState());
             }

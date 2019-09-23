@@ -7,21 +7,15 @@ import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnth
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.init.Biomes;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemDoor;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class RegistryHandler
@@ -41,21 +35,21 @@ public class RegistryHandler
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event)
     {
-        ItemBlock item = new ItemBlock(HatedMobs.NET);
+        BlockItem item = new BlockItem(HatedMobs.NET);
         item.setRegistryName(HatedMobs.NET.getRegistryName());
-        ItemBlock webItem = new ItemBlock(HatedMobs.WEB_BLOCK);
+        BlockItem webItem = new BlockItem(HatedMobs.WEB_BLOCK);
         webItem.setRegistryName(HatedMobs.WEB_BLOCK.getRegistryName());
-        ItemBlock eggSackItem = new ItemBlock(HatedMobs.EGG_SACK);
+        BlockItem eggSackItem = new BlockItem(HatedMobs.EGG_SACK);
         eggSackItem.setRegistryName(HatedMobs.EGG_SACK.getRegistryName());
-        ItemBlock spiderInfestedLeavesItem = new ItemBlock(HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK);
+        BlockItem spiderInfestedLeavesItem = new BlockItem(HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK);
         spiderInfestedLeavesItem.setRegistryName(HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK.getRegistryName());
-        ItemBlock antiMosquitoGlassItem = new ItemBlock(HatedMobs.ANTI_MOSQUITO_GLASS);
+        BlockItem antiMosquitoGlassItem = new BlockItem(HatedMobs.ANTI_MOSQUITO_GLASS);
         antiMosquitoGlassItem.setRegistryName(HatedMobs.ANTI_MOSQUITO_GLASS.getRegistryName());
-        ItemBlock waspNestItem = new ItemBlock(HatedMobs.WASP_NEST);
+        BlockItem waspNestItem = new BlockItem(HatedMobs.WASP_NEST);
         waspNestItem.setRegistryName(HatedMobs.WASP_NEST.getRegistryName());
-        ItemBlock antHiveItem = new ItemBlock(HatedMobs.ANT_HIVE);
+        BlockItem antHiveItem = new BlockItem(HatedMobs.ANT_HIVE);
         antHiveItem.setRegistryName(HatedMobs.ANT_HIVE.getRegistryName());
-        ItemBlock domesticatedAnthillItem = new ItemBlock(HatedMobs.DOMESTICATED_ANTHILL);
+        BlockItem domesticatedAnthillItem = new BlockItem(HatedMobs.DOMESTICATED_ANTHILL);
         domesticatedAnthillItem.setRegistryName(HatedMobs.DOMESTICATED_ANTHILL.getRegistryName());
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
@@ -224,7 +218,7 @@ public class RegistryHandler
             }
         }
 
-        EntitySpawnPlacementRegistry.setPlacementType(EntityToad.class, EntityLiving.SpawnPlacementType.IN_WATER);
+        EntitySpawnPlacementRegistry.setPlacementType(EntityToad.class, LivingEntity.SpawnPlacementType.IN_WATER);
     }
 
     @SubscribeEvent

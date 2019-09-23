@@ -1,20 +1,17 @@
 package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBreakable;
+import net.minecraft.block.BreakableBlock;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
-public class BlockAntiMosquitoGlass extends BlockBreakable
+public class BlockAntiMosquitoGlass extends BreakableBlock
 {
 
     public BlockAntiMosquitoGlass()

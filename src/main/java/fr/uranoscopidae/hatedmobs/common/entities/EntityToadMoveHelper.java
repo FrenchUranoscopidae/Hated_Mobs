@@ -1,9 +1,9 @@
 package fr.uranoscopidae.hatedmobs.common.entities;
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityMoveHelper;
+import net.minecraft.entity.ai.controller.MovementController;
 
-public class EntityToadMoveHelper extends EntityMoveHelper
+public class EntityToadMoveHelper extends MovementController
 {
     private float yRot;
     private int jumpDelay;
@@ -26,7 +26,7 @@ public class EntityToadMoveHelper extends EntityMoveHelper
     public void setSpeed(double speedIn)
     {
         this.speed = speedIn;
-        this.action = EntityMoveHelper.Action.MOVE_TO;
+        this.action = MovementController.Action.MOVE_TO;
     }
 
     public void onUpdateMoveHelper()
@@ -35,13 +35,13 @@ public class EntityToadMoveHelper extends EntityMoveHelper
         this.entity.rotationYawHead = this.entity.rotationYaw;
         this.entity.renderYawOffset = this.entity.rotationYaw;
 
-        if (this.action != EntityMoveHelper.Action.MOVE_TO)
+        if (this.action != MovementController.Action.MOVE_TO)
         {
             this.entity.setMoveForward(0.0F);
         }
         else
         {
-            this.action = EntityMoveHelper.Action.WAIT;
+            this.action = MovementController.Action.WAIT;
 
             if (this.entity.onGround)
             {
@@ -51,7 +51,7 @@ public class EntityToadMoveHelper extends EntityMoveHelper
                 {
                     this.jumpDelay = this.toad.getJumpDelay();
 
-                    this.toad.getJumpHelper().setJumping();
+                    this.toad.getJumpController().setJumping();
 
                     this.toad.playSound(this.toad.getJumpSound(), this.toad.getSoundVolume(), ((this.toad.getRNG().nextFloat() - this.toad.getRNG().nextFloat()) * 0.2F + 1.0F) * 0.8F);
                 }

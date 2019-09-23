@@ -2,14 +2,14 @@ package fr.uranoscopidae.hatedmobs.common.entities.entityai;
 
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySlug;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.ai.EntityAIMoveToBlock;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.CropsBlock;
+import net.minecraft.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-public class EntityAINomNomCultures extends EntityAIMoveToBlock
+public class EntityAINomNomCultures extends MoveToBlockGoal
 {
     private final int searchDistance;
     EntitySlug slug;
@@ -33,7 +33,7 @@ public class EntityAINomNomCultures extends EntityAIMoveToBlock
             IBlockState iblockstate = worldIn.getBlockState(pos);
             block = iblockstate.getBlock();
 
-            if (block instanceof BlockCrops && this.wantsToNomNomStuff)
+            if (block instanceof CropsBlock && this.wantsToNomNomStuff)
             {
                 return true;
             }
@@ -110,6 +110,11 @@ public class EntityAINomNomCultures extends EntityAIMoveToBlock
             }
         }
 
+        return false;
+    }
+
+    @Override
+    protected boolean shouldMoveTo(IWorldReader iWorldReader, BlockPos blockPos) {
         return false;
     }
 }

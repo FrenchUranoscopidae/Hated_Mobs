@@ -4,18 +4,12 @@ import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.ConfigurationHandler;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.structure.template.PlacementSettings;
-import net.minecraft.world.gen.structure.template.Template;
-import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableManager;
@@ -93,7 +87,7 @@ public class WorldGeneratorSpiderNest implements IWorldGenerator
 
                 case "chest":
                     world.setBlockState(blockPos1, Blocks.CHEST.getDefaultState(), 3);
-                    TileEntityChest chest = (TileEntityChest)world.getTileEntity(blockPos1);
+                    ChestTileEntity chest = (ChestTileEntity) world.getTileEntity(blockPos1);
                     chest.setLootTable(chestLootTableLocation, random.nextLong());
                     break;
 
@@ -103,7 +97,7 @@ public class WorldGeneratorSpiderNest implements IWorldGenerator
                         EntityGiantSpider spider = new EntityGiantSpider(world);
                         spider.setPosition(blockPos1.getX()+0.5, blockPos1.getY(), blockPos1.getZ()+0.5);
                         spider.enablePersistence();
-                        world.spawnEntity(spider);
+                        world.addEntity(spider);
                         world.setBlockToAir(blockPos1);
                     }
                     break;

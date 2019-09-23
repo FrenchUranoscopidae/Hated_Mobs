@@ -153,10 +153,9 @@ allprojects {
         jcenter()
     }
 
-    // Allow 400 errors.
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
-            options.compilerArgs << "-Xmaxerrs" << "10000"
+            options.compilerArgs << "-Xmaxerrs" << "400"
         }
     }
 }

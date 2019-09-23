@@ -1,6 +1,8 @@
 package fr.uranoscopidae.hatedmobs.common.blocks;
 
+import com.sun.java.accessibility.util.java.awt.TextComponentTranslator;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import javafx.beans.property.IntegerProperty;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -11,17 +13,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IShearable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,8 +30,8 @@ import java.util.Random;
 
 public class BlockSpiderInfestedLeaves extends Block implements IShearable
 {
-    public static final PropertyInteger SPIDER_COUNT = PropertyInteger.create("spider_count", 0, 2);
-    public static final TextComponentTranslation DESCRIPTION = new TextComponentTranslation(HatedMobs.MODID + ".infested_leaves_description");
+    public static final IntegerProperty SPIDER_COUNT = net.minecraft.state.IntegerProperty.create("spider_count", 0, 2);
+    public static final TextComponentTranslator DESCRIPTION = new TextComponentTranslator(HatedMobs.MODID + ".infested_leaves_description");
 
     public BlockSpiderInfestedLeaves()
     {
@@ -55,7 +54,7 @@ public class BlockSpiderInfestedLeaves extends Block implements IShearable
             double d0 = (double)((float)pos.getX() + rand.nextFloat());
             double d1 = (double)pos.getY() - 0.05D;
             double d2 = (double)((float)pos.getZ() + rand.nextFloat());
-            worldIn.spawnParticle(EnumParticleTypes.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+            worldIn.addParticle(ParticleType.DRIP_WATER, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 

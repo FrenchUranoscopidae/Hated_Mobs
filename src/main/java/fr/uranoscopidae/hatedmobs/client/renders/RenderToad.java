@@ -1,30 +1,25 @@
 package fr.uranoscopidae.hatedmobs.client.renders;
 
 import com.google.common.base.Optional;
+import com.mojang.blaze3d.platform.GlStateManager;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityToad;
-import fr.uranoscopidae.hatedmobs.common.entities.EntityWasp;
 import net.ilexiconn.llibrary.client.model.tabula.ITabulaModelAnimator;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModel;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModelHandler;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.EntityFlyHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
-import java.time.temporal.Temporal;
 
-public class RenderToad  extends RenderLiving<EntityToad>
+public class RenderToad  extends RenderLivingEvent<EntityToad>
 {
     public static final ResourceLocation TEXTURE = new ResourceLocation(HatedMobs.MODID, "textures/entity/toad.png");
 

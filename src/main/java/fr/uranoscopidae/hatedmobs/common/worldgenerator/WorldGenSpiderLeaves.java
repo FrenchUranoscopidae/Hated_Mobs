@@ -1,21 +1,15 @@
 package fr.uranoscopidae.hatedmobs.common.worldgenerator;
 
-import com.google.common.base.Predicate;
 
 import java.util.Optional;
 import java.util.Random;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
-import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockStone;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class WorldGenSpiderLeaves extends WorldGenerator
 {
@@ -68,7 +62,7 @@ public class WorldGenSpiderLeaves extends WorldGenerator
                                     BlockPos blockpos = new BlockPos(l1, i2, j2);
 
                                     IBlockState state = worldIn.getBlockState(blockpos);
-                                    if (state.getBlock() instanceof BlockLeaves)
+                                    if (state.getBlock() instanceof LeavesBlock)
                                     {
                                         worldIn.setBlockState(blockpos, HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK.getDefaultState(), 2);
                                         Optional<EntitySilkSpider> spider = EntitySilkSpider.trySpawn(worldIn, blockpos.getX() + 0.5, blockpos.getY(),blockpos.getZ() + 0.5);

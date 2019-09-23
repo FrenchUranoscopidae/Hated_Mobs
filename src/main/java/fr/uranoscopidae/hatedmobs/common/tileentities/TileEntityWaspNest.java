@@ -1,9 +1,8 @@
 package fr.uranoscopidae.hatedmobs.common.tileentities;
 
-import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityWasp;
+import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
 public class TileEntityWaspNest extends TileEntity implements ITickable
@@ -40,7 +39,7 @@ public class TileEntityWaspNest extends TileEntity implements ITickable
 
         EntityWasp wasp = new EntityWasp(world);
         wasp.setPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ());
-        world.spawnEntity(wasp);
+        world.addEntity(wasp);
         wasp.spawnExplosionParticle();
         spawnPos.release();
     }

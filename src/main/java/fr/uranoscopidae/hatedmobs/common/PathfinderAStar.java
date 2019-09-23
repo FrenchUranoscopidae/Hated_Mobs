@@ -1,8 +1,6 @@
 package fr.uranoscopidae.hatedmobs.common;
 
-import fr.uranoscopidae.hatedmobs.HatedMobs;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -23,9 +21,9 @@ public class PathfinderAStar
         double gScore = Double.POSITIVE_INFINITY;
         double fScore = Double.POSITIVE_INFINITY;
         Node parent;
-        EnumFacing side;
+        Direction side;
 
-        public Node(BlockPos pos, EnumFacing side)
+        public Node(BlockPos pos, Direction side)
         {
             this.pos = pos;
             this.side = side;
@@ -35,7 +33,7 @@ public class PathfinderAStar
             return pos;
         }
 
-        public EnumFacing getSide() {
+        public Direction getSide() {
             return side;
         }
 
@@ -56,12 +54,10 @@ public class PathfinderAStar
     }
 
     public static List<Node> findPath(World world, BlockPos start, BlockPos objective, int maxDistance) {
-        for(EnumFacing sideStart : EnumFacing.VALUES) {
-            for(EnumFacing sideEnd : EnumFacing.VALUES) {
+        for(Direction sideStart : Direction.VALUES) {
+            for(Direction sideEnd : Direction.VALUES) {
                 List<Node> path = shortestPath(world, new Node(start.offset(sideStart), sideStart.getOpposite()), new Node(objective.offset(sideEnd), sideEnd.getOpposite()), maxDistance);
                 if(path != null) {
-               //     System.out.println(">> "+start+"("+sideStart+") -> "+objective+"("+sideEnd+")");
-                 //   System.out.println(path.stream().map(Vec3i::toString).collect(Collectors.joining(", ")));
                     return path;
                 }
             }
@@ -151,13 +147,13 @@ public class PathfinderAStar
     private static List<Node> getNeighbors(World world, Node current)
     {
         List<Node> neighbors = new LinkedList<>();
-        EnumFacing currentFace = current.side;
+        Direction currentFace = current.side;
 
         // list of faces accessible to the current face (90° inside the same block)
-        List<EnumFacing> accessibleFaces = new LinkedList<>();
+        List<Direction> accessibleFaces = new LinkedList<>();
 
         // directly next to this face
-        for (EnumFacing facing : EnumFacing.values())
+        for (Direction facing : Direction.values())
         {
             if(facing == currentFace || facing == currentFace.getOpposite())  // don't go through walls
             {

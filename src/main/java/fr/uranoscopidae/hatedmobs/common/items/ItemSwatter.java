@@ -1,7 +1,7 @@
 package fr.uranoscopidae.hatedmobs.common.items;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -13,13 +13,13 @@ public class ItemSwatter extends Item
         super();
         setRegistryName(new ResourceLocation(HatedMobs.MODID, "swatter"));
         setUnlocalizedName("swatter");
-        setCreativeTab(HatedMobs.TAB);
+        getCreativeTabs(HatedMobs.TAB);
         setMaxStackSize(1);
-        setMaxDamage(50);
+        setDamage(50);
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
+    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
     {
         stack.damageItem(1, attacker);
         return true;

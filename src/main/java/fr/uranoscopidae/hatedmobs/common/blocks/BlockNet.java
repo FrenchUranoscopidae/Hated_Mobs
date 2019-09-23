@@ -1,35 +1,30 @@
 package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import javafx.beans.property.BooleanProperty;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.world.chunk.BlockStateContainer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
 public class BlockNet extends Block
 {
-    public static final PropertyBool UP = PropertyBool.create("up");
-    public static final PropertyBool NORTH = PropertyBool.create("north");
-    public static final PropertyBool EAST = PropertyBool.create("east");
-    public static final PropertyBool SOUTH = PropertyBool.create("south");
-    public static final PropertyBool WEST = PropertyBool.create("west");
-    public static final PropertyBool DOWN = PropertyBool.create("down");
-    public static final PropertyBool[] ALL_FACES = new PropertyBool[] {UP, NORTH, SOUTH, WEST, EAST, DOWN};
+    public static final BooleanProperty UP = BooleanProperty.create("up");
+    public static final BooleanProperty NORTH = BooleanProperty.create("north");
+    public static final BooleanProperty EAST = BooleanProperty.create("east");
+    public static final BooleanProperty SOUTH = BooleanProperty.create("south");
+    public static final BooleanProperty WEST = BooleanProperty.create("west");
+    public static final BooleanProperty DOWN = BooleanProperty.create("down");
+    public static final BooleanProperty[] ALL_FACES = new BooleanProperty[] {UP, NORTH, SOUTH, WEST, EAST, DOWN};
     protected static final AxisAlignedBB UP_AABB = new AxisAlignedBB(0.0D, 0.9375D, 0.0D, 1.0D, 1.0D, 1.0D);
     protected static final AxisAlignedBB WEST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.0625D, 1.0D, 1.0D);
     protected static final AxisAlignedBB EAST_AABB = new AxisAlignedBB(0.9375D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
@@ -159,7 +154,7 @@ public class BlockNet extends Block
 
     private boolean canPlace(BlockPos pos, World world)
     {
-        for(EnumFacing facing : EnumFacing.values())
+        for(Direction facing : Direction.values())
         {
             BlockPos neighbor = pos.offset(facing);
             world.getBlockState(neighbor).getBlock();
@@ -174,11 +169,11 @@ public class BlockNet extends Block
 
     private boolean canPlaceOn(Block block)
     {
-        return block instanceof BlockDoor
-                || block instanceof BlockTrapDoor
-                || block instanceof BlockGlass
-                || block instanceof BlockStainedGlass
-                || block instanceof BlockPane;
+        return block instanceof DoorBlock
+                || block instanceof TrapDoorBlock
+                || block instanceof GlassBlock
+                || block instanceof StainedGlassBlock
+                || block instanceof PaneBlock;
     }
 
     protected BlockStateContainer createBlockState()
@@ -208,12 +203,12 @@ public class BlockNet extends Block
         return 0;
     }
 
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
     {
         return getDefaultState();
     }
 
-    public static PropertyBool getPropertyFor(EnumFacing facing) {
+    public static BooleanProperty getPropertyFor(Direction facing) {
         if(facing == null)
             throw new NullPointerException("facing");
         switch (facing) {

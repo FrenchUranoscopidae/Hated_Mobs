@@ -1,10 +1,10 @@
 package fr.uranoscopidae.hatedmobs.common.items;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import net.minecraft.item.ItemFood;
+import net.minecraft.item.Food;
 import net.minecraft.util.ResourceLocation;
 
-public class ItemCookedFrogLeg extends ItemFood
+public class ItemCookedFrogLeg extends Food
 {
     public ItemCookedFrogLeg(int amount, float saturation, boolean isWolfFood)
     {

@@ -1,24 +1,21 @@
 package fr.uranoscopidae.hatedmobs.client.renders;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.PathfinderAStar;
-import fr.uranoscopidae.hatedmobs.common.blocks.BlockNet;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityAntHive;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
-public class TileEntityAnthiveSpecialRenderer extends TileEntitySpecialRenderer<TileEntityAntHive>
+public class TileEntityAnthiveSpecialRenderer extends TileEntityRenderer<TileEntityAntHive>
 {
 
     public static final ResourceLocation ANT_HILE_LOCATION = new ResourceLocation(HatedMobs.MODID, "textures/ant_tile.png");
@@ -38,7 +35,7 @@ public class TileEntityAnthiveSpecialRenderer extends TileEntitySpecialRenderer<
                 for(PathfinderAStar.Node node : path)
                 {
                     BlockPos position = node.getPos();
-                    EnumFacing facing = node.getSide();
+                    Direction facing = node.getSide();
                     double relativeX = position.getX()-startX + x;
                     double relativeY = position.getY()-startY + y;
                     double relativeZ = position.getZ()-startZ + z;

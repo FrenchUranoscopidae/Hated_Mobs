@@ -2,17 +2,13 @@ package fr.uranoscopidae.hatedmobs.common.blocks;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
-import fr.uranoscopidae.hatedmobs.common.items.ItemSilkBoots;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntitySpider;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.monster.SpiderEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -27,7 +23,7 @@ public class BlockWeb extends Block
         this.setCreativeTab(HatedMobs.TAB);
         setRegistryName(new ResourceLocation(HatedMobs.MODID, "web_block"));
         setUnlocalizedName("web_block");
-        setHardness(0.6F);
+        blockHardness(0.6F);
     }
 
     @Nullable
@@ -38,11 +34,11 @@ public class BlockWeb extends Block
 
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
-        if(!(entityIn instanceof EntitySpider || entityIn instanceof EntitySilkSpider))
+        if(!(entityIn instanceof SpiderEntity || entityIn instanceof EntitySilkSpider))
         {
-            if(entityIn instanceof EntityPlayer)
+            if(entityIn instanceof PlayerEntity)
             {
-                EntityPlayer player = (EntityPlayer)entityIn;
+                PlayerEntity player = (PlayerEntity)entityIn;
                 if(player.inventory.armorInventory.get(0).getItem() != HatedMobs.SILK_BOOTS)
                 {
                     entityIn.motionX *= 0.4D;

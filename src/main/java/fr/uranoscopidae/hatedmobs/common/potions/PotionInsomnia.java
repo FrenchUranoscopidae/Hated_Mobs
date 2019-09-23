@@ -2,9 +2,8 @@ package fr.uranoscopidae.hatedmobs.common.potions;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 
 public class PotionInsomnia extends Potion
@@ -31,32 +30,32 @@ public class PotionInsomnia extends Potion
     }
 
     @Override
-    public boolean shouldRender(PotionEffect effect)
+    public boolean shouldRender(EffectInstance effect)
     {
         return true;
     }
 
     @Override
-    public boolean shouldRenderInvText(PotionEffect effect)
+    public boolean shouldRenderInvText(EffectInstance effect)
     {
         return true;
     }
 
     @Override
-    public boolean shouldRenderHUD(PotionEffect effect)
+    public boolean shouldRenderHUD(EffectInstance effect)
     {
         return true;
     }
 
     @Override
-    public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha)
+    public void renderHUDEffect(int x, int y, EffectInstance effect, Minecraft mc, float alpha)
     {
         mc.getTextureManager().bindTexture(TEXTURE);
         Gui.drawModalRectWithCustomSizedTexture(x + 3, y + 4, 0, 0, 18, 18, 18, 18);
     }
 
     @Override
-    public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc)
+    public void renderInventoryEffect(int x, int y, EffectInstance effect, Minecraft mc)
     {
         if(mc.currentScreen != null)
         {

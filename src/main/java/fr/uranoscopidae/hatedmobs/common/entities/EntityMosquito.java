@@ -7,11 +7,14 @@ import fr.uranoscopidae.hatedmobs.common.worldwrappers.MosquitoWorldWrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.pathfinding.FlyingPathNavigator;
+import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -26,15 +29,15 @@ public class EntityMosquito extends MobEntity
         super(IBlockMapper.wrap(world, MosquitoWorldWrapper.INSTANCE));
         setSize(2f/16f, 2f/16f);
         this.experienceValue = 1;
-        this.moveHelper = new EntityFlyHelper(this);
+        this.moveController = new FlyingMovementController(this);
     }
 
     @Override
-    protected PathNavigate createNavigator(World worldIn)
+    protected PathNavigator createNavigator(World worldIn)
     {
-        PathNavigateFlying fly = new PathNavigateFlying(this, worldIn);
+        FlyingPathNavigator fly = new FlyingPathNavigator(this, worldIn);
         fly.setCanEnterDoors(true);
-        fly.setCanFloat(true);
+        fly.setCanSwim(true);
         return fly;
     }
 

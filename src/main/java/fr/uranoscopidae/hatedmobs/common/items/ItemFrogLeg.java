@@ -1,15 +1,15 @@
 package fr.uranoscopidae.hatedmobs.common.items;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemFood;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Food;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class ItemFrogLeg extends ItemFood
+public class ItemFrogLeg extends Food
 {
     public ItemFrogLeg(int amount, float saturation, boolean isWolfFood)
     {
@@ -20,9 +20,9 @@ public class ItemFrogLeg extends ItemFood
     }
 
     @Override
-    protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
+    protected void onFoodEaten(ItemStack stack, World worldIn, PlayerEntity player)
     {
         super.onFoodEaten(stack, worldIn, player);
-        player.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("poison"), 10*60, 0));
+        player.addPotionEffect(new EffectInstance(Potion.getPotionTypeForName("poison"), 10*60, 0));
     }
 }

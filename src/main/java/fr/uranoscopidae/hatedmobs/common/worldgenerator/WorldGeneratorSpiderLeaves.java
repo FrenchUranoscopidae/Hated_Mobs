@@ -1,13 +1,10 @@
 package fr.uranoscopidae.hatedmobs.common.worldgenerator;
 
-import net.minecraft.init.Biomes;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.IChunkGenerator;
-import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.util.Random;
@@ -31,7 +28,7 @@ public class WorldGeneratorSpiderLeaves implements IWorldGenerator
 
             Biome biome = world.getBiome(blockPos);
 
-            if(!world.isSideSolid(blockPos.down(), EnumFacing.UP))
+            if(!world.isSideSolid(blockPos.down(), Direction.UP))
             {
                 blockPos.release();
                 return;

@@ -1,12 +1,12 @@
 package fr.uranoscopidae.hatedmobs.common.items;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 
@@ -19,18 +19,18 @@ public class ItemGiantSpiderFangSword extends Item
         setUnlocalizedName("giant_spider_fang_sword");
         setCreativeTab(HatedMobs.TAB);
         setMaxStackSize(1);
-        setMaxDamage(132);
+        setDamage(132);
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
+    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker)
     {
         stack.damageItem(1, attacker);
-        target.addPotionEffect(new PotionEffect(Potion.getPotionFromResourceLocation("poison"), 5*60, 0));
+        target.addPotionEffect(new EffectInstance(Potion.getPotionTypeForName("poison"), 5*60, 0));
 
-        if(attacker instanceof EntityPlayer)
+        if(attacker instanceof PlayerEntity)
         {
-            target.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer)attacker), 6);
+            target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) attacker), 6);
         }
         else
         {

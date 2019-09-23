@@ -4,15 +4,16 @@ import com.google.common.base.Optional;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityMosquito;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityToad;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityWasp;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
-public class EntityAIMlemAttack extends EntityAIBase
+
+public class EntityAIMlemAttack extends Goal
 {
     EntityToad toad;
     int timer;
@@ -44,13 +45,13 @@ public class EntityAIMlemAttack extends EntityAIBase
     @Override
     public void updateTask()
     {
-        EntityLivingBase target = toad.getAttackTarget();
+        LivingEntity target = toad.getAttackTarget();
 
-        if(target != null && !target.isDead && toad.canEntityBeSeen(target))
+        if(target != null && target.isAlive() && toad.canEntityBeSeen(target))
         {
             timer++;
 
-            toad.getLookHelper().setLookPosition(target.posX + 0.5f, target.posY + 0.5f, target.posZ + 0.5f, (float)toad.getHorizontalFaceSpeed(), (float)toad.getVerticalFaceSpeed());
+            toad.getLookController().setLookPosition(target.posX + 0.5f, target.posY + 0.5f, target.posZ + 0.5f, (float)toad.getHorizontalFaceSpeed(), (float)toad.getVerticalFaceSpeed());
 
             if(timer == 10)
             {
@@ -64,11 +65,11 @@ public class EntityAIMlemAttack extends EntityAIBase
                 {
                     BlockPos tonguePos = pos.get();
                     AxisAlignedBB box = new AxisAlignedBB(tonguePos);
-                    List<EntityLivingBase> list = toad.world.getEntitiesWithinAABB(EntityLivingBase.class, box, e->e instanceof EntityWasp || e instanceof EntityMosquito);
+                    List<LivingEntity> list = toad.world.getEntitiesWithinAABB(LivingEntity.class, box, e->e instanceof EntityWasp || e instanceof EntityMosquito);
 
-                    if(!list.isEmpty())
+                    if(!((List) list).isEmpty())
                     {
-                        EntityLivingBase mlemTarget = list.get(0);
+                        LivingEntity mlemTarget = list.get(0);
                         mlemTarget.attackEntityFrom(DamageSource.causeMobDamage(toad), 100f);
                         timer = -40;
                         toad.removeTarget();
