@@ -8,6 +8,8 @@ import fr.uranoscopidae.hatedmobs.common.worldwrappers.IFalsifiedWorld;
 import fr.uranoscopidae.hatedmobs.common.worldwrappers.SilkSpiderWorldWrapper;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
@@ -15,7 +17,9 @@ import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -25,6 +29,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
@@ -59,7 +65,7 @@ public class EntitySilkSpider extends AnimalEntity implements IEntityAdditionalS
             return Optional.empty();
         }
 
-        IBlockState blockState = world.getBlockState(pos);
+        BlockState blockState = world.getBlockState(pos);
         int spiderCount = blockState.getValue(BlockSpiderInfestedLeaves.SPIDER_COUNT);
 
         if(spiderCount >= 2)
@@ -115,9 +121,9 @@ public class EntitySilkSpider extends AnimalEntity implements IEntityAdditionalS
         this.dataManager.register(CLIMBING, Byte.valueOf((byte)0));
     }
 
-    public void onUpdate()
-    {
-        super.onUpdate();
+    @Override
+    public void tick() {
+        super.tick();
 
         if (!this.world.isRemote)
         {
@@ -160,7 +166,8 @@ public class EntitySilkSpider extends AnimalEntity implements IEntityAdditionalS
         return SoundEvents.ENTITY_SPIDER_DEATH;
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState blockIn)
     {
         this.playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
     }
@@ -172,18 +179,16 @@ public class EntitySilkSpider extends AnimalEntity implements IEntityAdditionalS
     }
 
     @Override
-    protected boolean canDespawn()
-    {
+    public boolean canDespawn(double distanceToClosestPlayer) {
         return false;
     }
 
     @Override
-    public void onLivingUpdate()
-    {
-        super.onLivingUpdate();
+    public void livingTick() {
+        super.livingTick();
         if(rand.nextInt(20*60*2) == 0)
         {
-            IBlockState blockState = ((IFalsifiedWorld)world).getRealBlockState(this.getPosition());
+            BlockState blockState = ((IFalsifiedWorld)world).getRealBlockState(this.getPosition());
             if(blockState.getBlock().isAir(blockState, world, getPosition()))
             {
                 world.setBlockState(getPosition(), Blocks.WEB.getDefaultState());
@@ -206,7 +211,7 @@ public class EntitySilkSpider extends AnimalEntity implements IEntityAdditionalS
         }
     }
 
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
+    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos)
     {
     }
 
@@ -245,26 +250,26 @@ public class EntitySilkSpider extends AnimalEntity implements IEntityAdditionalS
     }
 
     @Override
-    public void writeSpawnData(ByteBuf buffer)
+    public void writeSpawnData(PacketBuffer packetBuffer)
     {
-        buffer.writeInt(homePos.getX());
-        buffer.writeInt(homePos.getY());
-        buffer.writeInt(homePos.getZ());
+        packetBuffer.writeInt(homePos.getX());
+        packetBuffer.writeInt(homePos.getY());
+        packetBuffer.writeInt(homePos.getZ());
     }
 
     @Override
-    public void readSpawnData(ByteBuf additionalData)
+    public void readSpawnData(PacketBuffer packetBuffer)
     {
-        int x = additionalData.readInt();
-        int y = additionalData.readInt();
-        int z = additionalData.readInt();
+        int x = packetBuffer.readInt();
+        int y = packetBuffer.readInt();
+        int z = packetBuffer.readInt();
         homePos.setPos(x, y, z);
     }
 
     @Override
     protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
     {
-        return this.height * 0.25f;
+        return this.getHeight() * 0.25f;
     }
 
     public BlockPos getHomePos()

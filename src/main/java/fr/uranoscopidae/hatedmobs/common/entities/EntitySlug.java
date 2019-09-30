@@ -39,10 +39,10 @@ public class EntitySlug extends MobEntity
         this.goalSelector.addGoal(6, new EntityAINomNomCultures(this, 0.2D));
     }
 
-    public void onUpdate()
+    @Override
+    public void tick()
     {
-        super.onUpdate();
-
+        super.tick();
         if (!this.world.isRemote)
         {
             this.setBesideClimbableBlock(this.collidedHorizontally);

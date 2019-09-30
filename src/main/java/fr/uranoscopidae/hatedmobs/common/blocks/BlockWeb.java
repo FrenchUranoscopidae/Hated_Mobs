@@ -3,6 +3,8 @@ package fr.uranoscopidae.hatedmobs.common.blocks;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntitySilkSpider;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.command.impl.data.BlockDataAccessor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,12 +29,12 @@ public class BlockWeb extends Block
     }
 
     @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
+    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, BlockDataAccessor worldIn, BlockPos pos)
     {
         return WEB_BLOCK_AABB;
     }
 
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, BlockState state, Entity entityIn)
     {
         if(!(entityIn instanceof SpiderEntity || entityIn instanceof EntitySilkSpider))
         {

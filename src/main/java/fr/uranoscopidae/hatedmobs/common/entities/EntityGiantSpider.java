@@ -83,7 +83,7 @@ public class EntityGiantSpider extends MobEntity implements IRangedAttackMob
 
             if(isAlive() && !world.isRemote)
             {
-                if (!player.capabilities.isCreativeMode)
+                if (!player.abilities.isCreativeMode)
                 {
                     itemstack.shrink(1);
                 }
@@ -106,8 +106,7 @@ public class EntityGiantSpider extends MobEntity implements IRangedAttackMob
     }
 
     @Override
-    protected boolean canDespawn()
-    {
+    public boolean canDespawn(double distanceToClosestPlayer) {
         return false;
     }
 

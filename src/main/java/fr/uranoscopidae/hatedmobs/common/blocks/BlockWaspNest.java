@@ -5,6 +5,7 @@ import fr.uranoscopidae.hatedmobs.common.ConfigurationHandler;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityWasp;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -32,20 +33,20 @@ public class BlockWaspNest extends Block
     }
 
     @Override
-    public boolean hasTileEntity(IBlockState state)
+    public boolean hasTileEntity(BlockState state)
     {
         return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state)
+    public TileEntity createTileEntity(World world, BlockState state)
     {
         return new TileEntityWaspNest();
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state)
+    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, BlockState state)
     {
         if(ConfigurationHandler.MOB_TOGGLE.wasp)
         {

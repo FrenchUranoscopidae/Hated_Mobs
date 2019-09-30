@@ -4,6 +4,7 @@ import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.worldwrappers.IBlockMapper;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
 import fr.uranoscopidae.hatedmobs.common.worldwrappers.MosquitoWorldWrapper;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -50,8 +51,7 @@ public class EntityMosquito extends MobEntity
     }
 
     @Override
-    public boolean isEntityInvulnerable(DamageSource source)
-    {
+    public boolean isInvulnerableTo(DamageSource source) {
         Entity attacker = source.getTrueSource();
 
         if(attacker instanceof PlayerEntity)
@@ -61,7 +61,7 @@ public class EntityMosquito extends MobEntity
 
             return !(item.getItem() instanceof ItemSwatter);
         }
-        return super.isInvulnerable(source);
+        return super.isInvulnerableTo(source);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class EntityMosquito extends MobEntity
     }
 
     @Override
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
+    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos)
     {
 
     }

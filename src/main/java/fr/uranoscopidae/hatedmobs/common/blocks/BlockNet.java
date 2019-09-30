@@ -4,8 +4,12 @@ import fr.uranoscopidae.hatedmobs.HatedMobs;
 import javafx.beans.property.BooleanProperty;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.command.impl.data.BlockDataAccessor;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -50,12 +54,12 @@ public class BlockNet extends Block
 
     @Nullable
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
+    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, BlockDataAccessor worldIn, BlockPos pos)
     {
         return NULL_AABB;
     }
 
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    public AxisAlignedBB getBoundingBox(BlockState state, BlockDataAccessor source, BlockPos pos)
     {
         state = state.getActualState(source, pos);
         int i = 0;
@@ -101,15 +105,15 @@ public class BlockNet extends Block
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, Hand hand, Direction facing, float hitX, float hitY, float hitZ)
     {
         // pass the event to the block behind
         BlockPos behind = pos.offset(facing.getOpposite());
-        IBlockState stateBehind = worldIn.getBlockState(behind);
+        BlockState stateBehind = worldIn.getBlockState(behind);
         return stateBehind.getBlock().onBlockActivated(worldIn, behind, stateBehind, playerIn, hand, facing, hitX, hitY, hitZ);
     }
 
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos)
+    public BlockState getActualState(BlockState state, BlockDataAccessor worldIn, BlockPos pos)
     {
         BlockPos north = pos.north();
         BlockPos west = pos.west();
@@ -126,24 +130,24 @@ public class BlockNet extends Block
                 .withProperty(DOWN, canPlaceOn(worldIn.getBlockState(down).getBlock()));
     }
 
-    public boolean isOpaqueCube(IBlockState state)
+    public boolean isOpaqueCube(BlockState state)
     {
         return false;
     }
 
-    public boolean isFullCube(IBlockState state)
+    public boolean isFullCube(BlockState state)
     {
         return false;
     }
 
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side)
+    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, Direction side)
     {
         BlockPos neighbor = pos.offset(side.getOpposite());
         Block block = worldIn.getBlockState(neighbor).getBlock();
         return canPlaceOn(block);
     }
 
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos)
     {
         if (!canPlace(pos, worldIn))
         {
@@ -184,7 +188,7 @@ public class BlockNet extends Block
     /**
      * Convert the given metadata into a BlockState for this Block
      */
-    public IBlockState getStateFromMeta(int meta)
+    public BlockState getStateFromMeta(int meta)
     {
         return this.getDefaultState();
     }
@@ -198,12 +202,12 @@ public class BlockNet extends Block
     /**
      * Convert the BlockState into the correct metadata value
      */
-    public int getMetaFromState(IBlockState state)
+    public int getMetaFromState(BlockState state)
     {
         return 0;
     }
 
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
+    public BlockState getStateForPlacement(World worldIn, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer)
     {
         return getDefaultState();
     }

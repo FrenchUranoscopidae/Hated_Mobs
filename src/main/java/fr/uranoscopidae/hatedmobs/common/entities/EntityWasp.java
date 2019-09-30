@@ -3,9 +3,8 @@ package fr.uranoscopidae.hatedmobs.common.entities;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAICloseMeleeAttack;
 import fr.uranoscopidae.hatedmobs.common.items.ItemSwatter;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.controller.FlyingMovementController;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
@@ -75,15 +74,15 @@ public class EntityWasp extends MobEntity
     }
 
     @Override
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos)
+    protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos)
     {
 
     }
 
     @Override
-    public float getEyeHeight()
+    protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
     {
-        return 0.25f * height;
+        return return 0.25f * getHeight();;
     }
 
     @Nullable

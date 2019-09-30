@@ -4,6 +4,7 @@ import com.sun.java.accessibility.util.java.awt.TextComponentTranslator;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import javafx.beans.property.IntegerProperty;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -11,10 +12,12 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.command.impl.data.BlockDataAccessor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -47,7 +50,7 @@ public class BlockSpiderInfestedLeaves extends Block implements IShearable
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand)
+    public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
     {
         if (worldIn.isRainingAt(pos.up()) && !worldIn.getBlockState(pos.down()).isTopSolid() && rand.nextInt(15) == 1)
         {
@@ -58,7 +61,7 @@ public class BlockSpiderInfestedLeaves extends Block implements IShearable
         }
     }
 
-    public boolean isOpaqueCube(IBlockState state)
+    public boolean isOpaqueCube(BlockState state)
     {
         return false;
     }
@@ -69,28 +72,28 @@ public class BlockSpiderInfestedLeaves extends Block implements IShearable
         return Minecraft.getMinecraft().gameSettings.fancyGraphics ? BlockRenderLayer.CUTOUT_MIPPED : BlockRenderLayer.SOLID;
     }
 
-    public boolean causesSuffocation(IBlockState state)
+    public boolean causesSuffocation(BlockState state)
     {
         return false;
     }
 
     @Override
-    public boolean isShearable(@Nonnull ItemStack item, IBlockAccess world, BlockPos pos)
+    public boolean isShearable(@Nonnull ItemStack item, BlockDataAccessor world, BlockPos pos)
     {
         return true;
     }
 
-    @Override public boolean isLeaves(IBlockState state, IBlockAccess world, BlockPos pos){ return true; }
+    @Override public boolean isLeaves(BlockState state, BlockDataAccessor world, BlockPos pos){ return true; }
 
     @Nonnull
     @Override
-    public List<ItemStack> onSheared(@Nonnull ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
+    public List<ItemStack> onSheared(@Nonnull ItemStack item, BlockDataAccessor world, BlockPos pos, int fortune)
     {
         return Collections.singletonList(new ItemStack(Item.getItemFromBlock(this)));
     }
 
     @OnlyIn(Dist.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side)
+    public boolean shouldSideBeRendered(BlockState blockState, BlockDataAccessor blockAccess, BlockPos pos, Direction side)
     {
         return !Minecraft.getMinecraft().gameSettings.fancyGraphics && blockAccess.getBlockState(pos.offset(side)).getBlock() == this ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
@@ -102,13 +105,13 @@ public class BlockSpiderInfestedLeaves extends Block implements IShearable
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta)
+    public BlockState getStateFromMeta(int meta)
     {
         return getDefaultState().withProperty(SPIDER_COUNT, meta);
     }
 
     @Override
-    public int getMetaFromState(IBlockState state)
+    public int getMetaFromState(BlockState state)
     {
         return state.getValue(SPIDER_COUNT);
     }

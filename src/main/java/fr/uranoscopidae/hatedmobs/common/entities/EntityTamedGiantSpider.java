@@ -3,6 +3,7 @@ package fr.uranoscopidae.hatedmobs.common.entities;
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAICloseMeleeAttack;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -161,9 +162,11 @@ public class EntityTamedGiantSpider extends TameableEntity implements IRangedAtt
         return SoundEvents.ENTITY_SPIDER_DEATH;
     }
 
-    protected void playStepSound(BlockPos pos, Block blockIn)
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState blockIn)
     {
         this.playSound(SoundEvents.ENTITY_SPIDER_STEP, 0.15F, 1.0F);
+
     }
 
     public void setInWeb()
@@ -171,7 +174,7 @@ public class EntityTamedGiantSpider extends TameableEntity implements IRangedAtt
     }
 
     @Override
-    protected boolean canDespawn()
+    public boolean canDespawn(double distanceToClosestPlayer)
     {
         return false;
     }
@@ -273,14 +276,11 @@ public class EntityTamedGiantSpider extends TameableEntity implements IRangedAtt
         this.dataManager.set(CLIMBING, Byte.valueOf(b0));
     }
 
-    public void onUpdate()
+    @Override
+    public void tick()
     {
-        super.onUpdate();
-
-      //  if (!this.world.isRemote)
-        {
-            this.setBesideClimbableBlock(this.collidedHorizontally);
-        }
+        super.tick();
+        this.setBesideClimbableBlock(this.collidedHorizontally);
     }
 
     @Override
