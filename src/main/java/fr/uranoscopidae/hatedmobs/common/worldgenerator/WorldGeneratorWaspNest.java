@@ -4,6 +4,7 @@ import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
 import net.minecraft.block.BlockLog;
+import net.minecraft.init.Biomes;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -54,6 +55,12 @@ public class WorldGeneratorWaspNest implements IWorldGenerator
             {
                 blockPos.release();
                 continue;
+            }
+
+            if(world.getBiome(blockPos) == Biomes.SKY || world.getBiome(blockPos) == Biomes.HELL)
+            {
+                blockPos.release();
+                return;
             }
 
             world.setBlockState(blockPos, HatedMobs.WASP_NEST.getDefaultState());

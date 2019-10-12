@@ -2,6 +2,7 @@ package fr.uranoscopidae.hatedmobs.common.worldgenerator;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
+import net.minecraft.init.Biomes;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -34,6 +35,12 @@ public class WorldGeneratorEggSack implements IWorldGenerator
         BlockPos.PooledMutableBlockPos blockPos = BlockPos.PooledMutableBlockPos.retain(x + chunkX * 16, y, z + chunkZ * 16);
 
         if(!world.isSideSolid(blockPos.down(), EnumFacing.UP))
+        {
+            blockPos.release();
+            return;
+        }
+
+        if(world.getBiome(blockPos) == Biomes.SKY || world.getBiome(blockPos) == Biomes.HELL)
         {
             blockPos.release();
             return;

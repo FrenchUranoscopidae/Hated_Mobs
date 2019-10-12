@@ -80,7 +80,10 @@ public class ConfigurationHandler
             {
                 for(Biome biome : Biome.REGISTRY)
                 {
-                    put(biome.getRegistryName().toString(), 1);
+                    if(biome != Biomes.HELL && biome != Biomes.SKY)
+                    {
+                        put(biome.getRegistryName().toString(), 1);
+                    }
                 }
             }
         };
@@ -97,7 +100,10 @@ public class ConfigurationHandler
             {
                 for(Biome biome : Biome.REGISTRY)
                 {
-                    put(biome.getRegistryName().toString(), 100);
+                    if(biome != Biomes.HELL && biome != Biomes.SKY)
+                    {
+                        put(biome.getRegistryName().toString(), 100);
+                    }
                 }
             }
         };
@@ -132,7 +138,10 @@ public class ConfigurationHandler
             {
                 for(Biome biome : Biome.REGISTRY)
                 {
-                    put(biome.getRegistryName().toString(), 100);
+                    if(biome != Biomes.HELL && biome != Biomes.SKY)
+                    {
+                        put(biome.getRegistryName().toString(), 100);
+                    }
                 }
                 put(Biomes.DESERT.getRegistryName().toString(), 0);
                 put(Biomes.DESERT_HILLS.getRegistryName().toString(), 0);
