@@ -188,7 +188,7 @@ public class EntitySilkSpider extends EntityAnimal implements IEntityAdditionalS
     public void onLivingUpdate()
     {
         super.onLivingUpdate();
-        if(rand.nextInt(20*60*2) == 0)
+        if(rand.nextInt(20*60*5) == 0)
         {
             IBlockState blockState = ((IFalsifiedWorld)world).getRealBlockState(this.getPosition());
             if(blockState.getBlock().isAir(blockState, world, getPosition()))

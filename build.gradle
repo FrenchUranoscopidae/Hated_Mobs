@@ -48,6 +48,7 @@ repositories {
     }
 }
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar') // for some reason LLib does not like being downloaded from Gradle/IDEA
     // you may put jars on which you depend on in ./libs
@@ -114,6 +115,12 @@ task signJar(type: SignJar, dependsOn: reobfJar) {
     keyPass = project.findProperty('keyStoreKeyPass')
     inputFile = jar.archivePath
     outputFile = jar.archivePath
+}
+
+idea {
+    module {
+        inheritOutputDirs = true
+    }
 }
 
 // Runs this task automatically when build is ran.

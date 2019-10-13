@@ -19,7 +19,7 @@ public class WorldGeneratorSpiderLeaves implements IWorldGenerator
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
     {
-        int attempts = 3;
+        int attempts = 2;
         BlockPos.PooledMutableBlockPos blockPos = BlockPos.PooledMutableBlockPos.retain();
         for (int i = 0; i < attempts; i++)
         {

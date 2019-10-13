@@ -2,6 +2,7 @@ package fr.uranoscopidae.hatedmobs.common.entities;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.entityai.EntityAINomNomCultures;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.network.datasync.DataParameter;
@@ -37,6 +38,12 @@ public class EntitySlug extends EntityMob
         super.initEntityAI();
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.2D));
         this.tasks.addTask(6, new EntityAINomNomCultures(this, 0.2D));
+    }
+
+    public void applyEntityAttributes()
+    {
+        super.applyEntityAttributes();
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(6);
     }
 
     public void onUpdate()

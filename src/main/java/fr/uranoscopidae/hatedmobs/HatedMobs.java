@@ -16,12 +16,17 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.ConfigManager;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
@@ -84,6 +89,7 @@ public class HatedMobs
     public void preInit(FMLPreInitializationEvent event)
     {
         MinecraftForge.EVENT_BUS.register(new RegistryHandler());
+        MinecraftForge.EVENT_BUS.register(this);
         logger = event.getModLog();
         File configFile = event.getSuggestedConfigurationFile();
         proxy.preInit(configFile);
@@ -135,5 +141,14 @@ public class HatedMobs
     public void onFingerprintViolation(FMLFingerprintViolationEvent event)
     {
         System.err.println("Invalid fingerprint detected! The file " + event.getSource().getName() + " may have been tampered with. This version will NOT be supported by the author!");
+    }
+
+    @SubscribeEvent
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
+    {
+        if (event.getModID().equals(HatedMobs.MODID)) {
+
+            ConfigManager.sync(HatedMobs.MODID, Config.Type.INSTANCE);
+        }
     }
 }

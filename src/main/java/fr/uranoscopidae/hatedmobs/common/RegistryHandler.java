@@ -193,6 +193,11 @@ public class RegistryHandler
 
         for(Biome biome : Biome.REGISTRY)
         {
+            if(biome == Biomes.HELL || biome == Biomes.SKY)
+            {
+                continue;
+            }
+
             if(ConfigurationHandler.MOB_TOGGLE.mosquito)
             {
                 int mosquitoSpawnrate = ConfigurationHandler.MOB_FREQUENCY.mosquito.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.mosquitoDefault);

@@ -4,6 +4,7 @@ import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.ConfigurationHandler;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityChest;
@@ -63,6 +64,12 @@ public class WorldGeneratorSpiderNest implements IWorldGenerator
         }
 
         if(airBlocks <= 4 || airBlocks > 50)
+        {
+            blockPos.release();
+            return;
+        }
+
+        if(world.getBiome(blockPos) == Biomes.SKY || world.getBiome(blockPos) == Biomes.HELL)
         {
             blockPos.release();
             return;
