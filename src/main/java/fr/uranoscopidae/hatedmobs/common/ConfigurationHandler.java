@@ -152,5 +152,23 @@ public class ConfigurationHandler
         @Config.LangKey("hatedmobs.slug_default_name")
         @Config.Comment("Default slug spawnrate in all biomes that are not defined in the biome list")
         public int slugDefault = 0;
+
+        @Config.LangKey("hatedmobs.anthill_spawner_biomes")
+        public Map<String, Integer> anthillSpawner = new HashMap<String, Integer>()
+        {
+            {
+                for(Biome biome : Biome.REGISTRY)
+                {
+                    if(biome != Biomes.HELL && biome != Biomes.SKY)
+                    {
+                        put(biome.getRegistryName().toString(), 30);
+                    }
+                }
+            }
+        };
+
+        @Config.LangKey("hatedmobs.anthill_spawner_default_name")
+        public int anthillSpawnerDefault = 30;
+
     }
 }

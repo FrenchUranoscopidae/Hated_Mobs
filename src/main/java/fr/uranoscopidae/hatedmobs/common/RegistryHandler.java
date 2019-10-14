@@ -24,6 +24,8 @@ import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import javax.security.auth.login.Configuration;
+
 public class RegistryHandler
 {
     @SubscribeEvent
@@ -176,6 +178,17 @@ public class RegistryHandler
                     .factory(EntityRedAnt::new)
                     .build();
             event.getRegistry().register(redAntEntry);
+
+            EntityEntry anthillSpawnerEntry = EntityEntryBuilder.create()
+                    .entity(EntityAnthillSpawner.class)
+                    .id(new ResourceLocation(HatedMobs.MODID, "anthill_spawner"), 10)
+                    .name("hatedmobs.anthill_spawner")
+                    .tracker(64, 3, true)
+                    .factory(EntityAnthillSpawner::new)
+                    .build();
+            event.getRegistry().register(anthillSpawnerEntry);
+
+
         }
 
         if(ConfigurationHandler.MOB_TOGGLE.slug)
@@ -226,6 +239,12 @@ public class RegistryHandler
             {
                 int slugSpawnrate = ConfigurationHandler.MOB_FREQUENCY.slug.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.slugDefault);
                 EntityRegistry.addSpawn(EntitySlug.class, slugSpawnrate, 2, 4, EnumCreatureType.MONSTER, biome);
+            }
+
+            if(ConfigurationHandler.MOB_TOGGLE.ant)
+            {
+                int anthillSpawnerSpawnrate = ConfigurationHandler.MOB_FREQUENCY.anthillSpawner.getOrDefault(biome.getRegistryName().toString(), ConfigurationHandler.MOB_FREQUENCY.anthillSpawnerDefault);
+                EntityRegistry.addSpawn(EntityAnthillSpawner.class, anthillSpawnerSpawnrate, 1, 1, EnumCreatureType.MONSTER, biome);
             }
         }
 
