@@ -36,7 +36,6 @@ public class EntityAnthillSpawner extends EntityMob
 
             TileEntityAntHive antHive = (TileEntityAntHive) world.getTileEntity(getPosition());
         }
-        System.out.println("anthill spawned");
 
         attackEntityFrom(DamageSource.MAGIC, 10000);
     }

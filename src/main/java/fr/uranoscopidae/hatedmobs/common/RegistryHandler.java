@@ -254,6 +254,7 @@ public class RegistryHandler
     @SubscribeEvent
     public void registerPotion(RegistryEvent.Register<Potion> event)
     {
+        System.out.println("bite");
         event.getRegistry().register(HatedMobs.INSOMNIA);
     }
 }

@@ -128,6 +128,8 @@ public class HatedMobs
         {
             GameRegistry.registerWorldGenerator(new WorldGeneratorAnthill(), 0);
         }
+
+        BiomeInit.registerBiomes();
     }
 
     @Mod.EventHandler
