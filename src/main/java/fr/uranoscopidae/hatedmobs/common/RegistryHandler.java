@@ -33,7 +33,7 @@ public class RegistryHandler
     {
         event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK,
                 HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR,
-                HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE, HatedMobs.DOMESTICATED_ANTHILL);
+                HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE, HatedMobs.DOMESTICATED_ANTHILL, HatedMobs.DEAD_GRASS);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityAntHive.class, HatedMobs.ANT_HIVE.getRegistryName());
@@ -59,6 +59,8 @@ public class RegistryHandler
         antHiveItem.setRegistryName(HatedMobs.ANT_HIVE.getRegistryName());
         ItemBlock domesticatedAnthillItem = new ItemBlock(HatedMobs.DOMESTICATED_ANTHILL);
         domesticatedAnthillItem.setRegistryName(HatedMobs.DOMESTICATED_ANTHILL.getRegistryName());
+        ItemBlock deadGrassItem = new ItemBlock(HatedMobs.DEAD_GRASS);
+        deadGrassItem.setRegistryName(HatedMobs.DEAD_GRASS.getRegistryName());
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,
@@ -254,7 +256,6 @@ public class RegistryHandler
     @SubscribeEvent
     public void registerPotion(RegistryEvent.Register<Potion> event)
     {
-        System.out.println("bite");
         event.getRegistry().register(HatedMobs.INSOMNIA);
     }
 }

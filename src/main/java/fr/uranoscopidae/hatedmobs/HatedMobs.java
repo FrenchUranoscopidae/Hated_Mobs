@@ -84,6 +84,7 @@ public class HatedMobs
     public static final Item RED_ANT_QUEEN = new ItemRedAntQueen();
     public static final Block DOMESTICATED_ANTHILL = new BlockDomesticatedAnthill();
     public static final Item BLACK_ANT_QUEEN = new ItemBlackAntQueen();
+    public static final Block DEAD_GRASS = new BlockDeadGrass();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
