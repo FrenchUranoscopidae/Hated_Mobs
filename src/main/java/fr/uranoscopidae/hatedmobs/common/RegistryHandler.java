@@ -65,7 +65,7 @@ public class RegistryHandler
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,
                 HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP, HatedMobs.SPIDER_CANDY,
-                antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem, HatedMobs.BLACK_ANT_QUEEN);
+                antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem, HatedMobs.BLACK_ANT_QUEEN, deadGrassItem);
     }
 
     @SubscribeEvent
