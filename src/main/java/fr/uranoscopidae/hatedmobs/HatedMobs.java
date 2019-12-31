@@ -7,6 +7,7 @@ import fr.uranoscopidae.hatedmobs.common.potions.PotionInsomnia;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
 import fr.uranoscopidae.hatedmobs.common.worldgenerator.*;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -84,7 +85,9 @@ public class HatedMobs
     public static final Item RED_ANT_QUEEN = new ItemRedAntQueen();
     public static final Block DOMESTICATED_ANTHILL = new BlockDomesticatedAnthill();
     public static final Item BLACK_ANT_QUEEN = new ItemBlackAntQueen();
-    public static final Block DEAD_GRASS = new BlockDeadGrass();
+    public static final Block DEAD_LOG = new BlockDeadLog();
+    public static final Block DEAD_PLANKS = new BlockDeadPlanks();
+    public static final Block DEAD_SLAB = new BlockDeadSlab();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)

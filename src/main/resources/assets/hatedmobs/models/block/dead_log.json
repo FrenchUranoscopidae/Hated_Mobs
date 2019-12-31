@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "hatedmobs:blocks/dead_log_top",
+    "side": "hatedmobs:blocks/dead_log"
+  }
+}

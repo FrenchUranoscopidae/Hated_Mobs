@@ -13,7 +13,6 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemDoor;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -24,8 +23,6 @@ import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import javax.security.auth.login.Configuration;
-
 public class RegistryHandler
 {
     @SubscribeEvent
@@ -33,7 +30,8 @@ public class RegistryHandler
     {
         event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK,
                 HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR,
-                HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE, HatedMobs.DOMESTICATED_ANTHILL, HatedMobs.DEAD_GRASS);
+                HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE, HatedMobs.DOMESTICATED_ANTHILL, HatedMobs.DEAD_LOG,
+                HatedMobs.DEAD_PLANKS, HatedMobs.DEAD_SLAB);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityAntHive.class, HatedMobs.ANT_HIVE.getRegistryName());
@@ -59,13 +57,18 @@ public class RegistryHandler
         antHiveItem.setRegistryName(HatedMobs.ANT_HIVE.getRegistryName());
         ItemBlock domesticatedAnthillItem = new ItemBlock(HatedMobs.DOMESTICATED_ANTHILL);
         domesticatedAnthillItem.setRegistryName(HatedMobs.DOMESTICATED_ANTHILL.getRegistryName());
-        ItemBlock deadGrassItem = new ItemBlock(HatedMobs.DEAD_GRASS);
-        deadGrassItem.setRegistryName(HatedMobs.DEAD_GRASS.getRegistryName());
+        ItemBlock deadLogItem = new ItemBlock(HatedMobs.DEAD_LOG);
+        deadLogItem.setRegistryName(HatedMobs.DEAD_LOG.getRegistryName());
+        ItemBlock deadPlanksItem = new ItemBlock(HatedMobs.DEAD_PLANKS);
+        deadPlanksItem.setRegistryName(HatedMobs.DEAD_PLANKS.getRegistryName());
+        ItemBlock deadSlabItem = new ItemBlock(HatedMobs.DEAD_SLAB);
+        deadSlabItem.setRegistryName(HatedMobs.DEAD_SLAB.getRegistryName());
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,
                 HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP, HatedMobs.SPIDER_CANDY,
-                antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem, HatedMobs.BLACK_ANT_QUEEN, deadGrassItem);
+                antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem, HatedMobs.BLACK_ANT_QUEEN, deadLogItem,
+                deadPlanksItem, deadSlabItem);
     }
 
     @SubscribeEvent
