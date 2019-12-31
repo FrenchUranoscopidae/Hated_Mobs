@@ -13,6 +13,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.init.Biomes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSlab;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -31,7 +32,7 @@ public class RegistryHandler
         event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK,
                 HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR,
                 HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE, HatedMobs.DOMESTICATED_ANTHILL, HatedMobs.DEAD_LOG,
-                HatedMobs.DEAD_PLANKS, HatedMobs.DEAD_SLAB);
+                HatedMobs.DEAD_PLANKS, HatedMobs.DEAD_HALF_SLAB, HatedMobs.DEAD_DOUBLE_SLAB);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityAntHive.class, HatedMobs.ANT_HIVE.getRegistryName());
@@ -61,8 +62,8 @@ public class RegistryHandler
         deadLogItem.setRegistryName(HatedMobs.DEAD_LOG.getRegistryName());
         ItemBlock deadPlanksItem = new ItemBlock(HatedMobs.DEAD_PLANKS);
         deadPlanksItem.setRegistryName(HatedMobs.DEAD_PLANKS.getRegistryName());
-        ItemBlock deadSlabItem = new ItemBlock(HatedMobs.DEAD_SLAB);
-        deadSlabItem.setRegistryName(HatedMobs.DEAD_SLAB.getRegistryName());
+        ItemSlab deadSlabItem = new ItemSlab(HatedMobs.DEAD_HALF_SLAB, HatedMobs.DEAD_HALF_SLAB, HatedMobs.DEAD_DOUBLE_SLAB);
+        deadSlabItem.setRegistryName(HatedMobs.DEAD_HALF_SLAB.getRegistryName());
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,

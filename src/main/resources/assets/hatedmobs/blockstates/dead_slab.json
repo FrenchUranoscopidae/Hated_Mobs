@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=bottom,variant=default": { "model": "hatedmobs:half_slab_dead" },
+        "half=top,variant=default": { "model": "hatedmobs:upper_slab_dead" }
+    }
+}

@@ -8,6 +8,7 @@ import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnth
 import fr.uranoscopidae.hatedmobs.common.worldgenerator.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -87,7 +88,8 @@ public class HatedMobs
     public static final Item BLACK_ANT_QUEEN = new ItemBlackAntQueen();
     public static final Block DEAD_LOG = new BlockDeadLog();
     public static final Block DEAD_PLANKS = new BlockDeadPlanks();
-    public static final Block DEAD_SLAB = new BlockDeadSlab();
+    public static final BlockSlab DEAD_HALF_SLAB = new BlockDeadSlab.Half();
+    public static final BlockSlab DEAD_DOUBLE_SLAB = new BlockDeadSlab.Double();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
