@@ -37,6 +37,7 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         RenderingRegistry.registerEntityRenderingHandler(EntityTamedGiantSpider.class, RenderTamedGiantSpider::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRedAnt.class, RenderRedAnt::new);
         RenderingRegistry.registerEntityRenderingHandler(EntitySlug.class, RenderSlug::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityDeadBoat.class, RenderDeadBoat::new);
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityAntHive.class, new TileEntityAnthiveSpecialRenderer());
     }
@@ -74,6 +75,14 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         registerItemModel(HatedMobs.BLACK_ANT_QUEEN);
         registerBlockModel(HatedMobs.DEAD_LOG);
         registerBlockModel(HatedMobs.DEAD_PLANKS);
+        registerBlockModel(HatedMobs.DEAD_HALF_SLAB);
+        registerBlockModel(HatedMobs.DEAD_DOUBLE_SLAB);
+        registerBlockModel(HatedMobs.DEAD_STAIRS);
+        registerBlockModel(HatedMobs.DEAD_FENCE);
+        registerBlockModel(HatedMobs.DEAD_FENCE_GATE);
+        registerBlockModel(HatedMobs.DEAD_DOOR);
+        registerItemModel(HatedMobs.DEAD_DOOR_ITEM);
+        registerItemModel(HatedMobs.ITEM_DEAD_BOAT);
     }
 
     private void registerBlockModel(Block block)

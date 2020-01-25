@@ -1,0 +1,6 @@
+{
+    "parent": "block/wall_gate_closed",
+    "textures": {
+        "texture": "hatedmobs:blocks/dead_planks"
+    }
+}

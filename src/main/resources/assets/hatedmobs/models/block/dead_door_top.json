@@ -1,0 +1,7 @@
+{
+  "parent": "block/door_top",
+  "textures": {
+    "bottom": "hatedmobs:blocks/dead_door_lower",
+    "top": "hatedmobs:blocks/dead_door_upper"
+  }
+}

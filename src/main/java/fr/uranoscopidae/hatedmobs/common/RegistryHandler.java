@@ -32,7 +32,8 @@ public class RegistryHandler
         event.getRegistry().registerAll(HatedMobs.NET, HatedMobs.WEB_BLOCK, HatedMobs.EGG_SACK,
                 HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR,
                 HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE, HatedMobs.DOMESTICATED_ANTHILL, HatedMobs.DEAD_LOG,
-                HatedMobs.DEAD_PLANKS, HatedMobs.DEAD_HALF_SLAB, HatedMobs.DEAD_DOUBLE_SLAB);
+                HatedMobs.DEAD_PLANKS, HatedMobs.DEAD_HALF_SLAB, HatedMobs.DEAD_DOUBLE_SLAB, HatedMobs.DEAD_STAIRS,
+                HatedMobs.DEAD_FENCE, HatedMobs.DEAD_FENCE_GATE, HatedMobs.DEAD_DOOR);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityAntHive.class, HatedMobs.ANT_HIVE.getRegistryName());
@@ -64,12 +65,19 @@ public class RegistryHandler
         deadPlanksItem.setRegistryName(HatedMobs.DEAD_PLANKS.getRegistryName());
         ItemSlab deadSlabItem = new ItemSlab(HatedMobs.DEAD_HALF_SLAB, HatedMobs.DEAD_HALF_SLAB, HatedMobs.DEAD_DOUBLE_SLAB);
         deadSlabItem.setRegistryName(HatedMobs.DEAD_HALF_SLAB.getRegistryName());
+        ItemBlock deadStairsItem = new ItemBlock(HatedMobs.DEAD_STAIRS);
+        deadStairsItem.setRegistryName(HatedMobs.DEAD_STAIRS.getRegistryName());
+        ItemBlock deadFenceItem = new ItemBlock(HatedMobs.DEAD_FENCE);
+        deadFenceItem.setRegistryName(HatedMobs.DEAD_FENCE.getRegistryName());
+        ItemBlock deadFenceGateItem = new ItemBlock(HatedMobs.DEAD_FENCE_GATE);
+        deadFenceGateItem.setRegistryName(HatedMobs.DEAD_FENCE_GATE.getRegistryName());
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,
                 HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP, HatedMobs.SPIDER_CANDY,
                 antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem, HatedMobs.BLACK_ANT_QUEEN, deadLogItem,
-                deadPlanksItem, deadSlabItem);
+                deadPlanksItem, deadSlabItem, deadStairsItem, deadFenceItem, deadFenceGateItem, HatedMobs.DEAD_DOOR_ITEM,
+                HatedMobs.ITEM_DEAD_BOAT);
     }
 
     @SubscribeEvent
@@ -209,6 +217,15 @@ public class RegistryHandler
                     .build();
             event.getRegistry().register(slugEntry);
         }
+
+        EntityEntry deadBoatEntry = EntityEntryBuilder.create()
+                .entity(EntityDeadBoat.class)
+                .id(new ResourceLocation(HatedMobs.MODID, "dead_boat"), 11)
+                .name("hatedmobs.dead_boat")
+                .tracker(64, 3, true)
+                .factory(EntityDeadBoat::new)
+                .build();
+        event.getRegistry().register(deadBoatEntry);
 
         for(Biome biome : Biome.REGISTRY)
         {

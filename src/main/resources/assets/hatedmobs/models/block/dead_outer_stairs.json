@@ -1,0 +1,8 @@
+{
+    "parent": "block/outer_stairs",
+    "textures": {
+        "bottom": "hatedmobs:blocks/dead_planks",
+        "top": "hatedmobs:blocks/dead_planks",
+        "side": "hatedmobs:blocks/dead_planks"
+    }
+}

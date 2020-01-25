@@ -2,13 +2,13 @@ package fr.uranoscopidae.hatedmobs;
 
 import fr.uranoscopidae.hatedmobs.common.*;
 import fr.uranoscopidae.hatedmobs.common.blocks.*;
+import fr.uranoscopidae.hatedmobs.common.blocks.BlockWeb;
+import fr.uranoscopidae.hatedmobs.common.entities.EntityDeadBoat;
 import fr.uranoscopidae.hatedmobs.common.items.*;
 import fr.uranoscopidae.hatedmobs.common.potions.PotionInsomnia;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityDomesticatedAnthill;
 import fr.uranoscopidae.hatedmobs.common.worldgenerator.*;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockSlab;
+import net.minecraft.block.*;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -90,6 +90,12 @@ public class HatedMobs
     public static final Block DEAD_PLANKS = new BlockDeadPlanks();
     public static final BlockSlab DEAD_HALF_SLAB = new BlockDeadSlab.Half();
     public static final BlockSlab DEAD_DOUBLE_SLAB = new BlockDeadSlab.Double();
+    public static final Block DEAD_STAIRS = new BlockDeadStairs(DEAD_PLANKS.getDefaultState()).setUnlocalizedName("dead_stairs").setRegistryName(MODID, "dead_stairs");
+    public static final Block DEAD_FENCE = new BlockFence(Material.WOOD, MapColor.GRAY).setHardness(2.0F).setResistance(5.0F).setUnlocalizedName("dead_fence").setRegistryName("dead_fence").setCreativeTab(HatedMobs.TAB);
+    public static final Block DEAD_FENCE_GATE = new BlockFenceGate(BlockPlanks.EnumType.OAK).setHardness(2.0F).setResistance(5.0F).setUnlocalizedName("dead_fence_gate").setRegistryName("dead_fence_gate").setCreativeTab(HatedMobs.TAB);
+    public static final Block DEAD_DOOR = new BlockDeadDoor();
+    public static final Item DEAD_DOOR_ITEM = new ItemDoor(HatedMobs.DEAD_DOOR).setRegistryName(DEAD_DOOR.getRegistryName()).setUnlocalizedName("dead_door").setCreativeTab(HatedMobs.TAB);
+    public static final Item ITEM_DEAD_BOAT = new ItemDeadBoat(EntityDeadBoat.Type.DEAD);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
