@@ -28,8 +28,8 @@ public class BiomeSpiderForest extends Biome
         this.spawnableMonsterList.clear();
         this.spawnableWaterCreatureList.clear();
 
-        this.spawnableCreatureList.add(new SpawnListEntry(EntityGiantSpider.class, 100, 1, 2));
-        this.spawnableCreatureList.add(new SpawnListEntry(EntitySpider.class, 10, 2, 4));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntityGiantSpider.class, 10, 1, 2));
+        this.spawnableCreatureList.add(new SpawnListEntry(EntitySpider.class, 100, 2, 4));
     }
 
     @SideOnly(Side.CLIENT)

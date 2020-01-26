@@ -2,6 +2,7 @@ package fr.uranoscopidae.hatedmobs.common.worldgenerator;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.ConfigurationHandler;
+import fr.uranoscopidae.hatedmobs.common.biomes.BiomeSpiderForest;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import net.minecraft.init.Biomes;
@@ -30,7 +31,14 @@ public class WorldGeneratorSpiderNest implements IWorldGenerator
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider)
     {
-        if(random.nextInt(8) != 0)
+        if(world.getBiome(new BlockPos(chunkX*16+8, 1, chunkZ*16+8)) instanceof BiomeSpiderForest)
+        {
+            if(random.nextInt(2) != 0)
+            {
+                return;
+            }
+        }
+        else if(random.nextInt(8) != 0)
         {
             return;
         }
