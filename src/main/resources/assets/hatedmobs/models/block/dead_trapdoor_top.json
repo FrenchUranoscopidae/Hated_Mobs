@@ -1,0 +1,6 @@
+{
+    "parent": "block/trapdoor_top",
+    "textures": {
+        "texture": "hatedmobs:blocks/dead_trap_door"
+    }
+}

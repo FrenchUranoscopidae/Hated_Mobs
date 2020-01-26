@@ -33,7 +33,7 @@ public class RegistryHandler
                 HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR,
                 HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE, HatedMobs.DOMESTICATED_ANTHILL, HatedMobs.DEAD_LOG,
                 HatedMobs.DEAD_PLANKS, HatedMobs.DEAD_HALF_SLAB, HatedMobs.DEAD_DOUBLE_SLAB, HatedMobs.DEAD_STAIRS,
-                HatedMobs.DEAD_FENCE, HatedMobs.DEAD_FENCE_GATE, HatedMobs.DEAD_DOOR);
+                HatedMobs.DEAD_FENCE, HatedMobs.DEAD_FENCE_GATE, HatedMobs.DEAD_DOOR, HatedMobs.DEAD_TRAP_DOOR);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityAntHive.class, HatedMobs.ANT_HIVE.getRegistryName());
@@ -71,13 +71,15 @@ public class RegistryHandler
         deadFenceItem.setRegistryName(HatedMobs.DEAD_FENCE.getRegistryName());
         ItemBlock deadFenceGateItem = new ItemBlock(HatedMobs.DEAD_FENCE_GATE);
         deadFenceGateItem.setRegistryName(HatedMobs.DEAD_FENCE_GATE.getRegistryName());
+        ItemBlock deadTrapDoorItem = new ItemBlock(HatedMobs.DEAD_TRAP_DOOR);
+        deadTrapDoorItem.setRegistryName(HatedMobs.DEAD_TRAP_DOOR.getRegistryName());
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,
                 HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP, HatedMobs.SPIDER_CANDY,
                 antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem, HatedMobs.BLACK_ANT_QUEEN, deadLogItem,
                 deadPlanksItem, deadSlabItem, deadStairsItem, deadFenceItem, deadFenceGateItem, HatedMobs.DEAD_DOOR_ITEM,
-                HatedMobs.ITEM_DEAD_BOAT);
+                HatedMobs.ITEM_DEAD_BOAT, deadTrapDoorItem);
     }
 
     @SubscribeEvent

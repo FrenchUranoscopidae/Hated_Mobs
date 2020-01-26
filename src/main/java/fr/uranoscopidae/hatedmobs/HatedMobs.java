@@ -94,8 +94,9 @@ public class HatedMobs
     public static final Block DEAD_FENCE = new BlockFence(Material.WOOD, MapColor.GRAY).setHardness(2.0F).setResistance(5.0F).setUnlocalizedName("dead_fence").setRegistryName("dead_fence").setCreativeTab(HatedMobs.TAB);
     public static final Block DEAD_FENCE_GATE = new BlockFenceGate(BlockPlanks.EnumType.OAK).setHardness(2.0F).setResistance(5.0F).setUnlocalizedName("dead_fence_gate").setRegistryName("dead_fence_gate").setCreativeTab(HatedMobs.TAB);
     public static final Block DEAD_DOOR = new BlockDeadDoor();
-    public static final Item DEAD_DOOR_ITEM = new ItemDoor(HatedMobs.DEAD_DOOR).setRegistryName(DEAD_DOOR.getRegistryName()).setUnlocalizedName("dead_door").setCreativeTab(HatedMobs.TAB);
+    public static final Item DEAD_DOOR_ITEM = new ItemDoor(HatedMobs.DEAD_DOOR).setRegistryName(DEAD_DOOR.getRegistryName()).setUnlocalizedName("dead_door").setCreativeTab(TAB);
     public static final Item ITEM_DEAD_BOAT = new ItemDeadBoat(EntityDeadBoat.Type.DEAD);
+    public static final Block DEAD_TRAP_DOOR = new BlockDeadTrapDoor(Material.WOOD).setHardness(3.0F).setUnlocalizedName("dead_trap_door").setRegistryName(MODID, "dead_trap_door").setCreativeTab(TAB);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)
