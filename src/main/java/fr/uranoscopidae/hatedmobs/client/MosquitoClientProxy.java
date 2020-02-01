@@ -84,6 +84,7 @@ public class MosquitoClientProxy extends MosquitoCommonProxy
         registerItemModel(HatedMobs.DEAD_DOOR_ITEM);
         registerItemModel(HatedMobs.ITEM_DEAD_BOAT);
         registerBlockModel(HatedMobs.DEAD_TRAP_DOOR);
+        registerBlockModel(HatedMobs.DEAD_SAPLING);
     }
 
     private void registerBlockModel(Block block)

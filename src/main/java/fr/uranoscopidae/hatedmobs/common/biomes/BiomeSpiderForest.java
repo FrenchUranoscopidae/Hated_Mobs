@@ -1,5 +1,6 @@
 package fr.uranoscopidae.hatedmobs.common.biomes;
 
+import fr.uranoscopidae.hatedmobs.HatedMobs;
 import fr.uranoscopidae.hatedmobs.common.entities.EntityGiantSpider;
 import fr.uranoscopidae.hatedmobs.common.worldgenerator.WorldGeneratorDeadTree;
 import net.minecraft.entity.monster.EntitySpider;
@@ -22,6 +23,7 @@ public class BiomeSpiderForest extends Biome
         super(new BiomeProperties("spider_forest").setBaseHeight(0.1f).setHeightVariation(0.2f).setWaterColor(11747072));
 
         topBlock = Blocks.GRASS.getDefaultState();
+        fillerBlock = HatedMobs.WEB_BLOCK.getDefaultState();
 
         this.spawnableCaveCreatureList.clear();
         this.spawnableCreatureList.clear();

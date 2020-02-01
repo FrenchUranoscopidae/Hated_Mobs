@@ -97,6 +97,7 @@ public class HatedMobs
     public static final Item DEAD_DOOR_ITEM = new ItemDoor(HatedMobs.DEAD_DOOR).setRegistryName(DEAD_DOOR.getRegistryName()).setUnlocalizedName("dead_door").setCreativeTab(TAB);
     public static final Item ITEM_DEAD_BOAT = new ItemDeadBoat(EntityDeadBoat.Type.DEAD);
     public static final Block DEAD_TRAP_DOOR = new BlockDeadTrapDoor(Material.WOOD).setHardness(3.0F).setUnlocalizedName("dead_trap_door").setRegistryName(MODID, "dead_trap_door").setCreativeTab(TAB);
+    public static final Block DEAD_SAPLING = new BlockDeadSapling(Material.GLASS);
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event)

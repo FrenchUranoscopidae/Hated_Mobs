@@ -73,13 +73,15 @@ public class RegistryHandler
         deadFenceGateItem.setRegistryName(HatedMobs.DEAD_FENCE_GATE.getRegistryName());
         ItemBlock deadTrapDoorItem = new ItemBlock(HatedMobs.DEAD_TRAP_DOOR);
         deadTrapDoorItem.setRegistryName(HatedMobs.DEAD_TRAP_DOOR.getRegistryName());
+        ItemBlock deadSaplingItem = new ItemBlock(HatedMobs.DEAD_SAPLING);
+        deadSaplingItem.setRegistryName(HatedMobs.DEAD_SAPLING.getRegistryName());
         event.getRegistry().registerAll(item, HatedMobs.SWATTER, webItem, eggSackItem, HatedMobs.SPIDER_EGG,
                 spiderInfestedLeavesItem, HatedMobs.SILK_BOOTS, antiMosquitoGlassItem, HatedMobs.NET_DOOR_ITEM,
                 waspNestItem, HatedMobs.FROG_LEG, HatedMobs.COOKED_FROG_LEG, HatedMobs.GIANT_SPIDER_FANG,
                 HatedMobs.GIANT_SPIDER_FANG_SWORD, HatedMobs.DEAD_MOSQUITO, HatedMobs.DEAD_WASP, HatedMobs.SPIDER_CANDY,
                 antHiveItem, HatedMobs.RED_ANT_QUEEN, domesticatedAnthillItem, HatedMobs.BLACK_ANT_QUEEN, deadLogItem,
                 deadPlanksItem, deadSlabItem, deadStairsItem, deadFenceItem, deadFenceGateItem, HatedMobs.DEAD_DOOR_ITEM,
-                HatedMobs.ITEM_DEAD_BOAT, deadTrapDoorItem);
+                HatedMobs.ITEM_DEAD_BOAT, deadTrapDoorItem, deadSaplingItem);
     }
 
     @SubscribeEvent
