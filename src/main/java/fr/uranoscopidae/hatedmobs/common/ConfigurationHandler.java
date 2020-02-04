@@ -170,5 +170,8 @@ public class ConfigurationHandler
         @Config.LangKey("hatedmobs.anthill_spawner_default_name")
         public int anthillSpawnerDefault = 30;
 
+        @Config.LangKey("hatedmobs.waspnest_spawner_default_name")
+        @Config.Comment("The smaller the value is the more nests will spawn. Can't  be lower than 0.")
+        public int waspnestSpawnerDefault = 10;
     }
 }

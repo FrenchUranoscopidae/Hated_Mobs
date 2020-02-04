@@ -1,6 +1,7 @@
 package fr.uranoscopidae.hatedmobs.common.worldgenerator;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import fr.uranoscopidae.hatedmobs.common.ConfigurationHandler;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityEggSack;
 import fr.uranoscopidae.hatedmobs.common.tileentities.TileEntityWaspNest;
 import net.minecraft.block.BlockLog;
@@ -28,7 +29,7 @@ public class WorldGeneratorWaspNest implements IWorldGenerator
         {
             WorldServer worldserver = (WorldServer)world;
 
-            if(random.nextInt(10) != 0)
+            if(random.nextInt(ConfigurationHandler.MOB_FREQUENCY.waspnestSpawnerDefault) != 0)
             {
                 continue;
             }

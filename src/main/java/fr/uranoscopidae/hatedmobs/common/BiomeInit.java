@@ -21,7 +21,7 @@ public class BiomeInit
         ForgeRegistries.BIOMES.register(biome);
         System.out.println("spider biome loaded");
         BiomeDictionary.addTypes(biome, types);
-        BiomeManager.addBiome(biomeType, new BiomeManager.BiomeEntry(biome, 1000));
+        BiomeManager.addBiome(biomeType, new BiomeManager.BiomeEntry(biome, 10));
         BiomeManager.addSpawnBiome(biome);
         System.out.println("biome added");
         return biome;

@@ -33,7 +33,7 @@ public class RegistryHandler
                 HatedMobs.SPIDER_INFESTED_LEAVES_BLOCK, HatedMobs.ANTI_MOSQUITO_GLASS, HatedMobs.NET_DOOR,
                 HatedMobs.WASP_NEST, HatedMobs.ANT_HIVE, HatedMobs.DOMESTICATED_ANTHILL, HatedMobs.DEAD_LOG,
                 HatedMobs.DEAD_PLANKS, HatedMobs.DEAD_HALF_SLAB, HatedMobs.DEAD_DOUBLE_SLAB, HatedMobs.DEAD_STAIRS,
-                HatedMobs.DEAD_FENCE, HatedMobs.DEAD_FENCE_GATE, HatedMobs.DEAD_DOOR, HatedMobs.DEAD_TRAP_DOOR);
+                HatedMobs.DEAD_FENCE, HatedMobs.DEAD_FENCE_GATE, HatedMobs.DEAD_DOOR, HatedMobs.DEAD_TRAP_DOOR, HatedMobs.DEAD_SAPLING);
         GameRegistry.registerTileEntity(TileEntityEggSack.class, HatedMobs.EGG_SACK.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityWaspNest.class, HatedMobs.WASP_NEST.getRegistryName());
         GameRegistry.registerTileEntity(TileEntityAntHive.class, HatedMobs.ANT_HIVE.getRegistryName());

@@ -21,6 +21,8 @@ item.dead_wasp.name=Guêpe Morte
 item.spider_candy.name=Bonbon Araignée
 item.red_ant_queen.name=Reine Fourmi Rouge
 item.black_ant_queen.name=Reine Fourmi Noire
+item.dead_door.name=Porte d'arbre mort
+item.dead_boat.name=Bateau d'arbre mort
 
 tile.net.name=Moustiquaire
 tile.web_block.name=Bloc de Toile
@@ -30,6 +32,14 @@ tile.anti_mosquito_glass.name=Bloc de verre anti-moustique
 tile.wasp_nest.name=Nid de Guêpe
 tile.ant_hive.name=Fourmilière
 tile.domesticated_anthill.name=Fourmilière Domestiquée
+tile.dead_log.name=Bûche d'arbre mort
+tile.dead_planks.name=Planches d'arbre mort
+tile.dead_sapling.name=Pousse d'arbre mort
+tile.dead_slab.name=Dalle d'arbre mort
+tile.dead_stairs.name=Escaliers d'arbre mort
+tile.dead_trap_door.name=Trappe d'arbre mort
+tile.dead_fence.name=Barrière d'arbre mort
+tile.dead_fence_gate.name=Portillon d'arbre mort
 
 effect.insomnia=Insomnie
 
@@ -70,6 +80,10 @@ hatedmobs.toad_default_name=Crapaux par défaut
 hatedmobs.scorpion_default_name=Scorpions par défaut
 hatedmobs.slug_default_name=Limaces par défaut
 hatedmobs.ant_toggle=Fourmi
+hatedmobs.anthill_spawner_biomes=Fourmilière par biome
+hatedmobs.anthill_spawner_default_name=Fourmilières par défaut
+hatedmobs.waspnest_spawner_default_name=Nids de Guêpe par défaut
+hatedmobs.waspnest_spawner_default_name.tooltip=Au plus la valeur et petite plus il y a de nids. Pas de valeur en dessous de 0.
 
 attribute.name.hatedmobs.silk_walk=Vitesse de mouvements dans les toiles et sur les Blocs de Toile
 

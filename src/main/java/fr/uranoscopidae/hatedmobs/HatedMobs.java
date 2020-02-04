@@ -38,7 +38,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.4.1", acceptedMinecraftVersions = "1.12.2",
+@Mod(modid = HatedMobs.MODID, name = "Hated Mobs", version = "1.5.0", acceptedMinecraftVersions = "1.12.2",
         dependencies = "required-after:llibrary@[1.7.9,)", updateJSON = "https://raw.githubusercontent.com/FrenchUranoscopidae/Hated_Mobs/master/updateCheck.json",
         certificateFingerprint = "@FINGERPRINT@"
 )
@@ -162,7 +162,8 @@ public class HatedMobs
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
     {
-        if (event.getModID().equals(HatedMobs.MODID)) {
+        if (event.getModID().equals(HatedMobs.MODID))
+        {
 
             ConfigManager.sync(HatedMobs.MODID, Config.Type.INSTANCE);
         }
