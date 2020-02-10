@@ -1,0 +1,25 @@
+{
+  "type":"minecraft:crafting_shaped",
+  "pattern":
+  [
+    "##",
+    " /",
+    " /"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item":"hatedmobs:dead_planks"
+    },
+    "/":
+    {
+      "item":"minecraft:stick"
+    }
+  },
+  "result":
+  {
+    "item":"minecraft:wooden_hoe",
+    "count":1
+  }
+}

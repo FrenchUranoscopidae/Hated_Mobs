@@ -11,10 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
@@ -123,5 +120,15 @@ public class BlockSpiderInfestedLeaves extends Block implements IShearable
     public int quantityDropped(Random random)
     {
         return 0;
+    }
+
+    @Override
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        super.getDrops(drops, world, pos, state, fortune);
+        Random rand = new Random();
+        if(rand.nextInt(10) == 0)
+        {
+            drops.add(new ItemStack(HatedMobs.DEAD_SAPLING));
+        }
     }
 }

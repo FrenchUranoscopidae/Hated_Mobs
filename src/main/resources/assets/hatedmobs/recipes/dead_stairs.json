@@ -1,0 +1,21 @@
+{
+  "type":"minecraft:crafting_shaped",
+  "pattern":
+  [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item": "hatedmobs:dead_planks"
+    }
+  },
+  "result":
+  {
+    "item":"hatedmobs:dead_stairs",
+    "count": 4
+  }
+}

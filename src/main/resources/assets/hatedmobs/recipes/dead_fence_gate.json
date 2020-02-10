@@ -1,0 +1,24 @@
+{
+  "type":"minecraft:crafting_shaped",
+  "pattern":
+  [
+    "/#/",
+    "/#/"
+  ],
+  "key":
+  {
+    "#":
+    {
+      "item":"hatedmobs:dead_planks"
+    },
+    "/":
+    {
+      "item":"minecraft:stick"
+    }
+  },
+  "result":
+  {
+    "item":"hatedmobs:dead_fence_gate",
+    "count":1
+  }
+}

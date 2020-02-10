@@ -1,6 +1,7 @@
 package fr.uranoscopidae.hatedmobs.common;
 
 import fr.uranoscopidae.hatedmobs.HatedMobs;
+import fr.uranoscopidae.hatedmobs.common.biomes.BiomeSpiderForest;
 import net.minecraft.init.Biomes;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.config.Config;
@@ -100,7 +101,7 @@ public class ConfigurationHandler
             {
                 for(Biome biome : Biome.REGISTRY)
                 {
-                    if(biome != Biomes.HELL && biome != Biomes.SKY)
+                    if(biome != Biomes.HELL && biome != Biomes.SKY && biome != BiomeInit.SPIDER_FOREST)
                     {
                         put(biome.getRegistryName().toString(), 100);
                     }
@@ -138,7 +139,7 @@ public class ConfigurationHandler
             {
                 for(Biome biome : Biome.REGISTRY)
                 {
-                    if(biome != Biomes.HELL && biome != Biomes.SKY)
+                    if(biome != Biomes.HELL && biome != Biomes.SKY && biome != BiomeInit.SPIDER_FOREST)
                     {
                         put(biome.getRegistryName().toString(), 100);
                     }
